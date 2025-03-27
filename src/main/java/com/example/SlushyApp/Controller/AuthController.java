@@ -4,6 +4,7 @@ import com.example.SlushyApp.Model.LoginRequest;
 import com.example.SlushyApp.Model.Usuario;
 import com.example.SlushyApp.Service.UsuarioService;
 import com.example.SlushyApp.Utils.JwtUtil;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class AuthController {
             return ResponseEntity.status(401).body("Credenciales inválidas");
         }
 
-        String token = jwtUtil.generateToken(usuario.getEmail());
+        String token = jwtUtil.generateToken(usuario);
         return ResponseEntity.ok(token);
     }
 
@@ -47,7 +48,7 @@ public class AuthController {
     }
 
     @PostMapping("/register1")
-    public ResponseEntity<String> registrarUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<String> registrarUsuario(@Valid @RequestBody Usuario usuario) {
         usuarioService.registrarUsuario(
                 usuario.getNombre(),
                 usuario.getApellido(),

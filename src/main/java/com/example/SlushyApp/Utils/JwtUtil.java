@@ -1,5 +1,6 @@
 package com.example.SlushyApp.Utils;
 
+import com.example.SlushyApp.Model.Usuario;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtUtil {
@@ -16,10 +19,14 @@ public class JwtUtil {
     private static final long EXPIRATION_TIME = 86400000; // 1 día en milisegundos
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 
-    // Generar token
-    public String generateToken(String email) {
+    // ✅ Generar token con roles
+    public String generateToken(Usuario usuario) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", usuario.getRoles());
+
         return Jwts.builder()
-                .setSubject(email)
+                .setClaims(claims)
+                .setSubject(usuario.getEmail())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -44,6 +51,16 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    // ✅ Obtener roles desde el token
+    public Object getRolesFromToken(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("roles");
     }
 
 }

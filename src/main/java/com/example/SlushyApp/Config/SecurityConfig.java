@@ -36,7 +36,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/login","/auth/register1").permitAll() // Rutas públicas
+                        .requestMatchers("/auth/register", "/auth/login","/auth/register1","/").permitAll() // Rutas públicas
                         .requestMatchers("/admin/**").hasAuthority("ADMIN") // Rutas solo para admin
                         .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN") // Rutas para todos los usuarios
                         .anyRequest().authenticated()

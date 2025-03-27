@@ -1,15 +1,18 @@
 package com.example.SlushyApp.Model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Set;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 @Document(collection = "Usuarios")
 public class Usuario {
 
@@ -21,7 +24,7 @@ public class Usuario {
     private String password;
     private String cedula;
     private String telefono;
-    private List<String> roles;
+    private Set<Rol> roles;
 
     public String getId() {
         return id;
@@ -79,11 +82,12 @@ public class Usuario {
         this.telefono = telefono;
     }
 
-    public List<String> getRoles() {
+    public Set<Rol> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> roles) {
+    public void setRoles(Set<Rol> roles) {
         this.roles = roles;
     }
+
 }

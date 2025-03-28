@@ -15,7 +15,7 @@ import java.util.Map;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET_KEY = "EstaEsUnaLlaveSecretaParaJWTQueDebeSerMuySegura";
+    private static final String SECRET_KEY = "kqUqDxMU0ZQGAgKS6owN/ZcDP9IBGHYBDBo/Gv1WHAo=";
     private static final long EXPIRATION_TIME = 86400000; // 1 día en milisegundos
     private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
 

@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,7 +35,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/login","/auth/register1","/").permitAll() // Rutas públicas
+                        .requestMatchers("/auth/register", "/auth/login","/auth/register1","/", "/auth/forgot-password", "/auth/reset-password").permitAll() // Rutas públicas
                         .requestMatchers("/admin/**").hasAuthority("ADMIN") // Rutas solo para admin
                         .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN") // Rutas para todos los usuarios
                         .anyRequest().authenticated()

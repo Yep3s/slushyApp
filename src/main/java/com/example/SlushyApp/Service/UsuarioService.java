@@ -18,9 +18,14 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    private final EmailService emailService;
+
+
+
+    public UsuarioService(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     //1. Registrar Un Usuario
@@ -44,7 +49,17 @@ public class UsuarioService {
         usuario.setTelefono(telefono);
         usuario.setRoles(Set.of(Rol.USER)); // Asigna el rol "USER" por defecto
 
-        return usuarioRepository.save(usuario);
+        Usuario guardado = usuarioRepository.save(usuario);
+
+        String nombreCompleto = guardado.getNombre().trim() + " " + guardado.getApellido().trim();
+        emailService.enviarCorreo(
+                guardado.getEmail(),
+                "¡Bienvenido a SlushyApp!",
+                "Hola " + nombreCompleto + ",\n\nTu cuenta ha sido registrada exitosamente en SlushyApp. ¡Gracias por unirte! Esperamos que disfrutes de todos nuestros servicios."
+        );
+
+        return guardado;
+
     }
 
     //2. Obtener todos los usuarios
@@ -78,6 +93,10 @@ public class UsuarioService {
         }
 
         usuario.setRoles(nuevosRoles);
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario actualizarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 

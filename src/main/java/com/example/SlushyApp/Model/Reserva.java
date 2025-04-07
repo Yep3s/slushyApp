@@ -30,6 +30,8 @@ public class Reserva {
 
     private String observaciones;
 
+    private String usuarioEmail;
+
     public String getId() {
         return id;
     }
@@ -76,5 +78,13 @@ public class Reserva {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public String getUsuarioEmail() {
+        return usuarioEmail;
+    }
+
+    public void setUsuarioEmail(String usuarioEmail) {
+        this.usuarioEmail = usuarioEmail;
     }
 }

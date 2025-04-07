@@ -28,10 +28,14 @@ public class ReservaService {
         if (vehiculo == null || !vehiculo.getUsuarioEmail().equals(usuarioEmail)) {
             throw new RuntimeException("No puedes reservar con un vehículo que no te pertenece.");
         }
+
         reserva.setEstado(EstadoReserva.PENDIENTE);
         reserva.setFechaReserva(reserva.getFechaReserva() != null ? reserva.getFechaReserva() : LocalDateTime.now());
+        reserva.setUsuarioEmail(usuarioEmail); // ✅ Guardar email del usuario que hace la reserva
+
         return reservaRepository.save(reserva);
     }
+
 
     // 2. Obtener reservas por email del usuario
     public List<Reserva> obtenerReservasPorUsuario(String email) {
@@ -81,6 +85,41 @@ public class ReservaService {
         reserva.setEstado(nuevoEstado);
         return reservaRepository.save(reserva);
     }
+
+    // Confirmar, cancelar o cambiar estado como ADMIN (sin validación de usuario)
+    public Reserva cambiarEstadoComoAdmin(String id, EstadoReserva nuevoEstado) {
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
+        reserva.setEstado(nuevoEstado);
+        return reservaRepository.save(reserva);
+    }
+
+    // Reprogramar como ADMIN
+    public Reserva reprogramarComoAdmin(String id, LocalDateTime nuevaFecha) {
+        Reserva reserva = reservaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+
+        reserva.setFechaReserva(nuevaFecha);
+        reserva.setEstado(EstadoReserva.REPROGRAMADA);
+        return reservaRepository.save(reserva);
+    }
+
+    public List<Reserva> filtrarReservas(LocalDateTime fecha, EstadoReserva estado, String emailCliente) {
+        List<Reserva> reservas = reservaRepository.findAll();
+
+        return reservas.stream()
+                .filter(r -> (fecha == null || r.getFechaReserva().toLocalDate().isEqual(fecha.toLocalDate())))
+                .filter(r -> (estado == null || r.getEstado().equals(estado)))
+                .filter(r -> {
+                    if (emailCliente == null) return true;
+                    Vehiculo vehiculo = vehiculoRepository.findByPlaca(r.getPlacaVehiculo());
+                    return vehiculo != null && vehiculo.getUsuarioEmail().equals(emailCliente);
+                })
+                .collect(Collectors.toList());
+    }
+
+
 
 
 

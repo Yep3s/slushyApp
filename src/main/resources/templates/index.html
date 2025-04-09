@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slushy App - Lavadero de Autos</title>
+    <link rel="stylesheet" href="/css/indexstyles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon"></div> <!-- Pendiente Por Agregar Logo de la app -->
+                    <span class="logo-text">Slushy</span>
+                </div>
+                
+                <nav class="main-nav"> <!-- Slushy app navbar -->
+                    <ul class="nav-list">
+                        <li><a href="#" class="nav-link">Inicio</a></li>
+                        <li><a href="../Servicios-Disponibles/servicios.html" class="nav-link">Servicios</a></li>
+                        <li><a href="../Membresias/vip.html" class="nav-link">Membresía VIP</a></li>
+                        <li><a href="../Recompensas/recompensas.html" class="nav-link">Recompensas</a></li>
+                        <li><a href="../Contacto/contacto.html" class="nav-link">Contacto</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-actions">
+                    <a href="../Iniciar-Sesion/iniciar-sesion.html" class="btn btn-primary">
+                        <i class="fas fa-user"></i> Ingresa
+                    </a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <button class="close-menu" id="closeMenu">X</button>
+          <ul class="mobile-nav-list">
+            <li><a href="#" class="mobile-nav-link">Inicio</a></li>
+            <li><a href="../Servicios-Disponibles/servicios.html" class="mobile-nav-link">Servicios</a></li>
+            <li><a href="../Membresias/vip.html" class="mobile-nav-link">Membresía VIP</a></li>
+            <li><a href="../Recompensas/recompensas.html" class="mobile-nav-link">Recompensas</a></li>
+            <li><a href="../Contacto/contacto.html" class="mobile-nav-link">Contacto</a></li>
+          </ul>
+        </div>
+      </div>
+      
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        Slushy App
+                        <span class="hero-subtitle"></span>
+                    </h1>
+                    <p class="hero-description">
+                        Revoluciona la forma en que cuidas tu vehículo con nuestra app de gestión de lavado de autos. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="../Iniciar-Sesion/iniciar-sesion.html" class="btn btn-light">Reservar Ahora</a>
+                        <a href="../Servicios-Disponibles/servicios.html" class="btn btn-outline-light">
+                            Ver Servicios
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="user-avatars">
+                            <img src="https://images.pexels.com/photos/27304892/pexels-photo-27304892.jpeg?cs=srgb&dl=pexels-shuvalova-natalia-415991090-27304892.jpg&fm=jpg" alt="Juan Pérez" class="user-avatar">
+                            <img src="https://images.ctfassets.net/y3qdch79qxiw/4BAFNPxgww3Aw8bhijldwl/0c7a61dda59575b786bcc7fefee0288d/Conoce_tu_perfil_de_inversi__n.png?w=800&q=50" alt="Juan Pérez" class="user-avatar">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjUGJY-Q3eyK_MSXlDLnHtLFuYg8O635UPtw&s" alt="Juan Pérez" class="user-avatar">
+                        </div>
+                        <div class="stats-text">
+                            <span class="stats-number">+1,500 clientes satisfechos</span>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span>4.9/5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div>
+                        <div class=""></div>  <!-- Franja degradada -->
+                        <div class="">      <!-- Contenedor de la imagen -->
+                            <img src="https://cdn.prod.website-files.com/63d04d4b1b28345af4504ddc/643833d4a87446f67ecf20cf_Toyota_63d0517997cbdf9598476dde_Toyota.webp" alt="Preview de la app">
+                        </div>
+                    </div>
+                    <div class="decoration-circle decoration-circle-1"></div>
+                    <div class="decoration-circle decoration-circle-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Características Principales</h2>
+                <p style="color: black;" class="section-description">
+                    Slushy App revoluciona la forma en que cuidas tu vehículo con funciones innovadoras
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Reservación de Citas</h3>
+                    <p class="feature-description">Elige fecha y hora según disponibilidad para tu lavado</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">Tiempo Estimado en Tiempo Real</h3>
+                    <p class="feature-description">Visualiza cuánto falta para que tu auto sea atendido</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3 class="feature-title">Notificaciones</h3>
+                    <p class="feature-description">Recibe alertas cuando tu turno esté próximo o si hay cambios</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3 class="feature-title">Múltiples Servicios</h3>
+                    <p class="feature-description">Desde lavado básico hasta premium, encerado y más</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3 class="feature-title">Historial de Servicios</h3>
+                    <p class="feature-description">Consulta todos los servicios que has realizado anteriormente</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3 class="feature-title">Pagos en Línea</h3>
+                    <p class="feature-description">Paga directamente desde la app con tarjeta o transferencia</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Geolocalización</h3>
+                    <p class="feature-description">Encuentra la ubicación del lavadero y cómo llegar</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3 class="feature-title">Sistema de Fidelización</h3>
+                    <p class="feature-description">Acumula puntos y obtén descuentos como cliente frecuente</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comment"></i>
+                    </div>
+                    <h3 class="feature-title">Soporte por Chat</h3>
+                    <p class="feature-description">Resuelve tus dudas rápidamente a través de chat o WhatsApp</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview Section -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nuestros Servicios</h2>
+                <p style="color: black;" class="section-description">
+                    Ofrecemos una amplia gama de servicios para mantener tu vehículo impecable
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card-header">
+                        <h3 class="service-title">Lavado Basico (Automovil) </h3>
+                        <p class="service-price">$20.000</p>
+                    </div>
+                    <div class="service-card-content">
+                        <ul class="service-features">
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Lavado exterior</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Limpieza de llantas</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Secado a mano</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-card-footer">
+                        <a href="../Iniciar-Sesion/iniciar-sesion.html" class="btn btn-primary">Reservar Ahora</a>
+                    </div>
+                </div>
+                
+                <div class="service-card service-card-popular">
+                    <span class="popular-badge">Popular</span>
+                    <div class="service-card-header">
+                        <h3 class="service-title">Lavado Premium (Automovil) </h3>
+                        <p class="service-price">$25.000</p>
+                    </div>
+                    <div class="service-card-content">
+                        <ul class="service-features">
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Lavado exterior</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Lavado Inferior</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Limpieza de llantas</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Secado a mano</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Aspirado interior</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-card-footer">
+                        <a href="../Iniciar-Sesion/iniciar-sesion.html" class="btn btn-primary">Reservar Ahora</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-card-header">
+                        <h3 class="service-title">Lavado Ultra Slushy (Automovil) </h3>
+                        <p class="service-price">$60.000</p>
+                    </div>
+                    <div class="service-card-content">
+                        <ul class="service-features">
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Lavado exterior</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Lavado Inferior</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Lavado de Motor</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Limpieza de llantas</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Secado a mano</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Aspirado interior</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Limpieza de tablero</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="check-icon"></span>
+                                <span>Encerado</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-card-footer">
+                        <a href="../Iniciar-Sesion/iniciar-sesion.html" class="btn btn-primary">Reservar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- VIP Preview Section -->
+    <section class="vip-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge badge-light">EXCLUSIVO</span>
+                <h2 class="section-title">Slushy VIP 🧼</h2>
+                <p class="section-description">
+                    Únete a nuestro programa VIP y disfruta de beneficios exclusivos
+                </p>
+            </div>
+            
+            <div class="vip-plans-grid">
+                <div class="vip-plan-card">
+                    <div class="vip-plan-header">
+                        <h3 class="vip-plan-title">Mensual</h3>
+                        <p class="vip-plan-price">$60.000 COP</p>
+                    </div>
+                    <div class="vip-plan-content">
+                        <ul class="vip-plan-features">
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>2 lavados premium gratis</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>10% descuento en servicios adicionales</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>Acceso a citas prioritarias</span>
+                            </li>
+                            <li>
+                            </li>
+                            <li>
+                            </li>
+                            <li>
+                            </li>
+                            <li>
+                            </li>
+                            <li>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="vip-plan-footer">
+                        <a href="../Membresias/vip.html" class="btn btn-light">Suscribirse</a>
+                    </div>
+                </div>
+                
+                <div class="vip-plan-card vip-plan-popular">
+                    <span class="popular-badge badge-light">POPULAR</span>
+                    <div class="vip-plan-header">
+                        <h3 class="vip-plan-title">Trimestral</h3>
+                        <p class="vip-plan-price">$140.000 COP</p>
+                    </div>
+                    <div class="vip-plan-content">
+                        <ul class="vip-plan-features">
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>7 lavados premium gratis</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>15% descuento en servicios adicionales</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>Acceso a citas prioritarias</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>1 encerado gratis</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="vip-plan-footer">
+                        <a href="vip.html" class="btn btn-light">Suscribirse</a>
+                    </div>
+                </div>
+                
+                <div class="vip-plan-card">
+                    <div class="vip-plan-header">
+                        <h3 class="vip-plan-title">Anual</h3>
+                        <p class="vip-plan-price">$420.000 COP</p>
+                    </div>
+                    <div class="vip-plan-content">
+                        <ul class="vip-plan-features">
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>28 lavados premium gratis</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>25% descuento en servicios adicionales</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>Acceso a citas prioritarias</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>4 encerados gratis</span>
+                            </li>
+                            <li class="vip-plan-feature">
+                                <span class="check-icon"></span>
+                                <span>Eventos exclusivos VIP</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="vip-plan-footer">
+                        <a href="vip.html" class="btn btn-light">Suscribirse</a>
+                    </div>
+                </div>
+            </div>
+            
+        <!--       <div class="text-center" style="margin-top: 2rem;">
+                <a href="vip.html" class="btn btn-light">Ver Todos los Planes VIP</a>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Rewards Preview Section SlushyPoints -->
+    <section class="rewards-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Sistema de Recompensas</h2>
+                <p style="color: black;" class="section-description">
+                    Gana puntos, sube de nivel y obtén recompensas exclusivas
+                </p>
+            </div>
+            
+            <div class="rewards-grid">
+                <div class="rewards-info">
+                    <h3 class="rewards-subtitle">¿Cómo Funciona?</h3>
+                    <ul class="rewards-steps">
+                        <li class="rewards-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4 class="step-title">Completa Misiones</h4>
+                                <p class="step-description">Lava tu auto, refiere amigos y usa la app para ganar SlushyPoints</p>
+                            </div>
+                        </li>
+                        <li class="rewards-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4 class="step-title">Sube de Nivel</h4>
+                                <p class="step-description">Acumula SlushyPoints para subir de nivel y desbloquear mejores recompensas</p>
+                            </div>
+                        </li>
+                        <li class="rewards-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4 class="step-title">Canjea Recompensas</h4>
+                                <p class="step-description">Usa tus SlushyPoints para obtener lavados gratis, descuentos y más</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                </div>
+                
+                <div class="rewards-missions">
+                    <h3 class="rewards-subtitle">Misiones Disponibles</h3>
+                    <ul class="missions-list">
+                        <li class="mission-item">
+                            <div class="mission-info">
+                                <h4 class="mission-title">Lavar tu auto 3 veces</h4>
+                                <p class="mission-description">Completa 3 lavados en nuestro centro</p>
+                            </div>
+                            <span class="mission-reward">30 SP</span>
+                        </li>
+                        <li class="mission-item">
+                            <div class="mission-info">
+                                <h4 class="mission-title">Referir a 1 amigo</h4>
+                                <p class="mission-description">Invita a un amigo a usar Slushy App</p>
+                            </div>
+                            <span class="mission-reward">20 SP + 10% descuento</span>
+                        </li>
+                        <li class="mission-item">
+                            <div class="mission-info">
+                                <h4 class="mission-title">Suscribirte a VIP</h4>
+                                <p class="mission-description">Conviértete en miembro VIP</p>
+                            </div>
+                            <span class="mission-reward">200 SP + 1 lavado premium</span>
+                        </li>
+                        <li class="mission-item">
+                            <div class="mission-info">
+                                <h4 class="mission-title">Usar la app por primera vez</h4>
+                                <p class="mission-description">Completa tu primer servicio con la app</p>
+                            </div>
+                            <span class="mission-reward">10 SP</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#" class="btn btn-primary btn-block">Ver Todas las Misiones</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials-section" id="testimonios">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lo Que Dicen Nuestros Clientes</h2>
+                <p style="color: black;" class="section-description" >
+                    Descubre por qué nuestros clientes aman Slushy App ✨
+                </p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-content">Slushy App ha cambiado completamente mi experiencia de lavado de autos. Ahora puedo reservar citas fácilmente y ver en tiempo real cuándo estará listo mi vehículo.</p>
+                    <div class="testimonial-author">
+                        <img src="https://i0.wp.com/lamiradafotografia.es/wp-content/uploads/2014/07/simpson-rock.jpg" alt="Carlos Rodríguez" class="author-avatar">
+                        <div class="author-info">
+                            <h4 class="author-name">Carlos Rodríguez</h4>
+                            <p class="author-role">Cliente Frecuente</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-content">La membresía VIP vale cada centavo. No más esperas, descuentos exclusivos y un servicio de primera. ¡Totalmente recomendado!</p>
+                    <div class="testimonial-author">
+                        <img src="https://cdn.pixabay.com/photo/2017/06/13/12/53/profile-2398782_640.png" alt="María González" class="author-avatar">
+                        <div class="author-info">
+                            <h4 class="author-name">María González</h4>
+                            <p class="author-role">Miembro VIP</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-content">Me encanta poder ver en qué fase del lavado está mi auto. slushy es intuitiva y el sistema de recompensas me motiva a volver.</p>
+                    <div class="testimonial-author">
+                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Juan Pérez" class="author-avatar">
+                        <div class="author-info">
+                            <h4 class="author-name">Juan Pérez</h4>
+                            <p class="author-role">Cliente Nuevo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="logo">
+                        <div class="logo-icon"></div>
+                        <span class="logo-text">Slushy</span>
+                    </div>
+                    <p class="footer-description">
+                        La mejor aplicación para el cuidado de tu vehículo. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-x"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Enlaces Rápidos</h3>
+                    <ul class="footer-nav">
+                        <li><a href="#" class="footer-link">Inicio</a></li>
+                        <li><a href="servicios.html" class="footer-link">Nuestros Servicios</a></li>
+                        <li><a href="vip.html" class="footer-link">Membresía VIP</a></li>
+                        <li><a href="recompensas.html" class="footer-link">Sistema de Recompensas</a></li>
+                        <li><a href="contacto.html" class="footer-link">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-services">
+                    <h3 class="footer-title">Servicios</h3>
+                    <ul class="footer-nav">
+                        <li><a href="servicios.html" class="footer-link">Lavado Basico</a></li> <!-- 20 mil (automivl)-->
+                        <li><a href="servicios.html" class="footer-link">Lavado Premium</a></li> <!-- 25 mil (automivl)-->
+                        <li><a href="servicios.html" class="footer-link">Lavado Deluxe</a></li> <!-- 45 mil (automivl)-->
+                        <li><a href="servicios.html" class="footer-link">Lavado Ultra Slushy</a></li> <!-- 60 mil (automivl)-->
+                        <li><a href="servicios.html" class="footer-link">Polichado</a></li> <!-- 150 mil (automivl)-->
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© <span id="currentYear">2025</span> Slushy App. Todos los derechos reservados al equipo de desarrollo de slushyapp.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle del menú (abierto y cerrado) mediante el botón hamburguesa
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        });
+    
+        // Cerrar el menú al hacer clic en algún enlace
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+    
+        // Cerrar el menú al hacer clic en el botón X
+        document.getElementById('closeMenu').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.remove('active');
+        });
+    
+        // Actualizar el año en el footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+    
+    
+</body>
+</html>
+

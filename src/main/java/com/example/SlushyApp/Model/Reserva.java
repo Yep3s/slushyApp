@@ -32,6 +32,9 @@ public class Reserva {
 
     private String usuarioEmail;
 
+    private int progreso; // Porcentaje de progreso del lavado (0 a 100)
+
+
     public String getId() {
         return id;
     }
@@ -87,4 +90,13 @@ public class Reserva {
     public void setUsuarioEmail(String usuarioEmail) {
         this.usuarioEmail = usuarioEmail;
     }
+
+    public int getProgreso() {
+        return progreso;
+    }
+
+    public void setProgreso(int progreso) {
+        this.progreso = progreso;
+    }
+
 }

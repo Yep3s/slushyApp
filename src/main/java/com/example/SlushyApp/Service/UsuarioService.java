@@ -2,6 +2,7 @@ package com.example.SlushyApp.Service;
 
 import com.example.SlushyApp.Exceptions.CedulaYaRegistradaException;
 import com.example.SlushyApp.Exceptions.EmailYaRegistradoException;
+import com.example.SlushyApp.Model.EmpleadoRequest;
 import com.example.SlushyApp.Model.Rol;
 import com.example.SlushyApp.Model.Usuario;
 import com.example.SlushyApp.Repository.UsuarioRepository;
@@ -12,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -99,6 +101,63 @@ public class UsuarioService {
     public Usuario actualizarUsuario(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
+
+    public Usuario registrarEmpleado(String nombre, String apellido, String email, String password, String cedula, String telefono) {
+        if (usuarioRepository.existsByEmail(email)) {
+            throw new EmailYaRegistradoException("Error: El email ya está registrado.");
+        }
+
+        if (usuarioRepository.existsByCedula(cedula)) {
+            throw new CedulaYaRegistradaException("Error: La cédula ya está registrada.");
+        }
+
+        Usuario empleado = new Usuario();
+        empleado.setNombre(nombre);
+        empleado.setApellido(apellido);
+        empleado.setEmail(email);
+        empleado.setPassword(passwordEncoder.encode(password));
+        empleado.setCedula(cedula);
+        empleado.setTelefono(telefono);
+        empleado.setRoles(Set.of(Rol.EMPLOYEE)); // 👈 asigna rol EMPLOYEE
+
+        Usuario guardado = usuarioRepository.save(empleado);
+
+        String nombreCompleto = guardado.getNombre().trim() + " " + guardado.getApellido().trim();
+        emailService.enviarCorreo(
+                guardado.getEmail(),
+                "¡Bienvenido a SlushyApp como empleado!",
+                "Hola " + nombreCompleto + ",\n\nTu cuenta de empleado ha sido registrada exitosamente en SlushyApp."
+        );
+
+        return guardado;
+    }
+
+    public List<Usuario> obtenerUsuariosPorRol(Rol rol) {
+        return usuarioRepository.findAll().stream()
+                .filter(u -> u.getRoles().contains(rol))
+                .collect(Collectors.toList());
+    }
+
+    public Usuario actualizarEmpleado(String id, EmpleadoRequest request) {
+        Usuario empleado = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Empleado no encontrado"));
+
+        empleado.setNombre(request.getNombre());
+        empleado.setApellido(request.getApellido());
+        empleado.setTelefono(request.getTelefono());
+        // Puedes actualizar más campos si lo deseas
+
+        return usuarioRepository.save(empleado);
+    }
+
+    public void eliminarUsuario(String id) {
+        if (!usuarioRepository.existsById(id)) {
+            throw new RuntimeException("Empleado no encontrado");
+        }
+        usuarioRepository.deleteById(id);
+    }
+
+
 
 
 }

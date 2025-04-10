@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/register", "/auth/login","/auth/register1","/", "/auth/forgot-password",
-                                "/auth/reset-password","/servicios/disponibles","/css/**", "/js/**", "/images/**", "/webjars/**").permitAll() // Rutas públicas
+                                "/auth/reset-password","/servicios/disponibles","/css/**", "/js/**", "/images/**", "/webjars/**","/login","/registerSlushy").permitAll() // Rutas públicas
                         .requestMatchers("/admin/**").hasAuthority("ADMIN") // Rutas solo para admin
                         .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN") // Rutas para todos los usuarios
                         .requestMatchers("/empleado/**").hasAnyAuthority("EMPLOYEE", "ADMIN") // 👈 acceso para empleados

@@ -47,30 +47,31 @@ public class AuthController {
         return ResponseEntity.ok(token);
     }
 
-//    @PostMapping("/register")
- //   public ResponseEntity<String> registrarUsuario(
-   //         @RequestParam String nombre,
-    //        @RequestParam String apellido,
-      //    @RequestParam String password,
-        //    @RequestParam String cedula,
-          //  @RequestParam String telefono) {
-       // usuarioService.registrarUsuario(nombre, apellido, email, password, cedula, telefono);
-       // return ResponseEntity.ok("Usuario Registrado Con Exito");
-   // }
-
-    @PostMapping("/register1")
-    public ResponseEntity<String> registrarUsuario(@RequestBody Usuario usuario) {
-        Usuario guardado = usuarioService.registrarUsuario(
-                usuario.getNombre(),
-                usuario.getApellido(),
-                usuario.getEmail(),
-                usuario.getPassword(),
-                usuario.getCedula(),
-                usuario.getTelefono()
-        );
-
-        return ResponseEntity.ok("Usuario Registrado Con Éxito");
+    @PostMapping("/register")
+    public ResponseEntity<String> registrarUsuario(
+            @RequestParam String nombre,
+            @RequestParam String apellido,
+          @RequestParam String email,
+          @RequestParam String password,
+            @RequestParam String cedula,
+            @RequestParam String telefono) {
+        usuarioService.registrarUsuario(nombre, apellido, email, password, cedula, telefono);
+        return ResponseEntity.ok("Usuario Registrado Con Exito");
     }
+
+    //  @PostMapping("/register1")
+    //  public ResponseEntity<String> registrarUsuario(@RequestBody Usuario usuario) {
+    //    Usuario guardado = usuarioService.registrarUsuario(
+    //              usuario.getNombre(),
+    //               usuario.getApellido(),
+    //              usuario.getEmail(),
+    //             usuario.getPassword(),
+    //             usuario.getCedula(),
+                        //             usuario.getTelefono()
+    //      );
+
+    //      return ResponseEntity.ok("Usuario Registrado Con Éxito");
+    //   }
 
     @GetMapping("/users")
     public ResponseEntity<Usuario> obtenerUsuario(@RequestParam String email) {

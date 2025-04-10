@@ -13,4 +13,15 @@ public class WebController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/registerSlushy")
+    public String registerSlushy() {
+        return "register";
+    }
+
+
 }

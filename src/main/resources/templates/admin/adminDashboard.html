@@ -1,0 +1,614 @@
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Panel de Administrador - Slushy App</title>
+        <link rel="stylesheet" href="/css/admin-style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+    </head>
+    <body>
+            <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <div class="logo-icon">G</div>
+                        <span class="logo-text">SLUSHY</span>
+                    </div>
+                    
+                    <div class="header-actions">
+                        <a href="/Roles/Admin/Configuracion/configuracion.html" class="btn-icon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <button class="mobile-menu-close" id="mobileMenuClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <nav class="mobile-nav">
+                    <ul class="mobile-nav-list">
+                        <li><a href="admin.html" class="mobile-nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                        <li><a href="Vehiculos/vehiculos.html" class="mobile-nav-link"><i class="fas fa-car"></i> Vehículos</a></li>
+                        <li><a href="Clientes/clientes.html" class="mobile-nav-link"><i class="fas fa-users"></i> Clientes</a></li>
+                        <li><a href="Empleados/empleados.html" class="mobile-nav-link"><i class="fas fa-user-tie"></i> Empleados</a></li>
+                        <li><a href="Reservas/reservas.html" class="mobile-nav-link"><i class="fas fa-calendar-alt"></i> Reservas</a></li>
+                        <li><a href="Reportes/reportes.html" class="mobile-nav-link"><i class="fas fa-chart-line"></i> Reportes</a></li>
+                        <li><a href="Configuracion/configuracion.html" class="mobile-nav-link"><i class="fas fa-cog"></i> Configuración</a></li>
+                        <li><a href="Salir/salir.html" class="mobile-nav-link"><i class="fas fa-sign-out-alt"></i> Salir</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- Admin Sidebar -->
+        <aside class="admin-sidebar" id="adminSidebar">
+            <nav class="sidebar-menu">
+                <a href="admin.html" class="sidebar-link active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="Vehiculos/vehiculos.html" class="sidebar-link">
+                    <i class="fas fa-car"></i>
+                    <span>Vehículos</span>
+                </a>
+                <a href="Clientes/clientes.html" class="sidebar-link">
+                    <i class="fas fa-users"></i>
+                    <span>Clientes</span>
+                </a>
+                <a href="Empleados/empleados.html" class="sidebar-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Empleados</span>
+                </a>
+                <a href="Reservas/reservas.html" class="sidebar-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Reservas</span>
+                </a>
+                <a href="Reportes/reportes.html" class="sidebar-link">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Reportes</span>
+                </a>
+                <a href="Configuracion/configuracion.html" class="sidebar-link">
+                    <i class="fas fa-cog"></i>
+                    <span>Configuración</span>
+                </a>
+                <a href="/logoutSlushy" class="sidebar-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Salir</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Admin Content -->
+        <main class="admin-content">
+            <h1 style="margin-bottom: 2rem;font-family: 'FuentePrueba'; font-weight: 500; ">Dashboard</h1>
+            
+            <!-- Stats Cards -->
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Vehículos Hoy</div>
+                        <div class="stat-icon primary">
+                            <i class="fas fa-car"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">42</div>
+                    <div class="stat-description">
+                        <i class="fas fa-arrow-up stat-trend-up"></i>
+                        <span>12% más que ayer</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Ingresos Hoy</div>
+                        <div class="stat-icon success">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">$1,250</div>
+                    <div class="stat-description">
+                        <i class="fas fa-arrow-up stat-trend-up"></i>
+                        <span>8% más que ayer</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Tiempo Promedio</div>
+                        <div class="stat-icon warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">32 min</div>
+                    <div class="stat-description">
+                        <i class="fas fa-arrow-down stat-trend-down"></i>
+                        <span>5% menos que ayer</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Clientes Nuevos</div>
+                        <div class="stat-icon info">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">8</div>
+                    <div class="stat-description">
+                        <i class="fas fa-arrow-up stat-trend-up"></i>
+                        <span>2 más que ayer</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">Vehículos Atendidos</h2>
+                    <div class="chart-actions">
+                        <div class="chart-filter">Día</div>
+                        <div class="chart-filter active">Semana</div>
+                        <div class="chart-filter">Mes</div>
+                    </div>
+                </div>
+                
+                <div class="chart">
+                    <div class="chart-bars">
+                        <div class="chart-bar" style="height: 60%;">
+                            <div class="chart-bar-value">32</div>
+                            <div class="chart-bar-label">Lun</div>
+                        </div>
+                        <div class="chart-bar" style="height: 75%;">
+                            <div class="chart-bar-value">40</div>
+                            <div class="chart-bar-label">Mar</div>
+                        </div>
+                        <div class="chart-bar" style="height: 45%;">
+                            <div class="chart-bar-value">24</div>
+                            <div class="chart-bar-label">Mié</div>
+                        </div>
+                        <div class="chart-bar" style="height: 85%;">
+                            <div class="chart-bar-value">45</div>
+                            <div class="chart-bar-label">Jue</div>
+                        </div>
+                        <div class="chart-bar" style="height: 95%;">
+                            <div class="chart-bar-value">50</div>
+                            <div class="chart-bar-label">Vie</div>
+                        </div>
+                        <div class="chart-bar" style="height: 70%;">
+                            <div class="chart-bar-value">37</div>
+                            <div class="chart-bar-label">Sáb</div>
+                        </div>
+                        <div class="chart-bar" style="height: 40%;">
+                            <div class="chart-bar-value">21</div>
+                            <div class="chart-bar-label">Dom</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Services Table -->
+            <div class="table-container">
+                <div class="chart-header">
+                    <h2 class="chart-title">Servicios Recientes</h2>
+                    <div class="chart-actions">
+                        <div class="chart-filter active">Todos</div>
+                        <div class="chart-filter">Completados</div>
+                        <div class="chart-filter">En Proceso</div>
+                    </div>
+                </div>
+                
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Cliente</th>
+                            <th>Vehículo</th>
+                            <th>Servicio</th>
+                            <th>Hora</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#SL-1248</td>
+                            <td>María González</td>
+                            <td>Honda Civic (Sedán)</td>
+                            <td>Lavado Premium</td>
+                            <td>11:30 AM</td>
+                            <td><span class="status-badge status-completed">Completado</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="#" class="table-action"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="table-action"><i class="fas fa-edit"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#SL-1247</td>
+                            <td>Juan Pérez</td>
+                            <td>Toyota RAV4 (SUV)</td>
+                            <td>Lavado Deluxe</td>
+                            <td>11:15 AM</td>
+                            <td><span class="status-badge status-in-progress">En Proceso</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="#" class="table-action"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="table-action"><i class="fas fa-edit"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#SL-1246</td>
+                            <td>Carlos Rodríguez</td>
+                            <td>Ford F-150 (Camioneta)</td>
+                            <td>Lavado Básico</td>
+                            <td>11:00 AM</td>
+                            <td><span class="status-badge status-completed">Completado</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="#" class="table-action"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="table-action"><i class="fas fa-edit"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#SL-1245</td>
+                            <td>Ana Martínez</td>
+                            <td>Nissan Sentra (Sedán)</td>
+                            <td>Lavado Premium</td>
+                            <td>10:45 AM</td>
+                            <td><span class="status-badge status-completed">Completado</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="#" class="table-action"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="table-action"><i class="fas fa-edit"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#SL-1244</td>
+                            <td>Luis Sánchez</td>
+                            <td>Chevrolet Spark (Hatchback)</td>
+                            <td>Lavado Exprés</td>
+                            <td>10:30 AM</td>
+                            <td><span class="status-badge status-pending">Pendiente</span></td>
+                            <td>
+                                <div class="table-actions">
+                                    <a href="#" class="table-action"><i class="fas fa-eye"></i></a>
+                                    <a href="#" class="table-action"><i class="fas fa-edit"></i></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <div class="activity-header">
+                    <h2 class="activity-title">Actividad Reciente</h2>
+                    <a href="#" class="btn btn-outline">Ver Todo</a>
+                </div>
+                
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-text">Nuevo cliente <span class="activity-action">Pedro Gómez</span> registrado</div>
+                            <div class="activity-time">Hace 10 minutos</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-text">Servicio <span class="activity-action">#SL-1248</span> completado</div>
+                            <div class="activity-time">Hace 25 minutos</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-text">Nueva reserva <span class="activity-action">#SL-1250</span> para mañana</div>
+                            <div class="activity-time">Hace 45 minutos</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-text">Pago recibido <span class="activity-action">$24.99</span> por servicio #SL-1246</div>
+                            <div class="activity-time">Hace 1 hora</div>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-crown"></i>
+                        </div>
+                        <div class="activity-content">
+                            <div class="activity-text">Nuevo miembro VIP <span class="activity-action">Ana Martínez</span></div>
+                            <div class="activity-time">Hace 2 horas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+                <!-- Modal para Ver Detalles -->
+                <div class="modal" id="viewModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Detalles del Servicio</h3>
+                            <button class="modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="modal-row">
+                                <span class="modal-label">ID:</span>
+                                <span class="modal-value" id="view-id">#SL-1248</span>
+                            </div>
+                            <div class="modal-row">
+                                <span class="modal-label">Cliente:</span>
+                                <span class="modal-value" id="view-cliente">María González</span>
+                            </div>
+                            <div class="modal-row">
+                                <span class="modal-label">Vehículo:</span>
+                                <span class="modal-value" id="view-vehiculo">Honda Civic (Sedán)</span>
+                            </div>
+                            <div class="modal-row">
+                                <span class="modal-label">Servicio:</span>
+                                <span class="modal-value" id="view-servicio">Lavado Premium</span>
+                            </div>
+                            <div class="modal-row">
+                                <span class="modal-label">Hora:</span>
+                                <span class="modal-value" id="view-hora">11:30 AM</span>
+                            </div>
+                            <div class="modal-row">
+                                <span class="modal-label">Estado:</span>
+                                <span class="modal-value"><span class="status-badge status-completed">Completado</span></span>
+                            </div>
+                            <div class="modal-row">
+                                <span class="modal-label">Notas:</span>
+                                <span class="modal-value" id="view-notas">El cliente solicitó limpieza especial de tapicería.</span>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline modal-close-btn">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Modal para Editar -->
+                <div class="modal" id="editModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Editar Servicio</h3>
+                            <button class="modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="modal-form">
+                                <div class="form-group">
+                                    <label for="edit-estado" class="modal-label">Estado</label>
+                                    <select id="edit-estado" class="form-control">
+                                        <option value="completed">Completado</option>
+                                        <option value="in-progress">En Proceso</option>
+                                        <option value="pending">Pendiente</option>
+                                        <option value="cancelled">Cancelado</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit-notas" class="modal-label">Notas</label>
+                                    <textarea id="edit-notas" class="form-control" rows="3"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline modal-close-btn">Cancelar</button>
+                            <button class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Modal para Ver Todo (Actividad) -->
+                <div class="modal" id="activityModal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>Toda la Actividad</h3>
+                            <button class="modal-close">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="activity-list">
+                                <!-- Aquí se agregaría más actividad mediante JavaScript -->
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas fa-user-plus"></i>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-text">Nuevo cliente <span class="activity-action">Pedro Gómez</span> registrado</div>
+                                        <div class="activity-time">Hace 10 minutos</div>
+                                    </div>
+                                </div>
+                                <!-- Más items de actividad -->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-outline modal-close-btn">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                // alerta guardado
+                <div class="alert-notification" id="saveAlert">
+                    <div class="alert-content">
+                        <i class="fas fa-check-circle alert-icon"></i>
+                        <span class="alert-text">Los cambios se guardaron correctamente</span>
+                    </div>
+                </div>
+
+<script>
+               // Mobile Menu Functions
+               const mobileMenu = document.getElementById('mobileMenu');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+        }
+
+        // Event listeners
+        menuToggle.addEventListener('click', toggleMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+        // Close menu when clicking on links
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+
+        // Función para manejar el cambio de tamaño de pantalla
+        function handleResize() {
+            if (window.innerWidth >= 769) {
+                closeMobileMenu();
+            }
+        }
+
+        // Agrega el event listener para resize
+        window.addEventListener('resize', handleResize);
+
+        // Llama a la función al cargar la página
+        window.addEventListener('load', handleResize);
+                    // Chart animation on load
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const bars = document.querySelectorAll('.chart-bar');
+                        bars.forEach(bar => {
+                            const height = bar.style.height;
+                            bar.style.height = '0';
+                            setTimeout(() => {
+                                bar.style.height = height;
+                            }, 300);
+                        });
+            
+                        // Modal functionality
+                        const modals = document.querySelectorAll('.modal');
+                        const modalCloseButtons = document.querySelectorAll('.modal-close, .modal-close-btn');
+                        
+                        // Open modals when clicking view/edit buttons
+                        document.querySelectorAll('.table-action').forEach(btn => {
+                            btn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                const modalId = this.querySelector('.fa-eye') ? 'viewModal' : 'editModal';
+                                document.getElementById(modalId).classList.add('active');
+                            });
+                        });
+            
+                        // Open activity modal
+                        document.querySelector('.recent-activity .btn-outline').addEventListener('click', function(e) {
+                            e.preventDefault();
+                            document.getElementById('activityModal').classList.add('active');
+                        });
+            
+                        // Close modals
+                        modalCloseButtons.forEach(btn => {
+                            btn.addEventListener('click', function() {
+                                this.closest('.modal').classList.remove('active');
+                            });
+                        });
+            
+                        // Close modal when clicking outside
+                        modals.forEach(modal => {
+                            modal.addEventListener('click', function(e) {
+                                if (e.target === this) {
+                                    this.classList.remove('active');
+                                }
+                            });
+                        });
+            
+                        // Manejar los filtros de gráfico (Día, Semana, Mes)
+                        document.querySelectorAll('.chart-actions .chart-filter').forEach(filter => {
+                            filter.addEventListener('click', function() {
+                                // Remover la clase active de todos los filtros en este grupo
+                                this.parentNode.querySelectorAll('.chart-filter').forEach(item => {
+                                    item.classList.remove('active');
+                                });
+                                // Agregar la clase active al filtro clickeado
+                                this.classList.add('active');
+                                
+                                // Actualizar el gráfico según el filtro seleccionado
+                                updateChart(this.textContent.trim());
+                            });
+                        });
+            
+                        // Manejar los filtros de tabla (Todos, Completados, En Proceso)
+                        document.querySelectorAll('.table-container .chart-filter').forEach(filter => {
+                            filter.addEventListener('click', function() {
+                                // Remover la clase active de todos los filtros en este grupo
+                                this.parentNode.querySelectorAll('.chart-filter').forEach(item => {
+                                    item.classList.remove('active');
+                                });
+                                // Agregar la clase active al filtro clickeado
+                                this.classList.add('active');
+                                
+                                // Filtrar la tabla según el estado seleccionado
+                                filterTable(this.textContent.trim());
+                            });
+                        });
+            
+                        // Función para actualizar el gráfico (ejemplo)
+                        function updateChart(timeRange) {
+                            console.log('Actualizar gráfico para:', timeRange);
+                            // Aquí iría la lógica para actualizar el gráfico según el rango de tiempo
+                            // En una implementación real, podrías hacer una petición AJAX o filtrar datos locales
+                        }
+            
+                        // Función para filtrar la tabla
+                        function filterTable(status) {
+                            const rows = document.querySelectorAll('.table tbody tr');
+                            
+                            rows.forEach(row => {
+                                const rowStatus = row.querySelector('.status-badge').textContent.trim();
+                                const shouldShow = status === 'Todos' || 
+                                                 (status === 'Completados' && rowStatus === 'Completado') ||
+                                                 (status === 'En Proceso' && rowStatus === 'En Proceso');
+                                
+                                row.style.display = shouldShow ? '' : 'none';
+                            });
+                        }
+                    });
+            
+                    // Alerta guardado correctamente 
+                    document.querySelector('#editModal .btn-primary').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        document.getElementById('editModal').classList.remove('active');
+                        
+                        // Mostrar alerta de guardado
+                        const alert = document.getElementById('saveAlert');
+                        alert.classList.add('show');
+                        
+                        // Ocultar después de 3 segundos
+                        setTimeout(() => {
+                            alert.classList.remove('show');
+                        }, 3000);
+                    });
+                </script>
+    </body>
+    </html>

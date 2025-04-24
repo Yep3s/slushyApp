@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta - Slushy App</title>
+    <link rel="stylesheet" href="/css/usuario-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+ <!-- Header -->
+ <header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">G</div>
+                <span class="logo-text">SLUSHY</span>
+            </div>
+            
+            <nav class="main-nav">
+
+            </nav>
+            
+            <div class="header-actions">
+                
+                <a href="/logoutSlushy" class="btn btn-primary">Salir</a>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <ul class="mobile-nav-list">
+                <li><a href="../../Publico/Index/index.html" class="mobile-nav-link">Inicio</a></li>
+                <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="mobile-nav-link">Servicios</a></li>
+                <li><a href="../../Publico/Membresias/vip.html" class="mobile-nav-link">Membresía VIP</a></li>
+                <li><a href="../../Publico/Recompensas/recompensas.html" class="mobile-nav-link">Recompensas</a></li>
+                <li><a href="../../Publico/Contacto/contacto.html" class="mobile-nav-link">Contacto</a></li>
+                <li><a href="../../Publico/Iniciar-Sesion/iniciar-sesion.html" class="mobile-nav-link">Mi Perfil</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- User Header -->
+    <section class="user-header">
+        <div class="container">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-info">
+                    <h1 class="user-name">Juan Pérez</h1>
+                    <div class="user-email">juan.perez@email.com</div>
+                    <div class="user-stats">
+                        <div class="user-stat">
+                            <div class="user-stat-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <span>2 Vehículos</span>
+                        </div>
+                        <div class="user-stat">
+                            <div class="user-stat-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <span>Miembro VIP</span>
+                        </div>
+                        <div class="user-stat">
+                            <div class="user-stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span>Nivel Oro</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Tabs -->
+    <div class="container">
+        <div class="user-tabs">
+            <div class="user-tab active" data-tab="vehicles">
+                <i class="fas fa-car"></i>
+                <span>Mis Vehículos</span>
+            </div>
+            <div class="user-tab" data-tab="services">
+                <i class="fas fa-history"></i>
+                <span>Historial</span>
+            </div>
+            <div class="user-tab" data-tab="missions">
+                <i class="fas fa-tasks"></i>
+                <span>Misiones</span>
+            </div>
+            <div class="user-tab" data-tab="level">
+                <i class="fas fa-star"></i>
+                <span>Mi Nivel</span>
+            </div>
+            <div class="user-tab" data-tab="tracking">
+                <i class="fas fa-sync-alt"></i>
+                <span>Seguimiento</span>
+            </div>
+            <div class="user-tab" data-tab="settings">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </div>
+            
+        </div>
+        
+        <!-- Tab Content -->
+        <div class="tab-content active" id="vehicles-content">
+            <h2 style="margin-bottom: 1.5rem; font-weight: 600;">Mis Vehículos</h2>
+            
+            <div class="vehicle-grid">
+                <div class="vehicle-card">
+                    <div class="vehicle-header">
+                        <h3 class="vehicle-title">Toyota Corolla</h3>
+                        <div class="vehicle-actions">
+                            <a href="#" class="vehicle-action">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="vehicle-action">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="vehicle-content">
+                        <div class="vehicle-info">
+                            <div class="vehicle-info-item">
+                                <div class="vehicle-info-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <span>Sedán</span>
+                            </div>
+                            <div class="vehicle-info-item">
+                                <div class="vehicle-info-icon">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <span>Blanco</span>
+                            </div>
+                            <div class="vehicle-info-item">
+                                <div class="vehicle-info-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <span>ABC-123</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block btn-view-status" data-vehicle-id="0616">Ver Estado Actual</button>
+                    </div>
+                    <div class="vehicle-footer">
+                        <div class="vehicle-status">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Último servicio: 15/04/2023</span>
+                        </div>
+                        <button class="btn btn-outline">Reservar</button>
+                    </div>
+                </div>
+                
+                <div class="vehicle-card">
+                    <div class="vehicle-header">
+                        <h3 class="vehicle-title">Honda CR-V</h3>
+                        <div class="vehicle-actions">
+                            <a href="#" class="vehicle-action">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="#" class="vehicle-action">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="vehicle-content">
+                        <div class="vehicle-info">
+                            <div class="vehicle-info-item">
+                                <div class="vehicle-info-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <span>SUV</span>
+                            </div>
+                            <div class="vehicle-info-item">
+                                <div class="vehicle-info-icon">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <span>Gris</span>
+                            </div>
+                            <div class="vehicle-info-item">
+                                <div class="vehicle-info-icon">
+                                    <i class="fas fa-id-card"></i>
+                                </div>
+                                <span>XYZ-789</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block btn-view-status" data-vehicle-id="0616">Ver Estado Actual</button>
+                    </div>
+                    <div class="vehicle-footer">
+                        <div class="vehicle-status">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <span>Último servicio: 02/05/2023</span>
+                        </div>
+                        <button class="btn btn-outline">Reservar</button>
+                    </div>
+                </div>
+                
+                <div class="add-vehicle">
+                    <div class="add-vehicle-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h3>Agregar Vehículo</h3>
+                    <p>Registra un nuevo vehículo para facilitar tus reservas</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="services-content">
+            <h2 style="margin-bottom: 1.5rem; font-weight: 600;">Historial de Servicios</h2>
+            
+            <div class="service-history">
+                <div class="service-history-header">
+                    <h3 class="service-history-title">Servicios Recientes</h3>
+                </div>
+                
+                <div class="service-list">
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-car-wash"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-title">
+                                <span>Lavado Premium</span>
+                                <span class="service-status" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success);">Completado</span>
+                            </div>
+                            <div class="service-date">02 Mayo, 2023 - 10:30 AM</div>
+                            <div class="service-vehicle">Honda CR-V (SUV) • XYZ-789</div>
+                            <div class="service-price">$14.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-car-wash"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-title">
+                                <span>Lavado Deluxe + Encerado</span>
+                                <span class="service-status" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success);">Completado</span>
+                            </div>
+                            <div class="service-date">15 Abril, 2023 - 11:45 AM</div>
+                            <div class="service-vehicle">Toyota Corolla (Sedán) • ABC-123</div>
+                            <div class="service-price">$24.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-car-wash"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-title">
+                                <span>Lavado Básico</span>
+                                <span class="service-status" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success);">Completado</span>
+                            </div>
+                            <div class="service-date">28 Marzo, 2023 - 09:15 AM</div>
+                            <div class="service-vehicle">Toyota Corolla (Sedán) • ABC-123</div>
+                            <div class="service-price">$8.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-car-wash"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-title">
+                                <span>Lavado Premium</span>
+                                <span class="service-status" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success);">Completado</span>
+                            </div>
+                            <div class="service-date">15 Marzo, 2023 - 02:30 PM</div>
+                            <div class="service-vehicle">Honda CR-V (SUV) • XYZ-789</div>
+                            <div class="service-price">$14.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-item">
+                        <div class="service-icon">
+                            <i class="fas fa-car-wash"></i>
+                        </div>
+                        <div class="service-details">
+                            <div class="service-title">
+                                <span>Lavado Premium + Pulido de Faros</span>
+                                <span class="service-status" style="background-color: rgba(16, 185, 129, 0.1); color: var(--success);">Completado</span>
+                            </div>
+                            <div class="service-date">02 Marzo, 2023 - 11:00 AM</div>
+                            <div class="service-vehicle">Toyota Corolla (Sedán) • ABC-123</div>
+                            <div class="service-price">$27.98</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="#" class="btn btn-outline">Ver Historial Completo</a>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="missions-content">
+            <h2 style="margin-bottom: 1.5rem; font-weight: 600;">Mis Misiones</h2>
+            
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Lavar tu auto 3 veces</h3>
+                        <span class="mission-reward">10 SP</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Completa 3 lavados en nuestro centro</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">2/3</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 66%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status in-progress">En progreso</span>
+                        <a href="reservar.html" class="btn btn-outline">Reservar Ahora</a>
+                    </div>
+                </div>
+                
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Referir a 1 amigo</h3>
+                        <span class="mission-reward">20 SP + 10% descuento</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Invita a un amigo a usar Slushy App</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">0/1</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status in-progress">En progreso</span>
+                        <a href="#" class="btn btn-outline">Invitar Amigo</a>
+                    </div>
+                </div>
+                
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Suscribirte a VIP</h3>
+                        <span class="mission-reward">200 SP + 1 lavado premium</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Conviértete en miembro VIP</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">Completado</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status completed">Completado</span>
+                        <a href="#" class="btn btn-outline disabled">Reclamado</a>
+                    </div>
+                </div>
+                
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Usar la app por primera vez</h3>
+                        <span class="mission-reward">10 SP</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Completa tu primer servicio con la app</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">Completado</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status completed">Completado</span>
+                        <a href="#" class="btn btn-outline disabled">Reclamado</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center" style="margin-top: 2rem;">
+                <a href="recompensas.html" class="btn btn-primary">Ver Todas las Misiones</a>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="level-content">
+            <h2 style="margin-bottom: 1.5rem; font-weight: 600;">Mi Nivel</h2>
+            
+            <div class="level-card">
+                <div class="level-header">
+                    <h3 class="level-title">Nivel Actual</h3>
+                    <span class="level-badge">Oro</span>
+                </div>
+                
+                <div class="level-progress">
+                    <div class="level-progress-header">
+                        <span class="level-progress-label">Progreso hacia Platino</span>
+                        <span class="level-progress-value">350/600 XP</span>
+                    </div>
+                    <div class="level-progress-bar">
+                        <div class="level-progress-fill" style="width: 58%;"></div>
+                    </div>
+                    <div class="level-info">
+                        <span>Nivel Oro (301-600 XP)</span>
+                        <span>Siguiente: Platino (601+ XP)</span>
+                    </div>
+                </div>
+                
+                <h4 style="margin-bottom: 1rem;">Beneficios Actuales</h4>
+                <div class="level-benefits">
+                    <div class="level-benefit">
+                        <div class="level-benefit-icon">
+                            <i class="fas fa-percentage"></i>
+                        </div>
+                        <span class="level-benefit-text">15% de descuento en servicios</span>
+                    </div>
+                    <div class="level-benefit">
+                        <div class="level-benefit-icon">
+                            <i class="fas fa-car-wash"></i>
+                        </div>
+                        <span class="level-benefit-text">1 lavado premium gratis</span>
+                    </div>
+                    <div class="level-benefit">
+                        <div class="level-benefit-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <span class="level-benefit-text">Acceso a todas las misiones</span>
+                    </div>
+                    <div class="level-benefit">
+                        <div class="level-benefit-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <span class="level-benefit-text">Ofertas exclusivas</span>
+                    </div>
+                    <div class="level-benefit">
+                        <div class="level-benefit-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span class="level-benefit-text">Prioridad en citas</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="recompensas.html#niveles" class="btn btn-primary">Ver Todos los Niveles</a>
+            </div>
+        </div>
+
+        <div class="tab-content" id="settings-content">
+            <h2 class="settings-main-title">Configuración de Cuenta</h2>
+            <div class="settings-card">
+                <h3 class="settings-title">Información Personal</h3>
+                
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo</label>
+                        <input type="text" id="name" value="Juan Pérez" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" value="juan.perez@email.com" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Teléfono</label>
+                        <input type="tel" id="phone" value="+1 234 567 890" class="form-input">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="birthdate">Fecha de Nacimiento</label>
+                        <input type="date" id="birthdate" value="1990-01-15" class="form-input">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+            
+            <div class="settings-card">
+                <h3 class="settings-title">Seguridad</h3>
+                
+                <form class="settings-form">
+                    <div class="form-group">
+                        <label for="current-password">Contraseña Actual</label>
+                        <input type="password" id="current-password" class="form-input" placeholder="Ingresa tu contraseña actual">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password">Nueva Contraseña</label>
+                        <input type="password" id="new-password" class="form-input" placeholder="Ingresa tu nueva contraseña">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar Nueva Contraseña</label>
+                        <input type="password" id="confirm-password" class="form-input" placeholder="Confirma tu nueva contraseña">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                </form>
+            </div>
+            
+            <div class="settings-card danger-zone">
+                <h3 class="settings-title">Zona Peligrosa</h3>
+                
+                <div class="danger-actions">
+                    <div class="danger-action">
+                        <h4>Eliminar todos mis vehículos</h4>
+                        <p>Esta acción eliminará permanentemente todos los vehículos asociados a tu cuenta.</p>
+                        <button class="btn btn-outline">Eliminar Vehículos</button>
+                    </div>
+                    
+                    <div class="danger-action">
+                        <h4>Eliminar mi cuenta permanentemente</h4>
+                        <p>Esta acción no se puede deshacer. Se eliminarán todos tus datos de nuestro sistema.</p>
+                        <button class="btn btn-danger">Eliminar Cuenta</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal para Agregar Vehículo -->
+<div class="modal" id="addVehicleModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Agregar Nuevo Vehículo</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="vehicle-make" class="modal-label">Marca</label>
+                    <input type="text" id="vehicle-make" class="form-control" placeholder="Ej: Toyota">
+                </div>
+                <div class="form-group">
+                    <label for="vehicle-model" class="modal-label">Modelo</label>
+                    <input type="text" id="vehicle-model" class="form-control" placeholder="Ej: Corolla">
+                </div>
+                <div class="form-group">
+                    <label for="vehicle-type" class="modal-label">Tipo</label>
+                    <select id="vehicle-type" class="form-control">
+                        <option value="">Seleccione un tipo</option>
+                        <option value="sedan">Sedán</option>
+                        <option value="suv">SUV</option>
+                        <option value="hatchback">Hatchback</option>
+                        <option value="pickup">Camioneta</option>
+                        <option value="van">Van</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vehicle-color" class="modal-label">Color</label>
+                    <input type="text" id="vehicle-color" class="form-control" placeholder="Ej: Blanco">
+                </div>
+                <div class="form-group">
+                    <label for="vehicle-plate" class="modal-label">Placa</label>
+                    <input type="text" id="vehicle-plate" class="form-control" placeholder="Ej: ABC-123">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cancelar</button>
+            <button class="btn btn-primary" id="saveVehicleBtn">Guardar Vehículo</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Confirmar Eliminación de Vehículo -->
+<div class="modal" id="deleteVehicleModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmar Eliminación</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro que deseas eliminar este vehículo? Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cancelar</button>
+            <button class="btn btn-danger" id="confirmDeleteVehicleBtn">Eliminar Vehículo</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Confirmar Eliminación de Cuenta -->
+<div class="modal" id="deleteAccountModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Confirmar Eliminación de Cuenta</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro que deseas eliminar tu cuenta permanentemente? Todos tus datos serán borrados y no podrás recuperarlos.</p>
+            <div class="form-group" style="margin-top: 1rem;">
+                <label for="delete-password" class="modal-label">Ingresa tu contraseña para confirmar:</label>
+                <input type="password" id="delete-password" class="form-control">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cancelar</button>
+            <button class="btn btn-danger" id="confirmDeleteAccountBtn">Eliminar Cuenta Permanentemente</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Historial Completo -->
+<div class="modal" id="fullHistoryModal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h3>Historial Completo de Servicios</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="service-history">
+                <div class="service-history-header">
+                    <h3 class="service-history-title">Todos tus servicios</h3>
+                </div>
+                
+                <div class="service-list">
+                    <!-- Los servicios se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Todos los Niveles -->
+<div class="modal" id="allLevelsModal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h3>Todos los Niveles de Recompensas</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="levels-container">
+                <div class="level-card">
+                    <div class="level-header">
+                        <h3 class="level-title">Nivel Bronce</h3>
+                        <span class="level-badge">0-100 XP</span>
+                    </div>
+                    <div class="level-benefits">
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <span class="level-benefit-text">5% de descuento en servicios</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <span class="level-benefit-text">Acceso a misiones básicas</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="level-card">
+                    <div class="level-header">
+                        <h3 class="level-title">Nivel Plata</h3>
+                        <span class="level-badge">101-300 XP</span>
+                    </div>
+                    <div class="level-benefits">
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <span class="level-benefit-text">10% de descuento en servicios</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-car-wash"></i>
+                            </div>
+                            <span class="level-benefit-text">1 lavado básico gratis al mes</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <span class="level-benefit-text">Acceso a más misiones</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="level-card current-level">
+                    <div class="level-header">
+                        <h3 class="level-title">Nivel Oro</h3>
+                        <span class="level-badge">301-600 XP</span>
+                    </div>
+                    <div class="level-benefits">
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <span class="level-benefit-text">15% de descuento en servicios</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-car-wash"></i>
+                            </div>
+                            <span class="level-benefit-text">1 lavado premium gratis</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <span class="level-benefit-text">Acceso a todas las misiones</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <span class="level-benefit-text">Ofertas exclusivas</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span class="level-benefit-text">Prioridad en citas</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="level-card">
+                    <div class="level-header">
+                        <h3 class="level-title">Nivel Platino</h3>
+                        <span class="level-badge">601+ XP</span>
+                    </div>
+                    <div class="level-benefits">
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <span class="level-benefit-text">20% de descuento en servicios</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-car-wash"></i>
+                            </div>
+                            <span class="level-benefit-text">2 lavados premium gratis al mes</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <span class="level-benefit-text">Acceso a todas las misiones</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <span class="level-benefit-text">Ofertas exclusivas VIP</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span class="level-benefit-text">Prioridad máxima en citas</span>
+                        </div>
+                        <div class="level-benefit">
+                            <div class="level-benefit-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span class="level-benefit-text">Servicio de asistencia personal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Reservar -->
+<div class="modal" id="reserveModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Reservar Servicio</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="reserve-vehicle" class="modal-label">Vehículo</label>
+                    <select id="reserve-vehicle" class="form-control">
+                        <option value="">Selecciona un vehículo</option>
+                        <option value="1">Toyota Corolla (ABC-123)</option>
+                        <option value="2">Honda CR-V (XYZ-789)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reserve-service" class="modal-label">Servicio</label>
+                    <select id="reserve-service" class="form-control">
+                        <option value="">Selecciona un servicio</option>
+                        <option value="1">Lavado Básico - $8.99</option>
+                        <option value="2">Lavado Premium - $14.99</option>
+                        <option value="3">Lavado Deluxe - $24.99</option>
+                        <option value="4">Encerado - $12.99</option>
+                        <option value="5">Pulido de Faros - $9.99</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reserve-date" class="modal-label">Fecha</label>
+                    <input type="date" id="reserve-date" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="reserve-time" class="modal-label">Hora</label>
+                    <select id="reserve-time" class="form-control">
+                        <option value="">Selecciona una hora</option>
+                        <option value="08:00">08:00 AM</option>
+                        <option value="08:30">08:30 AM</option>
+                        <option value="09:00">09:00 AM</option>
+                        <!-- Más opciones de hora -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reserve-notes" class="modal-label">Notas adicionales</label>
+                    <textarea id="reserve-notes" class="form-control" rows="3" placeholder="Indica cualquier requerimiento especial"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cancelar</button>
+            <button class="btn btn-primary" id="confirmReserveBtn">Confirmar Reserva</button>
+        </div>
+    </div>
+</div>
+
+<!-- Alertas Actualizadas -->
+<div class="alert-notification success" id="saveAlert">
+    <div class="alert-content">
+        <i class="fas fa-check-circle alert-icon"></i>
+        <span class="alert-text">Los cambios se guardaron correctamente</span>
+    </div>
+</div>
+
+<div class="alert-notification success" id="deleteAlert">
+    <div class="alert-content">
+        <i class="fas fa-trash-alt alert-icon"></i>
+        <span class="alert-text">El vehículo se eliminó correctamente</span>
+    </div>
+</div>
+
+<div class="alert-notification success" id="reserveAlert">
+    <div class="alert-content">
+        <i class="fas fa-calendar-check alert-icon"></i>
+        <span class="alert-text">Reserva confirmada exitosamente</span>
+    </div>
+</div>
+
+<div class="alert-notification error" id="errorAlert">
+    <div class="alert-content">
+        <i class="fas fa-exclamation-circle alert-icon"></i>
+        <span class="alert-text">Ocurrió un error. Intenta nuevamente.</span>
+    </div>
+</div>
+
+<!-- Nueva alerta para actualizar estado -->
+<div class="alert-notification success" id="updateStatusAlert">
+    <div class="alert-content">
+        <i class="fas fa-sync-alt alert-icon"></i>
+        <span class="alert-text">Estado actualizado correctamente</span>
+    </div>
+</div>
+<!-- Modal para Editar Vehículo -->
+<div class="modal" id="editVehicleModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Editar Vehículo</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="edit-vehicle-make" class="modal-label">Marca</label>
+                    <input type="text" id="edit-vehicle-make" class="form-control" value="Toyota">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vehicle-model" class="modal-label">Modelo</label>
+                    <input type="text" id="edit-vehicle-model" class="form-control" value="Corolla">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vehicle-type" class="modal-label">Tipo</label>
+                    <select id="edit-vehicle-type" class="form-control">
+                        <option value="sedan" selected>Sedán</option>
+                        <option value="suv">SUV</option>
+                        <option value="hatchback">Hatchback</option>
+                        <option value="pickup">Camioneta</option>
+                        <option value="van">Van</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edit-vehicle-color" class="modal-label">Color</label>
+                    <input type="text" id="edit-vehicle-color" class="form-control" value="Blanco">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vehicle-plate" class="modal-label">Placa</label>
+                    <input type="text" id="edit-vehicle-plate" class="form-control" value="ABC-123">
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cancelar</button>
+            <button class="btn btn-primary" id="saveEditVehicleBtn">Guardar Cambios</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Invitar Amigo -->
+<div class="modal" id="inviteFriendModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Invitar a un Amigo</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form class="modal-form">
+                <div class="form-group">
+                    <label for="friend-name" class="modal-label">Nombre del Amigo</label>
+                    <input type="text" id="friend-name" class="form-control" placeholder="Nombre completo">
+                </div>
+                <div class="form-group">
+                    <label for="friend-email" class="modal-label">Correo Electrónico</label>
+                    <input type="email" id="friend-email" class="form-control" placeholder="correo@ejemplo.com">
+                </div>
+                <div class="invite-message">
+                    <p>Tu amigo recibirá un correo con tu invitación y un código de descuento del 10%.</p>
+                    <p>Cuando complete su primer servicio, ambos recibirán 20 Slushy Points.</p>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cancelar</button>
+            <button class="btn btn-primary" id="sendInviteBtn">Enviar Invitación</button>
+        </div>
+    </div>
+</div>
+<!-- Modal para Eliminar Todos los Vehículos -->
+<div class="modal" id="deleteAllVehiclesModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Eliminar todos los vehículos</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>¿Estás seguro de eliminar <strong>TODOS</strong> tus vehículos? Esta acción no se puede deshacer.</p>
+            <div class="form-group" style="margin-top: 1rem;">
+                <label for="confirm-password-delete-all">Ingresa tu contraseña para confirmar:</label>
+                <input type="password" id="confirm-password-delete-all" class="form-control">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cancelar</button>
+            <button class="btn btn-danger" id="confirmDeleteAllBtn">Eliminar Todos</button>
+        </div>
+    </div>
+</div>
+<!-- Nuevo tab de Seguimiento -->
+<div class="tab-content" id="tracking-content">
+    <h2 style="margin-bottom: 1.5rem; font-weight: 600;">Seguimiento de Servicios</h2>
+    
+    <div class="tracking-grid">
+        <!-- Servicio en progreso -->
+        <div class="tracking-card active-service">
+            <div class="tracking-header">
+                <h3 class="tracking-title">Lavado Premium</h3>
+                <span class="tracking-status">En Proceso</span>
+            </div>
+            <div class="tracking-content">
+                <div class="tracking-info">
+                    <div class="tracking-info-item">
+                        <div class="tracking-info-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <span>Toyota Corolla (ABC-123)</span>
+                    </div>
+                    <div class="tracking-info-item">
+                        <div class="tracking-info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span>Iniciado: 10:30 AM</span>
+                    </div>
+                </div>
+                <div class="tracking-progress">
+                    <div class="tracking-progress-header">
+                        <span>Progreso</span>
+                        <span>60%</span>
+                    </div>
+                    <div class="tracking-progress-bar">
+                        <div class="tracking-progress-fill" style="width: 60%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tracking-footer">
+                <button class="btn btn-primary btn-view-details" data-service-id="123">
+                    <i class="fas fa-eye"></i> Ver Detalles
+                </button>
+            </div>
+        </div>
+        
+        <!-- Servicio completado recientemente -->
+        <div class="tracking-card">
+            <div class="tracking-header">
+                <h3 class="tracking-title">Lavado Deluxe</h3>
+                <span class="tracking-status completed">Completado</span>
+            </div>
+            <div class="tracking-content">
+                <div class="tracking-info">
+                    <div class="tracking-info-item">
+                        <div class="tracking-info-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <span>Honda CR-V (XYZ-789)</span>
+                    </div>
+                    <div class="tracking-info-item">
+                        <div class="tracking-info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <span>Completado: 02/05/2023 - 11:45 AM</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tracking-footer">
+                <button class="btn btn-outline btn-view-details" data-service-id="456">
+                    <i class="fas fa-eye"></i> Ver Detalles
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tab Content - Seguimiento -->
+<div class="tab-content" id="tracking-content">
+    <div class="container">
+        <h2 style="margin-bottom: 1.5rem; font-weight: 600;">Seguimiento de Servicios</h2>
+        
+        <div class="tracking-grid">
+            <!-- Servicio en progreso -->
+            <div class="tracking-card active-service">
+                <div class="tracking-header">
+                    <h3 class="tracking-title">Lavado Premium</h3>
+                    <span class="tracking-status">En Proceso</span>
+                </div>
+                <div class="tracking-content">
+                    <div class="tracking-info">
+                        <div class="tracking-info-item">
+                            <div class="tracking-info-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <span>Toyota Corolla (ABC-123)</span>
+                        </div>
+                        <div class="tracking-info-item">
+                            <div class="tracking-info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span>Iniciado: 10:30 AM</span>
+                        </div>
+                    </div>
+                    <div class="tracking-progress">
+                        <div class="tracking-progress-header">
+                            <span>Progreso</span>
+                            <span>60%</span>
+                        </div>
+                        <div class="tracking-progress-bar">
+                            <div class="tracking-progress-fill" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tracking-footer">
+                    <button class="btn btn-primary btn-view-details" data-service-id="123">
+                        <i class="fas fa-eye"></i> Ver Detalles
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Servicio completado recientemente -->
+            <div class="tracking-card">
+                <div class="tracking-header">
+                    <h3 class="tracking-title">Lavado Deluxe</h3>
+                    <span class="tracking-status completed">Completado</span>
+                </div>
+                <div class="tracking-content">
+                    <div class="tracking-info">
+                        <div class="tracking-info-item">
+                            <div class="tracking-info-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                            <span>Honda CR-V (XYZ-789)</span>
+                        </div>
+                        <div class="tracking-info-item">
+                            <div class="tracking-info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span>Completado: 02/05/2023 - 11:45 AM</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="tracking-footer">
+                    <button class="btn btn-outline btn-view-details" data-service-id="456">
+                        <i class="fas fa-eye"></i> Ver Detalles
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Seguimiento Mejorado -->
+<div class="modal" id="trackingModal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h3>Seguimiento de Servicio</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="tracking-container">
+                <div class="tracking-header">
+                    <h4>
+                        <i class="fas fa-car" style="color: var(--primary);"></i>
+                        Servicio #SL-12345
+                    </h4>
+                    <p>Toyota Corolla (Sedán) • Lavado Premium</p>
+                    <span class="status-badge">En Proceso</span>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-header">
+                        <span>Progreso del Servicio</span>
+                        <span>60%</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: 60%;"></div>
+                    </div>
+                </div>
+                
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-text">
+                            <p class="info-label">Tiempo Estimado</p>
+                            <p class="info-value">15 minutos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="info-text">
+                            <p class="info-label">Inicio</p>
+                            <p class="info-value">10:30 AM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-section">
+                    <h5>Etapas del Proceso</h5>
+                    
+                    <div class="timeline">
+                        <!-- Etapa 1 -->
+                        <div class="timeline-item completed">
+                            <div class="timeline-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-info">
+                                    <h6>Recepción</h6>
+                                    <p>Vehículo recibido y en espera</p>
+                                </div>
+                                <div class="timeline-time">
+                                    <p>10:30 AM</p>
+                                    <p class="timeline-status">Completado</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Etapa 2 -->
+                        <div class="timeline-item completed">
+                            <div class="timeline-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-info">
+                                    <h6>Lavado con Espuma</h6>
+                                    <p>Aplicación de espuma y detergente</p>
+                                </div>
+                                <div class="timeline-time">
+                                    <p>10:40 AM</p>
+                                    <p class="timeline-status">Completado</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Etapa 3 (Activa) -->
+                        <div class="timeline-item active">
+                            <div class="timeline-icon">
+                                <i class="fas fa-sync-alt fa-spin"></i>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-info">
+                                    <h6>Enjuague</h6>
+                                    <p>Eliminación de espuma y suciedad</p>
+                                </div>
+                                <div class="timeline-time">
+                                    <p>10:55 AM</p>
+                                    <p class="timeline-status">En proceso</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button class="btn btn-outline">Contactar Soporte</button>
+            <button class="btn btn-primary" id="updateStatusBtn">Actualizar Estado</button>
+        </div>
+    </div>
+</div>
+<!-- Modal para Todas las Misiones -->
+<div class="modal" id="allMissionsModal">
+    <div class="modal-content" style="max-width: 800px;">
+        <div class="modal-header">
+            <h3>Todas las Misiones Disponibles</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="missions-container">
+                <!-- Misión 1 -->
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Lavar tu auto 5 veces</h3>
+                        <span class="mission-reward">25 SP</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Completa 5 lavados en nuestro centro para ganar puntos extra</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">2/5</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 40%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status in-progress">En progreso</span>
+                        <a href="reservar.html" class="btn btn-outline">Reservar Ahora</a>
+                    </div>
+                </div>
+                
+                <!-- Misión 2 -->
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Referir a 3 amigos</h3>
+                        <span class="mission-reward">50 SP + 15% descuento</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Invita a 3 amigos a usar Slushy App</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">1/3</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 33%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status in-progress">En progreso</span>
+                        <button class="btn btn-outline btn-invite-friend">Invitar Amigo</button>
+                    </div>
+                </div>
+                
+                <!-- Misión 3 -->
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Primer servicio VIP</h3>
+                        <span class="mission-reward">100 SP</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Realiza tu primer servicio como miembro VIP</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">0/1</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status locked">Bloqueada</span>
+                        <button class="btn btn-outline disabled">Hazte VIP</button>
+                    </div>
+                </div>
+                
+                <!-- Misión 4 -->
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Completa tu perfil</h3>
+                        <span class="mission-reward">10 SP</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Agrega al menos 1 vehículo y completa tu información</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">Completado</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status completed">Completado</span>
+                        <button class="btn btn-outline disabled">Reclamado</button>
+                    </div>
+                </div>
+                
+                <!-- Misión 5 -->
+                <div class="mission-card">
+                    <div class="mission-header">
+                        <h3 class="mission-title">Lavado mensual</h3>
+                        <span class="mission-reward">15 SP</span>
+                    </div>
+                    <div class="mission-content">
+                        <p class="mission-description">Lava tu auto al menos 1 vez este mes</p>
+                        <div class="mission-progress">
+                            <div class="mission-progress-header">
+                                <span class="mission-progress-label">Progreso</span>
+                                <span class="mission-progress-value">1/1</span>
+                            </div>
+                            <div class="mission-progress-bar">
+                                <div class="mission-progress-fill" style="width: 100%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-footer">
+                        <span class="mission-status completed">Completado</span>
+                        <button class="btn btn-primary">Reclamar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-close-btn">Cerrar</button>
+        </div>
+    </div>
+</div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="logo">
+                        <div class="logo-icon">G</div>
+                        <span class="logo-text">SLUSHY</span>
+                    </div>
+                    <p class="footer-description">
+                        La mejor aplicación para el cuidado de tu vehículo. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Enlaces Rápidos</h3>
+                    <ul class="footer-nav">
+                        <li><a href="../../Publico/Index/index.html" class="footer-link">Inicio</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Nuestros Servicios</a></li>
+                        <li><a href="../../Publico/Membresias/" class="footer-link">Membresía VIP</a></li>
+                        <li><a href="../../Publico/Recompensas/recompensas.html" class="footer-link">Sistema de Recompensas</a></li>
+                        <li><a href="../../Publico/Contacto/contacto.html" class="footer-link">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-services">
+                    <h3 class="footer-title">Servicios</h3>
+                    <ul class="footer-nav">
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Lavado Básico</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Lavado Premium</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Lavado Deluxe</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.htmll" class="footer-link">Adicionales</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Servicios Premium</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3 class="footer-title">Suscríbete</h3>
+                    <p class="footer-description">
+                        Recibe nuestras últimas noticias y promociones exclusivas
+                    </p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Tu correo electrónico" class="newsletter-input">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© <span id="currentYear">2023</span> Slushy App. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('menuToggle').addEventListener('click', function() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobileMenu').classList.remove('active');
+            });
+        });
+        
+        // Tabs functionality
+        const tabs = document.querySelectorAll('.user-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to current tab and content
+                this.classList.add('active');
+                document.getElementById(tabId + '-content').classList.add('active');
+            });
+        });
+        
+        // Update current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
+        // Modal functionality
+        const modals = document.querySelectorAll('.modal');
+        const modalCloseButtons = document.querySelectorAll('.modal-close, .modal-close-btn');
+        
+        // Abrir modal para agregar vehículo
+        document.querySelector('.add-vehicle').addEventListener('click', function() {
+            document.getElementById('addVehicleModal').classList.add('active');
+        });
+        
+        // Abrir modal para editar vehículo
+        document.querySelectorAll('.vehicle-action .fa-edit').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('editVehicleModal').classList.add('active');
+            });
+        });
+        
+        // Abrir modal para eliminar vehículo
+        document.querySelectorAll('.vehicle-action .fa-trash-alt').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('deleteVehicleModal').classList.add('active');
+            });
+        });
+        
+        // Abrir modal para ver historial completo
+        document.querySelector('.tab-content#services-content .btn-outline').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('fullHistoryModal').classList.add('active');
+        });
+        
+        // Abrir modal para ver todos los niveles
+        document.querySelector('.tab-content#level-content .btn-primary').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('allLevelsModal').classList.add('active');
+        });
+        
+        // Abrir modal para eliminar cuenta
+        document.querySelector('.danger-zone .btn-danger').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('deleteAccountModal').classList.add('active');
+        });
+        
+        // Abrir modal para invitar amigo
+        document.querySelectorAll('.btn-outline').forEach(btn => {
+            if (btn.textContent.trim() === 'Invitar Amigo') {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('inviteFriendModal').classList.add('active');
+                });
+            }
+        });
+        
+        // Función para abrir el modal de reserva
+        function openReserveModal(vehicleId = null) {
+            const modal = document.getElementById('reserveModal');
+            const vehicleSelect = document.getElementById('reserve-vehicle');
+            
+            if (vehicleId) {
+                vehicleSelect.value = vehicleId;
+                vehicleSelect.disabled = true;
+            } else {
+                vehicleSelect.disabled = false;
+            }
+            
+            // Resetear otros campos
+            document.getElementById('reserve-service').value = '';
+            document.getElementById('reserve-date').value = '';
+            document.getElementById('reserve-time').value = '';
+            document.getElementById('reserve-notes').value = '';
+            
+            modal.classList.add('active');
+        }
+        
+        // Conectar botones de reserva
+        document.querySelectorAll('[data-action="reserve"]').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const vehicleId = this.getAttribute('data-vehicle-id');
+                openReserveModal(vehicleId);
+            });
+        });
+        
+        // Conectar botones "Reservar" en vehículos
+        document.querySelectorAll('.vehicle-footer .btn-outline').forEach(btn => {
+            if (btn.textContent.trim() === 'Reservar') {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const vehicleCard = this.closest('.vehicle-card');
+                    const vehicleId = vehicleCard.querySelector('.vehicle-title').textContent.includes('Toyota') ? '1' : '2';
+                    openReserveModal(vehicleId);
+                });
+            }
+        });
+        
+        // Conectar botones "Reservar Ahora" en misiones
+        document.querySelectorAll('.mission-footer .btn-outline').forEach(btn => {
+            if (btn.textContent.trim() === 'Reservar Ahora') {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openReserveModal();
+                });
+            }
+        });
+        
+        // Mostrar alerta para botones "Reclamado"
+        document.querySelectorAll('.btn-outline.disabled').forEach(btn => {
+            if (btn.textContent.trim() === 'Reclamado') {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showAlert('saveAlert', 'Ya has reclamado esta recompensa');
+                });
+            }
+        });
+        
+        // Cerrar modales
+        modalCloseButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.closest('.modal').classList.remove('active');
+            });
+        });
+        
+        // Cerrar modal al hacer clic fuera
+        modals.forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+        
+        // Guardar nuevo vehículo
+        document.getElementById('saveVehicleBtn').addEventListener('click', function() {
+            document.getElementById('addVehicleModal').classList.remove('active');
+            showAlert('saveAlert', 'Vehículo agregado correctamente');
+        });
+        
+        // Guardar edición de vehículo
+        document.getElementById('saveEditVehicleBtn').addEventListener('click', function() {
+            document.getElementById('editVehicleModal').classList.remove('active');
+            showAlert('saveAlert', 'Vehículo actualizado correctamente');
+        });
+        
+        // Confirmar eliminación de vehículo
+        document.getElementById('confirmDeleteVehicleBtn').addEventListener('click', function() {
+            document.getElementById('deleteVehicleModal').classList.remove('active');
+            showAlert('deleteAlert', 'Vehículo eliminado correctamente');
+        });
+        
+        // Confirmar eliminación de cuenta
+        document.getElementById('confirmDeleteAccountBtn').addEventListener('click', function() {
+            const password = document.getElementById('delete-password').value;
+            if (!password) {
+                showAlert('errorAlert', 'Por favor ingresa tu contraseña');
+                return;
+            }
+            
+            document.getElementById('deleteAccountModal').classList.remove('active');
+            showAlert('deleteAlert', 'Tu cuenta se ha eliminado correctamente');
+            
+            // Redirigir después de 2 segundos
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 2000);
+        });
+        
+        // Guardar cambios en información personal
+        document.querySelector('.settings-form button[type="submit"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            showAlert('saveAlert', 'Cambios guardados correctamente');
+        });
+        
+        // Cambiar contraseña
+        document.querySelectorAll('.settings-form button[type="submit"]')[1].addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const currentPass = document.getElementById('current-password').value;
+            const newPass = document.getElementById('new-password').value;
+            const confirmPass = document.getElementById('confirm-password').value;
+            
+            if (!currentPass || !newPass || !confirmPass) {
+                showAlert('errorAlert', 'Por favor completa todos los campos');
+                return;
+            }
+            
+            if (newPass !== confirmPass) {
+                showAlert('errorAlert', 'Las contraseñas no coinciden');
+                return;
+            }
+            
+            showAlert('saveAlert', 'Contraseña cambiada correctamente');
+            // Limpiar campos
+            document.getElementById('current-password').value = '';
+            document.getElementById('new-password').value = '';
+            document.getElementById('confirm-password').value = '';
+        });
+        
+        // Confirmar reserva
+        document.getElementById('confirmReserveBtn').addEventListener('click', function() {
+            const vehicle = document.getElementById('reserve-vehicle').value;
+            const service = document.getElementById('reserve-service').value;
+            const date = document.getElementById('reserve-date').value;
+            const time = document.getElementById('reserve-time').value;
+            
+            if (!vehicle || !service || !date || !time) {
+                showAlert('errorAlert', 'Por favor completa todos los campos');
+                return;
+            }
+            
+            document.getElementById('reserveModal').classList.remove('active');
+            showAlert('reserveAlert', 'Reserva confirmada exitosamente');
+        });
+        
+        // Enviar invitación
+        document.getElementById('sendInviteBtn').addEventListener('click', function() {
+            const email = document.getElementById('friend-email').value;
+            if (!email) {
+                showAlert('errorAlert', 'Por favor ingresa un correo electrónico');
+                return;
+            }
+            
+            document.getElementById('inviteFriendModal').classList.remove('active');
+            showAlert('saveAlert', 'Invitación enviada correctamente');
+        });
+        
+        // Función para mostrar alertas
+        function showAlert(alertId, customMessage = null) {
+            const alert = document.getElementById(alertId);
+            
+            if (customMessage) {
+                alert.querySelector('.alert-text').textContent = customMessage;
+            }
+            
+            alert.classList.add('show');
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Inicializar datepicker con fechas disponibles
+        document.getElementById('reserve-date').min = new Date().toISOString().split('T')[0];
+        
+        // Cargar horas disponibles cuando se selecciona una fecha
+        document.getElementById('reserve-date').addEventListener('change', function() {
+            const timeSelect = document.getElementById('reserve-time');
+            timeSelect.innerHTML = '<option value="">Selecciona una hora</option>';
+            
+            // Ejemplo: agregar horas de 8 AM a 5 PM cada 30 minutos
+            for (let hour = 8; hour <= 17; hour++) {
+                for (let minute = 0; minute < 60; minute += 30) {
+                    const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
+                    const displayTime = `${hour > 12 ? hour - 12 : hour}:${minute.toString().padStart(2, '0')} ${hour >= 12 ? 'PM' : 'AM'}`;
+                    const option = document.createElement('option');
+                    option.value = timeString;
+                    option.textContent = displayTime;
+                    timeSelect.appendChild(option);
+                }
+            }
+        });
+        // Evento para el botón "Eliminar todos mis vehículos" en Configuración
+document.querySelector('.danger-zone .btn-outline').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('deleteAllVehiclesModal').classList.add('active');
+});
+
+// Lógica para eliminar todos los vehículos
+document.getElementById('confirmDeleteAllBtn').addEventListener('click', function() {
+    const password = document.getElementById('confirm-password-delete-all').value;
+    
+    if (!password) {
+        showAlert('errorAlert', 'Por favor ingresa tu contraseña');
+        return;
+    }
+
+    // 1. Limpiar el grid de vehículos
+    document.querySelector('.vehicle-grid').innerHTML = `
+        <div class="add-vehicle">
+            <div class="add-vehicle-icon"><i class="fas fa-plus"></i></div>
+            <h3>Agregar Vehículo</h3>
+            <p>Registra un nuevo vehículo para facilitar tus reservas</p>
+        </div>
+    `;
+    
+    // 2. Actualizar contador en el perfil
+    const vehicleStats = document.querySelectorAll('.user-stat');
+    vehicleStats[0].querySelector('span').textContent = '0 Vehículos';
+    
+    // 3. Cerrar modal y limpiar campo
+    document.getElementById('deleteAllVehiclesModal').classList.remove('active');
+    document.getElementById('confirm-password-delete-all').value = '';
+    
+    // 4. Mostrar feedback
+    showAlert('deleteAlert', 'Todos los vehículos fueron eliminados');
+    
+    // Aquí iría la llamada real al backend:
+    // fetch('/api/vehiculos', { method: 'DELETE' })
+    // .then(response => response.json())
+    // .then(data => { ... })
+    // .catch(error => showAlert('errorAlert', 'Error al eliminar vehículos'));
+});
+
+// Cerrar modal al hacer clic en Cancelar
+document.querySelector('#deleteAllVehiclesModal .modal-close-btn').addEventListener('click', function() {
+    document.getElementById('deleteAllVehiclesModal').classList.remove('active');
+});
+// En la sección de scripts, agregar:
+// Conectar botones "Ver Detalles" con el modal de seguimiento
+document.querySelectorAll('.btn-view-details').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const serviceId = this.getAttribute('data-service-id');
+        openTrackingModal(serviceId);
+    });
+});
+
+// Función para abrir el modal de seguimiento con los datos del servicio
+function openTrackingModal(serviceId) {
+    // Aquí podrías cargar datos específicos del servicio basado en serviceId
+    // Por ahora usaremos datos de ejemplo
+    
+    document.getElementById('trackingModal').classList.add('active');
+    
+    // Iniciar simulación de progreso si el servicio está en proceso
+    if (serviceId === "123") { // ID del servicio en proceso
+        simulateProgress();
+    }
+}// Manejar el botón de actualizar estado en el modal de seguimiento
+document.getElementById('updateStatusBtn').addEventListener('click', function() {
+    // Aquí iría la lógica real para actualizar el estado
+    // Por ahora solo mostramos la alerta
+    showAlert('updateStatusAlert', 'Estado actualizado correctamente');
+    
+    // Cerrar el modal después de 1 segundo (opcional)
+    setTimeout(() => {
+        document.getElementById('trackingModal').classList.remove('active');
+    }, 1000);
+});
+
+// Función mejorada para mostrar alertas
+function showAlert(alertId, customMessage = null) {
+    const alert = document.getElementById(alertId);
+    
+    if (customMessage) {
+        alert.querySelector('.alert-text').textContent = customMessage;
+    }
+    
+    alert.classList.add('show');
+    
+    // Ocultar después de 3 segundos
+    setTimeout(() => {
+        alert.classList.remove('show');
+    }, 3000);
+}
+// Conectar botones "Ver Estado Actual" con el modal de seguimiento
+document.querySelectorAll('.btn-view-status').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        openTrackingModal('123'); // Puedes pasar el ID del servicio específico
+    });
+});
+
+// Función para abrir el modal de seguimiento
+function openTrackingModal(serviceId) {
+    // Aquí podrías cargar datos específicos del servicio basado en serviceId
+    // Por ahora usaremos datos de ejemplo
+    
+    // Actualiza los datos en el modal según el servicio seleccionado
+    const modal = document.getElementById('trackingModal');
+    const serviceTitle = modal.querySelector('h4');
+    const serviceDesc = modal.querySelector('p');
+    const statusBadge = modal.querySelector('.status-badge');
+    const progressFill = modal.querySelector('.progress-bar-fill');
+    
+    // Ejemplo de datos basados en el serviceId
+    if (serviceId === '123') {
+        serviceTitle.textContent = 'Servicio #SL-12345';
+        serviceDesc.textContent = 'Toyota Corolla (Sedán) • Lavado Premium';
+        statusBadge.textContent = 'En Proceso';
+        progressFill.style.width = '60%';
+    } else {
+        serviceTitle.textContent = 'Servicio #SL-67890';
+        serviceDesc.textContent = 'Honda CR-V (SUV) • Lavado Deluxe';
+        statusBadge.textContent = 'Completado';
+        progressFill.style.width = '100%';
+    }
+    
+    // Muestra el modal
+    modal.classList.add('active');
+    
+    // Iniciar simulación de progreso si el servicio está en proceso
+    if (serviceId === "0616") {
+        simulateProgress();
+    }
+}
+
+// Función de ejemplo para simular progreso (opcional)
+function simulateProgress() {
+    const progressFill = document.querySelector('.progress-bar-fill');
+    let progress = 60;
+    
+    const interval = setInterval(() => {
+        progress += 5;
+        progressFill.style.width = `${progress}%`;
+        
+        if (progress >= 100) {
+            clearInterval(interval);
+            document.querySelector('.status-badge').textContent = 'Completado';
+            document.querySelector('.status-badge').style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
+            document.querySelector('.status-badge').style.color = 'var(--success)';
+        }
+    }, 1000);
+}
+// En la sección de scripts, agregar:
+// Conectar botón "Ver Todas las Misiones" con el modal
+document.querySelector('.tab-content#missions-content .btn-primary').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('allMissionsModal').classList.add('active');
+});
+
+// Conectar botones "Invitar Amigo" dentro del modal
+document.querySelectorAll('.btn-invite-friend').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('allMissionsModal').classList.remove('active');
+        document.getElementById('inviteFriendModal').classList.add('active');
+    });
+});
+    </script>
+</body>
+</html>

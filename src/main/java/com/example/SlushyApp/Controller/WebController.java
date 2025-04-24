@@ -18,6 +18,11 @@ public class WebController {
         return "login";
     }
 
+    @GetMapping("/logoutSlushy")
+    public String logout() {
+        return "logout";
+    }
+
     @GetMapping("/registerSlushy")
     public String registerSlushy() {
         return "register";

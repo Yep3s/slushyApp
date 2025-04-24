@@ -3,6 +3,7 @@ package com.example.SlushyApp.Security;
 import com.example.SlushyApp.Utils.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,13 +15,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-
 
     private final JwtUtil jwtUtil;
 
@@ -33,20 +32,22 @@ public class JwtFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String header = request.getHeader("Authorization");
+        String token = null;
 
-        if (header == null || !header.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
+        // 🔍 Buscar el token en la cookie "jwt"
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("jwt".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
         }
 
-        String token = header.replace("Bearer ", "");
-
-        if (jwtUtil.validateToken(token)) {
+        if (token != null && jwtUtil.validateToken(token)) {
             String email = jwtUtil.getEmailFromToken(token);
             Object rolesClaim = jwtUtil.getRolesFromToken(token);
 
-            // Convertir los roles a SimpleGrantedAuthority
             List<SimpleGrantedAuthority> authorities = ((List<?>) rolesClaim).stream()
                     .map(role -> new SimpleGrantedAuthority(role.toString()))
                     .collect(Collectors.toList());
@@ -60,6 +61,4 @@ public class JwtFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
-
 }

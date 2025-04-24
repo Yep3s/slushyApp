@@ -7,10 +7,15 @@ import com.example.SlushyApp.Service.EmailService;
 import com.example.SlushyApp.Service.PasswordResetService;
 import com.example.SlushyApp.Service.UsuarioService;
 import com.example.SlushyApp.Utils.JwtUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -36,7 +41,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         Usuario usuario = usuarioService.findByEmail(loginRequest.getEmail());
 
         if (usuario == null || !passwordEncoder.matches(loginRequest.getPassword(), usuario.getPassword())) {
@@ -44,7 +49,21 @@ public class AuthController {
         }
 
         String token = jwtUtil.generateToken(usuario);
-        return ResponseEntity.ok(token);
+
+        // Crear la cookie segura
+        ResponseCookie cookie = ResponseCookie.from("jwt", token)
+                .httpOnly(true)
+                .secure(true) // solo HTTPS en producción
+                .path("/")
+                .maxAge(24 * 60 * 60) // 1 día
+                .sameSite("Strict") // o "Lax"
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
+
+        // También puedes enviar el rol como info útil para redirigir desde frontend
+        String rol = usuario.getRoles().stream().findFirst().orElseThrow().name();
+        return ResponseEntity.ok(Map.of("rol", rol));
     }
 
     @PostMapping("/register")
@@ -59,19 +78,19 @@ public class AuthController {
         return ResponseEntity.ok("Usuario Registrado Con Exito");
     }
 
-    //  @PostMapping("/register1")
-    //  public ResponseEntity<String> registrarUsuario(@RequestBody Usuario usuario) {
-    //    Usuario guardado = usuarioService.registrarUsuario(
-    //              usuario.getNombre(),
-    //               usuario.getApellido(),
-    //              usuario.getEmail(),
-    //             usuario.getPassword(),
-    //             usuario.getCedula(),
-                        //             usuario.getTelefono()
-    //      );
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from("jwt", "")
+                .path("/")
+                .httpOnly(true)
+                .secure(true)
+                .maxAge(0) // Expira la cookie
+                .sameSite("Strict")
+                .build();
 
-    //      return ResponseEntity.ok("Usuario Registrado Con Éxito");
-    //   }
+        response.setHeader("Set-Cookie", cookie.toString());
+        return ResponseEntity.ok().build();
+    }
 
     @GetMapping("/users")
     public ResponseEntity<Usuario> obtenerUsuario(@RequestParam String email) {

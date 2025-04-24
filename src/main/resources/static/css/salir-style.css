@@ -1,0 +1,213 @@
+/* salir-style.css - Estilos completos para la vista de cerrar sesión */
+
+:root {
+    --primary: #d3180bec;
+    --primary-dark: #6a0404e3;
+    --primary-light: #e0f2fe;
+    --secondary: #f8fafc;
+    --dark: #0f172a;
+    --gray: #64748b;
+    --light-gray: #e2e8f0;
+    --white: #ffffff;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --border-radius: 0.5rem;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    line-height: 1.5;
+    background-color: var(--secondary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Logout Container */
+.logout-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+}
+
+.logout-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    background-color: var(--secondary);
+}
+
+.logo-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 3.3rem;
+    font-family: 'Formula 1', sans-serif;
+}
+
+.logo-text {
+    font-weight: 700;
+    font-size: 1.9rem;
+    font-family: 'FuentePrueba', sans-serif;
+}
+
+/* Logout Content */
+.logout-content {
+    padding: 2rem;
+    text-align: center;
+}
+
+.logout-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1.5rem;
+}
+
+.logout-content h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-family: 'FuentePrueba', sans-serif;
+}
+
+.logout-content p {
+    color: var(--gray);
+    margin-bottom: 2rem;
+}
+
+.logout-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary-light);
+}
+
+/* Logout Footer */
+.logout-footer {
+    padding: 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--light-gray);
+    color: var(--gray);
+    font-size: 0.875rem;
+}
+
+body {
+    background: url('https://e-carwash.com/wp-content/uploads/2024/03/recubrimiento-ceramica-cuatro-anos.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+/* Responsive */
+@media (max-width: 576px) {
+    .logout-container {
+        padding: 1rem;
+    }
+    
+    .logout-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+}
+
+/* Fonts */
+@font-face {
+    font-family: 'Dunkin';
+    src: url('../../../fonts/Dunkin.otf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ExtraB';
+    src: url('../../../fonts/Extra\ Blue.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Formulaone';
+    src: url('../../../fonts/Formula\ 1.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'FuentePrueba';
+    src: url('../../../fonts/Quicksand-VariableFont_wght.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}

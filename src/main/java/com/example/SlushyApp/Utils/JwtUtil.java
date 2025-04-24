@@ -1,6 +1,7 @@
 package com.example.SlushyApp.Utils;
 
 import com.example.SlushyApp.Model.Usuario;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

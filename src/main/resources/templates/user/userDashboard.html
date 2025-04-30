@@ -60,11 +60,14 @@
                     <div class="user-email">Cargando email...</div>
                     <div class="user-stats">
                         <div class="user-stat">
-                            <div class="user-stat-icon">
-                                <i class="fas fa-car"></i>
+                            <div class="user-stat">
+                                <div class="user-stat-icon">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <span id="vehicleCount" th:text="${vehiculos.size()} + ' Vehículos'">0 Vehículos</span>
                             </div>
-                            <span>2 Vehículos</span>
                         </div>
+
                         <!--    <div class="user-stat">
                                 <div class="user-stat-icon">
                                     <i class="fas fa-crown"></i>

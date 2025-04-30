@@ -24,6 +24,7 @@ public class WebControllerUser {
         String emailUsuario = principal.getName();
         List<Vehiculo> vehiculos = vehiculoService.obtenerVehiculosPorUsuario(emailUsuario);
         model.addAttribute("vehiculos", vehiculos);
+        model.addAttribute("cantidadVehiculos", vehiculos.size());
         return "user/userDashboard";
     }
 

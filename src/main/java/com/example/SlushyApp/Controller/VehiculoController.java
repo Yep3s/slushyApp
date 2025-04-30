@@ -75,7 +75,7 @@ public class VehiculoController {
     public ResponseEntity<String> eliminarVehiculo(@PathVariable String id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String usuarioEmail = auth.getName(); // Esto asume que el nombre de usuario es el email
-
+        System.out.println("ID recibido para eliminar: " + id);
         vehiculoService.eliminarVehiculo(id, usuarioEmail);
         return ResponseEntity.ok("Vehículo eliminado correctamente.");
     }

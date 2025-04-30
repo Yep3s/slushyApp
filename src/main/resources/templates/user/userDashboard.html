@@ -65,18 +65,18 @@
                             </div>
                             <span>2 Vehículos</span>
                         </div>
-                        <div class="user-stat">
-                            <div class="user-stat-icon">
-                                <i class="fas fa-crown"></i>
+                        <!--    <div class="user-stat">
+                                <div class="user-stat-icon">
+                                    <i class="fas fa-crown"></i>
+                                </div>
+                                <span>Miembro VIP</span>
                             </div>
-                            <span>Miembro VIP</span>
-                        </div>
-                        <div class="user-stat">
-                            <div class="user-stat-icon">
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span>Nivel Oro</span>
-                        </div>
+                            <div class="user-stat">
+                                <div class="user-stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span>Nivel Oro</span>
+                            </div> --->
                     </div>
                 </div>
             </div>
@@ -117,16 +117,16 @@
         <div class="tab-content active" id="vehicles-content">
             <h2 style="margin-bottom: 1.5rem; font-weight: 600;">Mis Vehículos</h2>
 
-            <div class="vehicle-grid">
+            <div class="vehicle-grid vehicle-card">
                 <th:block th:each="vehiculo : ${vehiculos}">
-                    <div class="vehicle-card">
+                    <div class="vehicle-card" th:attr="data-id=${vehiculo.id}">
                         <div class="vehicle-header">
                             <h3 class="vehicle-title" th:text="${vehiculo.marca} + ' ' + ${vehiculo.linea}">Marca Línea</h3>
                             <div class="vehicle-actions">
                                 <a th:href="@{'/vehiculo/editar/' + ${vehiculo.id}}" class="vehicle-action">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="javascript:void(0)" class="vehicle-action eliminar-vehiculo" th:attr="data-id=${vehiculo.id}">
+                                <a href="#" class="vehicle-action delete-vehicle-btn" th:attr="data-id=${vehiculo.id}">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
@@ -1451,15 +1451,7 @@
                 document.getElementById('editVehicleModal').classList.add('active');
             });
         });
-        
-        // Abrir modal para eliminar vehículo
-        document.querySelectorAll('.vehicle-action .fa-trash-alt').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('deleteVehicleModal').classList.add('active');
-            });
-        });
-        
+
         // Abrir modal para ver historial completo
         document.querySelector('.tab-content#services-content .btn-outline').addEventListener('click', function(e) {
             e.preventDefault();
@@ -1572,13 +1564,7 @@
             document.getElementById('editVehicleModal').classList.remove('active');
             showAlert('saveAlert', 'Vehículo actualizado correctamente');
         });
-        
-        // Confirmar eliminación de vehículo
-        document.getElementById('confirmDeleteVehicleBtn').addEventListener('click', function() {
-            document.getElementById('deleteVehicleModal').classList.remove('active');
-            showAlert('deleteAlert', 'Vehículo eliminado correctamente');
-        });
-        
+
         // Confirmar eliminación de cuenta
         document.getElementById('confirmDeleteAccountBtn').addEventListener('click', function() {
             const password = document.getElementById('delete-password').value;

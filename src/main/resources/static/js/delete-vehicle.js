@@ -1,27 +1,49 @@
-    document.addEventListener("DOMContentLoaded", () => {
-        const botonesEliminar = document.querySelectorAll(".eliminar-vehiculo");
+let vehiculoIdParaEliminar = null;
 
-        botonesEliminar.forEach(boton => {
-            boton.addEventListener("click", () => {
-                const vehiculoId = boton.getAttribute("data-id");
-
-                if (confirm("¿Estás seguro de que quieres eliminar este vehículo?")) {
-                    fetch(`/user/vehiculos/eliminar/${vehiculoId}`, {
-                        method: "DELETE"
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            alert("Vehículo eliminado correctamente.");
-                            location.reload(); // Recarga la página para actualizar la lista
-                        } else {
-                            alert("Error al eliminar el vehículo.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Error:", error);
-                        alert("Ocurrió un error al eliminar el vehículo.");
-                    });
-                }
-            });
-        });
+// Cuando el usuario hace clic en el icono de eliminar
+document.querySelectorAll('.delete-vehicle-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        vehiculoIdParaEliminar = this.dataset.id; // Captura el ID del vehículo
+        document.getElementById('deleteVehicleModal').classList.add('active');
     });
+});
+
+// Confirmar eliminación del vehículo
+document.getElementById('confirmDeleteVehicleBtn').addEventListener('click', function() {
+    if (!vehiculoIdParaEliminar) return;
+
+    fetch(`/user/vehiculos/eliminar/${vehiculoIdParaEliminar}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'), // si usas JWT
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            document.getElementById('deleteVehicleModal').classList.remove('active');
+            showAlert('deleteAlert', 'Vehículo eliminado correctamente');
+
+            // Elimina visualmente la tarjeta del vehículo
+            const card = document.querySelector(`.vehicle-card[data-id="${vehiculoIdParaEliminar}"]`);
+            if (card) card.remove();
+
+            vehiculoIdParaEliminar = null;
+        } else {
+            return response.text().then(text => { throw new Error(text); });
+        }
+    })
+    .catch(error => {
+        console.error('Error al eliminar vehículo:', error);
+        alert("Error al eliminar el vehículo.");
+    });
+});
+
+// Cerrar modal sin eliminar
+document.querySelectorAll('.modal-close-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.getElementById('deleteVehicleModal').classList.remove('active');
+        vehiculoIdParaEliminar = null;
+    });
+});

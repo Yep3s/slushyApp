@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -44,10 +45,19 @@ public class VehiculoController {
 
     // 📋 Listar vehículos del usuario autenticado
     @GetMapping("/mis-vehiculos")
-    public ResponseEntity<List<Vehiculo>> obtenerVehiculos(HttpServletRequest request) {
-        String email = jwtUtil.getEmailFromToken(extractTokenFromRequest(request));
-        return ResponseEntity.ok(vehiculoService.obtenerVehiculosPorUsuario(email));
+    public String mostrarVehiculosUsuario(HttpServletRequest request, Model model) {
+        String token = jwtUtil.extractTokenFromCookie(request);
+        if (token == null || !jwtUtil.validateToken(token)) {
+            return "redirect:/login";
+        }
+
+        String email = jwtUtil.getEmailFromToken(token);
+        List<Vehiculo> vehiculos = vehiculoService.obtenerVehiculosPorUsuario(email);
+        model.addAttribute("vehiculos", vehiculos);
+
+        return "userDashboard"; // o el nombre de tu plantilla
     }
+
 
     // ✏️ Actualizar un vehículo por ID
     @PutMapping("/editar/{id}")

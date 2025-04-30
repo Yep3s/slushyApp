@@ -5,6 +5,7 @@ import com.example.SlushyApp.Service.VehiculoService;
 import com.example.SlushyApp.Utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,11 +25,22 @@ public class VehiculoController {
 
     // 🚘 Registrar vehículo (asignando email desde token JWT)
     @PostMapping("/registrar")
-    public ResponseEntity<Vehiculo> registrarVehiculo(@Valid @RequestBody Vehiculo vehiculo, HttpServletRequest request) {
-        String email = jwtUtil.getEmailFromToken(extractTokenFromRequest(request));
-        vehiculo.setUsuarioEmail(email); // Asignamos el dueño desde el token
+    public ResponseEntity<?> registrarVehiculo(@Valid @RequestBody Vehiculo vehiculo, HttpServletRequest request) {
+        String token = jwtUtil.extractTokenFromCookie(request);
+
+        if (token == null || token.trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token JWT no encontrado o inválido");
+        }
+
+        if (!jwtUtil.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token JWT inválido");
+        }
+
+        String email = jwtUtil.getEmailFromToken(token);
+        vehiculo.setUsuarioEmail(email);
         return ResponseEntity.ok(vehiculoService.registrarVehiculo(vehiculo));
     }
+
 
     // 📋 Listar vehículos del usuario autenticado
     @GetMapping("/mis-vehiculos")

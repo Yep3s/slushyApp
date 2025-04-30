@@ -7,8 +7,10 @@ import com.example.SlushyApp.Service.EmailService;
 import com.example.SlushyApp.Service.PasswordResetService;
 import com.example.SlushyApp.Service.UsuarioService;
 import com.example.SlushyApp.Utils.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -146,4 +148,17 @@ public class AuthController {
         return ResponseEntity.ok("Contraseña restablecida correctamente.");
 
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<Usuario> obtenerUsuarioDesdeToken(HttpServletRequest request) {
+        String token = jwtUtil.extractTokenFromCookie(request);
+        if (token == null || !jwtUtil.validateToken(token)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String email = jwtUtil.getEmailFromToken(token);
+        Usuario usuario = usuarioService.findByEmail(email);
+        return ResponseEntity.ok(usuario);
+    }
+
 }

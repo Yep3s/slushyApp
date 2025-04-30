@@ -56,8 +56,8 @@
                     <i class="fas fa-user"></i>
                 </div>
                 <div class="user-info">
-                    <h1 class="user-name">Juan Pérez</h1>
-                    <div class="user-email">juan.perez@email.com</div>
+                    <h1 class="user-name">Cargando nombre...</h1>
+                    <div class="user-email">Cargando email...</div>
                     <div class="user-stats">
                         <div class="user-stat">
                             <div class="user-stat-icon">
@@ -554,31 +554,33 @@
         <div class="modal-body">
             <form class="modal-form">
                 <div class="form-group">
+                    <label for="vehicle-plate" class="modal-label">Placa</label>
+                    <input type="text" id="vehicle-plate" class="form-control" placeholder="Ej: ABC123">
+                </div>
+                <div class="form-group">
                     <label for="vehicle-make" class="modal-label">Marca</label>
                     <input type="text" id="vehicle-make" class="form-control" placeholder="Ej: Toyota">
                 </div>
                 <div class="form-group">
-                    <label for="vehicle-model" class="modal-label">Modelo</label>
-                    <input type="text" id="vehicle-model" class="form-control" placeholder="Ej: Corolla">
+                    <label for="vehicle-line" class="modal-label">Linea</label>
+                    <input type="text" id="vehicle-line" class="form-control" placeholder="Ej: Corolla">
                 </div>
                 <div class="form-group">
-                    <label for="vehicle-type" class="modal-label">Tipo</label>
-                    <select id="vehicle-type" class="form-control">
-                        <option value="">Seleccione un tipo</option>
-                        <option value="sedan">Sedán</option>
-                        <option value="suv">SUV</option>
-                        <option value="hatchback">Hatchback</option>
-                        <option value="pickup">Camioneta</option>
-                        <option value="van">Van</option>
-                    </select>
+                    <label for="vehicle-model" class="modal-label">Modelo</label>
+                    <input type="text" id="vehicle-model" class="form-control" placeholder="Ej: 2025">
                 </div>
                 <div class="form-group">
                     <label for="vehicle-color" class="modal-label">Color</label>
                     <input type="text" id="vehicle-color" class="form-control" placeholder="Ej: Blanco">
                 </div>
                 <div class="form-group">
-                    <label for="vehicle-plate" class="modal-label">Placa</label>
-                    <input type="text" id="vehicle-plate" class="form-control" placeholder="Ej: ABC-123">
+                    <label for="vehicle-type" class="modal-label">Tipo</label>
+                    <select id="vehicle-type" class="form-control">
+                        <option value="">Seleccione un tipo</option>
+                        <option value="AUTOMOVIL">Automovil</option>
+                        <option value="CAMIONETA">Camioneta</option>
+                        <option value="MOTO">Moto</option>
+                    </select>
                 </div>
             </form>
         </div>
@@ -1603,12 +1605,7 @@
                 }
             });
         });
-        
-        // Guardar nuevo vehículo
-        document.getElementById('saveVehicleBtn').addEventListener('click', function() {
-            document.getElementById('addVehicleModal').classList.remove('active');
-            showAlert('saveAlert', 'Vehículo agregado correctamente');
-        });
+
         
         // Guardar edición de vehículo
         document.getElementById('saveEditVehicleBtn').addEventListener('click', function() {
@@ -1902,5 +1899,6 @@ document.querySelectorAll('.btn-invite-friend').forEach(btn => {
     });
 });
     </script>
+ <script src="/js/user-dashboard.js"></script>
 </body>
 </html>

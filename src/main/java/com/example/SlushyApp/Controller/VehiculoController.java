@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,7 +73,10 @@ public class VehiculoController {
     // ❌ Eliminar vehículo
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<String> eliminarVehiculo(@PathVariable String id) {
-        vehiculoService.eliminarVehiculo(id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String usuarioEmail = auth.getName(); // Esto asume que el nombre de usuario es el email
+
+        vehiculoService.eliminarVehiculo(id, usuarioEmail);
         return ResponseEntity.ok("Vehículo eliminado correctamente.");
     }
 

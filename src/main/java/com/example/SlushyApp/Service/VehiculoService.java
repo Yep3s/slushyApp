@@ -3,6 +3,7 @@ package com.example.SlushyApp.Service;
 import com.example.SlushyApp.Exceptions.PlacaYaRegistradaException;
 import com.example.SlushyApp.Model.Vehiculo;
 import com.example.SlushyApp.Repository.VehiculoRepository;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,9 +31,17 @@ public class VehiculoService {
     }
 
     // Eliminar vehículo por ID
-    public void eliminarVehiculo(String id) {
+    public void eliminarVehiculo(String id, String emailUsuario) {
+        Vehiculo vehiculo = vehiculoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Vehículo no encontrado"));
+
+        if (!vehiculo.getUsuarioEmail().equals(emailUsuario)) {
+            throw new AccessDeniedException("No puedes eliminar este vehículo.");
+        }
+
         vehiculoRepository.deleteById(id);
     }
+
 
     public Vehiculo actualizarVehiculo(String id, Vehiculo vehiculoActualizado) {
         Vehiculo existente = vehiculoRepository.findById(id)

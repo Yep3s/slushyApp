@@ -126,7 +126,7 @@
                                 <a th:href="@{'/vehiculo/editar/' + ${vehiculo.id}}" class="vehicle-action">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a th:href="@{'/vehiculo/eliminar/' + ${vehiculo.id}}" class="vehicle-action">
+                                <a href="javascript:void(0)" class="vehicle-action eliminar-vehiculo" th:attr="data-id=${vehiculo.id}">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </div>
@@ -1852,5 +1852,7 @@ document.querySelectorAll('.btn-invite-friend').forEach(btn => {
 });
     </script>
  <script src="/js/user-dashboard.js"></script>
+ <script src="/js/delete-vehicle.js"></script>
+
 </body>
 </html>

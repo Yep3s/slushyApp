@@ -126,7 +126,14 @@
                         <div class="vehicle-header">
                             <h3 class="vehicle-title" th:text="${vehiculo.marca} + ' ' + ${vehiculo.linea}">Marca Línea</h3>
                             <div class="vehicle-actions">
-                                <a th:href="@{'/vehiculo/editar/' + ${vehiculo.id}}" class="vehicle-action">
+                                <a href="#" class="vehicle-action edit-vehicle-btn"
+                                   th:attr="data-id=${vehiculo.id},
+                                            data-placa=${vehiculo.placa},
+                                            data-marca=${vehiculo.marca},
+                                            data-linea=${vehiculo.linea},
+                                            data-modelo=${vehiculo.modelo},
+                                            data-color=${vehiculo.color},
+                                            data-tipo=${vehiculo.tipoVehiculo}">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a href="#" class="vehicle-action delete-vehicle-btn" th:attr="data-id=${vehiculo.id}">
@@ -865,30 +872,33 @@
         <div class="modal-body">
             <form class="modal-form">
                 <div class="form-group">
+                    <label for="edit-vehicle-plate" class="modal-label">Placa</label>
+                    <input type="text" id="edit-vehicle-plate" class="form-control" placeholder="Ej: ABC123">
+                </div>
+                <div class="form-group">
                     <label for="edit-vehicle-make" class="modal-label">Marca</label>
-                    <input type="text" id="edit-vehicle-make" class="form-control" value="Toyota">
+                    <input type="text" id="edit-vehicle-make" class="form-control" placeholder="Ej: Toyota">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vehicle-line" class="modal-label">Linea</label>
+                    <input type="text" id="edit-vehicle-line" class="form-control" placeholder="Ej: Corolla">
                 </div>
                 <div class="form-group">
                     <label for="edit-vehicle-model" class="modal-label">Modelo</label>
-                    <input type="text" id="edit-vehicle-model" class="form-control" value="Corolla">
+                    <input type="text" id="edit-vehicle-model" class="form-control" placeholder="Ej: 2025">
+                </div>
+                <div class="form-group">
+                    <label for="edit-vehicle-color" class="modal-label">Color</label>
+                    <input type="text" id="edit-vehicle-color" class="form-control" placeholder="Ej: Blanco">
                 </div>
                 <div class="form-group">
                     <label for="edit-vehicle-type" class="modal-label">Tipo</label>
                     <select id="edit-vehicle-type" class="form-control">
-                        <option value="sedan" selected>Sedán</option>
-                        <option value="suv">SUV</option>
-                        <option value="hatchback">Hatchback</option>
-                        <option value="pickup">Camioneta</option>
-                        <option value="van">Van</option>
+                        <option value="">Seleccione un tipo</option>
+                        <option value="AUTOMOVIL">Automovil</option>
+                        <option value="CAMIONETA">Camioneta</option>
+                        <option value="MOTO">Moto</option>
                     </select>
-                </div>
-                <div class="form-group">
-                    <label for="edit-vehicle-color" class="modal-label">Color</label>
-                    <input type="text" id="edit-vehicle-color" class="form-control" value="Blanco">
-                </div>
-                <div class="form-group">
-                    <label for="edit-vehicle-plate" class="modal-label">Placa</label>
-                    <input type="text" id="edit-vehicle-plate" class="form-control" value="ABC-123">
                 </div>
             </form>
         </div>
@@ -949,7 +959,7 @@
     </div>
 </div>
 <!-- Nuevo tab de Seguimiento -->
-<div class="tab-content" id="tracking-content">
+<div class="tab-content" id="atracking-content">
     <h2 style="margin-bottom: 1.5rem; font-weight: 600;">Seguimiento de Servicios</h2>
     
     <div class="tracking-grid">
@@ -1445,14 +1455,6 @@
         // Abrir modal para agregar vehículo
         document.querySelector('.add-vehicle').addEventListener('click', function() {
             document.getElementById('addVehicleModal').classList.add('active');
-        });
-        
-        // Abrir modal para editar vehículo
-        document.querySelectorAll('.vehicle-action .fa-edit').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.getElementById('editVehicleModal').classList.add('active');
-            });
         });
 
         // Abrir modal para ver historial completo

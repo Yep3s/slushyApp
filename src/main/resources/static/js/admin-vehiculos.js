@@ -7,6 +7,16 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarEstadisticas();
     cargarTablaVehiculosPaginado();
 
+   //Cerrar Modal Automatico
+   function closeModalFunc() {
+       document.getElementById("addVehicleModal").classList.remove("active");
+   }
+
+    //Abrir Modal Agregar Vehiculo
+    document.getElementById("btnAddVehicle").addEventListener("click", () => {
+        document.getElementById("addVehicleModal").classList.add("active");
+    });
+
     //Cerrar modales
     document.querySelectorAll(".modal-close-btn, .modal-close").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -54,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (response.ok) {
             mostrarAlerta("Vehículo agregado correctamente");
             closeModalFunc();
+            this.reset();
             cargarEstadisticas();
             cargarTablaVehiculosPaginado(paginaActual, tipoSeleccionado);
         }

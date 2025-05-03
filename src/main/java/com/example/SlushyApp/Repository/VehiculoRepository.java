@@ -15,5 +15,12 @@ public interface VehiculoRepository extends MongoRepository<Vehiculo, String> {
 
     Vehiculo findByPlaca(String placa);
 
+    //cosas nuevas
+
+    // 🔍 Buscar por placa que contenga una cadena (insensible a mayúsculas)
+    List<Vehiculo> findByPlacaContainingIgnoreCase(String placa);
+
+    // 🔍 Filtrar por tipo de vehículo
+    List<Vehiculo> findByTipoVehiculo(String tipoVehiculo);
 
 }

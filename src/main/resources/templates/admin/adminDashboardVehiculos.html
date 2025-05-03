@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Vehículos - Slushy App</title>
+    <link rel="stylesheet" href="/css/vehiculos-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">G</div>
+                    <span class="logo-text">SLUSHY</span>
+                </div>
+                
+                <div class="header-actions">
+                    <a href="#" class="btn-icon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </header>
+
+<!-- Admin Sidebar -->
+<aside class="admin-sidebar" id="adminSidebar">
+    <nav class="sidebar-menu">
+        <a href="/admin/dashboard" class="sidebar-link">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="/admin/dashboard/vehiculos" class="sidebar-link active">
+            <i class="fas fa-car"></i>
+            <span>Vehículos</span>
+        </a>
+        <a href="Clientes/clientes.html" class="sidebar-link">
+            <i class="fas fa-users"></i>
+            <span>Clientes</span>
+        </a>
+        <a href="Empleados/empleados.html" class="sidebar-link">
+            <i class="fas fa-user-tie"></i>
+            <span>Empleados</span>
+        </a>
+        <a href="Reservas/reservas.html" class="sidebar-link">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Reservas</span>
+        </a>
+        <a href="Reportes/reportes.html" class="sidebar-link">
+            <i class="fas fa-chart-line"></i>
+            <span>Reportes</span>
+        </a>
+        <a href="Configuracion/configuracion.html" class="sidebar-link">
+            <i class="fas fa-cog"></i>
+            <span>Configuración</span>
+        </a>
+        <a href="/logoutSlushy" class="sidebar-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Salir</span>
+        </a>
+    </nav>
+</aside>
+
+    <!-- Admin Content -->
+    <main class="admin-content">
+        <div class="page-header">
+            <h1>Gestión de Vehículos</h1>
+            <button class="btn btn-primary" id="btnAddVehicle">
+                <i class="fas fa-plus"></i> Agregar Vehículo
+            </button>
+        </div>
+        
+        <!-- Filters and Search -->
+        <div class="filters-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar vehículo...">
+            </div>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="filterType">Tipo:</label>
+                    <select id="filterType" class="filter-select">
+                        <option value="">Seleccione un tipo</option>
+                        <option value="AUTOMOVIL">Automovil</option>
+                        <option value="CAMIONETA">Camioneta</option>
+                        <option value="MOTO">Moto</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Vehicle Stats -->
+        <div class="dashboard-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Total Vehículos</div>
+                    <div class="stat-icon primary">
+                        <i class="fas fa-car"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="total-vehiculos">0</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Automovil</div>
+                    <div class="stat-icon success">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="total-automovil">0</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Camioneta</div>
+                    <div class="stat-icon warning">
+                        <i class="fas fa-truck-pickup"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="total-camioneta">0</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-title">Motos</div>
+                    <div class="stat-icon info">
+                        <i class="fas fa-motorcycle"></i>
+                    </div>
+                </div>
+                <div class="stat-value" id="total-moto">0</div>
+            </div>
+        </div>
+        
+        <!-- Vehicles Table -->
+        <div class="table-container">
+            <div class="chart-header">
+                <h2 class="chart-title">Lista de Vehículos</h2>
+                <div class="chart-actions">
+                    <div class="chart-filter active">Todos</div>
+                    <div class="chart-filter">Automovil</div>
+                    <div class="chart-filter">Camioneta</div>
+                    <div class="chart-filter">Moto</div>
+                </div>
+            </div>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Placa</th>
+                        <th>Marca</th>
+                        <th>Linea</th>
+                        <th>Modelo</th>
+                        <th>Color</th>
+                        <th>Tipo</th>
+                        <th>Correo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vehiculo : ${vehiculos}">
+                    <td th:text="${vehiculo.id}"></td>
+                    <td th:text="${vehiculo.placa}"></td>
+                    <td th:text="${vehiculo.marca}"></td>
+                    <td th:text="${vehiculo.linea}"></td>
+                    <td th:text="${vehiculo.modelo}"></td>
+                    <td th:text="${vehiculo.color}"></td>
+                    <td th:text="${vehiculo.tipoVehiculo}"></td>
+                    <td th:text="${vehiculo.usuarioEmail}"></td>
+                    <td>
+                        <div class="table-actions">
+                            <a href="#" class="table-action edit-btn" title="Editar"
+                               th:attr="data-id=${vehiculo.id}"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="table-action delete-btn" title="Eliminar"
+                               th:attr="data-id=${vehiculo.id}"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            
+            <div class="pagination">
+                <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <span class="pagination-ellipsis">...</span>
+                <button class="pagination-btn">10</button>
+                <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+        
+        <!-- Add Vehicle Modal -->
+        <div class="modal" id="addVehicleModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Agregar Nuevo Vehículo</h2>
+                    <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="vehicleForm">
+                        <div class="form-group">
+                            <label for="vehicle-plate" class="modal-label">Placa</label>
+                            <input type="text" id="vehicle-plate" class="form-control" placeholder="Ej: ABC123">
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-make" class="modal-label">Marca</label>
+                            <input type="text" id="vehicle-make" class="form-control" placeholder="Ej: Toyota">
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-line" class="modal-label">Linea</label>
+                            <input type="text" id="vehicle-line" class="form-control" placeholder="Ej: Corolla">
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-model" class="modal-label">Modelo</label>
+                            <input type="text" id="vehicle-model" class="form-control" placeholder="Ej: 2025">
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-color" class="modal-label">Color</label>
+                            <input type="text" id="vehicle-color" class="form-control" placeholder="Ej: Blanco">
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-type" class="modal-label">Tipo</label>
+                            <select id="vehicle-type" class="form-control">
+                                <option value="">Seleccione un tipo</option>
+                                <option value="AUTOMOVIL">Automovil</option>
+                                <option value="CAMIONETA">Camioneta</option>
+                                <option value="MOTO">Moto</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehicle-email" class="modal-label">Email</label>
+                            <input type="text" id="vehicle-email" class="form-control" placeholder="Ej: hola@example.com">
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelBtn">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Vehículo</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Editar -->
+        <div class="modal" id="editVehicleModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Editar Vehículo</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="modal-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="edit-vehicle-plate" class="modal-label">Placa</label>
+                                <input type="text" id="edit-vehicle-plate" class="form-control" placeholder="Ej: ABC123">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-vehicle-make" class="modal-label">Marca</label>
+                                <input type="text" id="edit-vehicle-make" class="form-control" placeholder="Ej: Toyota">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-vehicle-line" class="modal-label">Linea</label>
+                                <input type="text" id="edit-vehicle-line" class="form-control" placeholder="Ej: Corolla">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-vehicle-model" class="modal-label">Modelo</label>
+                                <input type="text" id="edit-vehicle-model" class="form-control" placeholder="Ej: 2025">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-vehicle-color" class="modal-label">Color</label>
+                                <input type="text" id="edit-vehicle-color" class="form-control" placeholder="Ej: Blanco">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-vehicle-type" class="modal-label">Tipo</label>
+                                <select id="edit-vehicle-type" class="form-control">
+                                    <option value="">Seleccione un tipo</option>
+                                    <option value="AUTOMOVIL">Automovil</option>
+                                    <option value="CAMIONETA">Camioneta</option>
+                                    <option value="MOTO">Moto</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-vehicle-email" class="modal-label">Email</label>
+                                <input type="text" id="edit-vehicle-email" class="form-control" placeholder="Ej: hola@example.com">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline modal-close-btn">Cancelar</button>
+                    <button class="btn btn-primary" id="saveVehicleChanges">Guardar Cambios</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal para Eliminar -->
+        <div class="modal" id="deleteVehicleModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Eliminar Vehículo</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro que deseas eliminar este vehículo? Esta acción no se puede deshacer.</p>
+                    <div class="vehicle-to-delete">
+                        <strong>Vehículo:</strong> Toyota Corolla (ABC-123)
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline modal-close-btn">Cancelar</button>
+                    <button class="btn btn-primary" id="eliminarVehiculo">Eliminar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerta de guardado -->
+        <div class="alert-notification" id="saveVehicleAlert">
+            <div class="alert-content">
+                <i class="fas fa-check-circle alert-icon"></i>
+                <span class="alert-text">Los cambios se guardaron correctamente</span>
+            </div>
+        </div>
+        <!-- Alerta de eliminación (nueva) -->
+        <div class="alert-notification alert-danger" id="deleteVehicleAlert">
+            <div class="alert-content">
+                <i class="fas fa-trash-alt alert-icon"></i>
+                <span class="alert-text">Vehículo eliminado correctamente</span>
+            </div>
+        </div>
+
+    </main>
+    <script src="/js/admin-vehiculos.js"></script>
+</body>
+</html>

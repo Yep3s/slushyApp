@@ -91,6 +91,13 @@ public class VehiculoService {
         return vehiculoRepository.findByTipoVehiculo(tipo);
     }
 
+    public List<Vehiculo> buscarPorPlacaOEmail(String query) {
+        return vehiculoRepository.findByPlacaContainingIgnoreCaseOrUsuarioEmailContainingIgnoreCase(query, query);
+    }
+
+
+
+
 
 
 

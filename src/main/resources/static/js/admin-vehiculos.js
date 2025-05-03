@@ -7,6 +7,49 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarEstadisticas();
     cargarTablaVehiculosPaginado();
 
+    //Funcion para buscar en la searchBox
+
+    document.querySelector(".search-box input").addEventListener("input", function () {
+        const query = this.value.trim();
+
+        if (query === "") {
+            cargarTablaVehiculosPaginado(); // si está vacío, mostrar todo
+            return;
+        }
+
+        fetch(`/admin/vehiculos/buscar-multiple?query=${encodeURIComponent(query)}`)
+            .then(res => res.json())
+            .then(data => {
+                const tbody = document.querySelector(".table tbody");
+                tbody.innerHTML = "";
+
+                data.forEach(v => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${v.id}</td>
+                        <td>${v.placa}</td>
+                        <td>${v.marca}</td>
+                        <td>${v.linea}</td>
+                        <td>${v.modelo}</td>
+                        <td>${v.color}</td>
+                        <td>${v.tipoVehiculo}</td>
+                        <td>${v.usuarioEmail}</td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="#" class="table-action edit-btn" data-id="${v.id}"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="table-action delete-btn" data-id="${v.id}"><i class="fas fa-trash"></i></a>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                // 🛠️ Reasignar eventos a los nuevos botones
+                asignarEventosTabla();
+            });
+    });
+
+
    //Cerrar Modal Automatico
    function closeModalFunc() {
        document.getElementById("addVehicleModal").classList.remove("active");
@@ -215,5 +258,41 @@ function agregarEventosBotones() {
         });
     });
 }
+
+function asignarEventosTabla() {
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const row = btn.closest("tr");
+            idVehiculoAEditar = btn.getAttribute("data-id");
+
+            document.getElementById("edit-vehicle-plate").value = row.children[1].textContent;
+            document.getElementById("edit-vehicle-make").value = row.children[2].textContent;
+            document.getElementById("edit-vehicle-line").value = row.children[3].textContent;
+            document.getElementById("edit-vehicle-model").value = row.children[4].textContent;
+            document.getElementById("edit-vehicle-color").value = row.children[5].textContent;
+            document.getElementById("edit-vehicle-type").value = row.children[6].textContent;
+            document.getElementById("edit-vehicle-email").value = row.children[7].textContent;
+
+            document.getElementById("editVehicleModal").classList.add("active");
+        });
+    });
+
+    document.querySelectorAll(".delete-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            idVehiculoAEliminar = btn.getAttribute("data-id");
+
+            const row = btn.closest("tr");
+            const marca = row.children[2].textContent;
+            const linea = row.children[3].textContent;
+            const placa = row.children[1].textContent;
+
+            document.querySelector(".vehicle-to-delete").innerHTML = `<strong>Vehículo:</strong> ${marca} ${linea} (${placa})`;
+            document.getElementById("deleteVehicleModal").classList.add("active");
+        });
+    });
+}
+
 
 

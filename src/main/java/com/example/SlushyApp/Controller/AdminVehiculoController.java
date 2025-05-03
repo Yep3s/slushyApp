@@ -101,5 +101,13 @@ public class AdminVehiculoController {
         return ResponseEntity.ok(respuesta);
     }
 
+    // Buscar por placa o email
+    @GetMapping("/buscar-multiple")
+    public ResponseEntity<List<Vehiculo>> buscarPorPlacaOEmail(@RequestParam String query) {
+        List<Vehiculo> resultados = vehiculoService.buscarPorPlacaOEmail(query);
+        return ResponseEntity.ok(resultados);
+    }
+
+
 
 }

@@ -60,7 +60,40 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 // Cerrar modal y mostrar alerta
                 document.getElementById('editVehicleModal').classList.remove('active');
+
+                // Actualizar los datos visualmente en la tarjeta del vehículo
+                const card = document.querySelector(`.vehicle-card[data-id="${vehiculoIdParaEditar}"]`);
+                if (card) {
+                    // Título (marca + línea)
+                    const title = card.querySelector('.vehicle-title');
+                    if (title) title.textContent = `${marca} ${linea}`;
+
+                    // Tipo
+                    const tipoSpan = card.querySelector('.vehicle-info-item:nth-child(1) span');
+                    if (tipoSpan) tipoSpan.textContent = tipo;
+
+                    // Color
+                    const colorSpan = card.querySelector('.vehicle-info-item:nth-child(2) span');
+                    if (colorSpan) colorSpan.textContent = color;
+
+                    // Placa
+                    const placaSpan = card.querySelector('.vehicle-info-item:nth-child(3) span');
+                    if (placaSpan) placaSpan.textContent = placa;
+
+                    // Actualizar atributos data-* para futuras ediciones
+                    const editBtn = card.querySelector('.edit-vehicle-btn');
+                    if (editBtn) {
+                        editBtn.dataset.placa = placa;
+                        editBtn.dataset.marca = marca;
+                        editBtn.dataset.linea = linea;
+                        editBtn.dataset.modelo = modelo;
+                        editBtn.dataset.color = color;
+                        editBtn.dataset.tipo = tipo;
+                    }
+                }
+
                 showAlert('editAlert', 'Vehículo actualizado correctamente');
+
 
                 // Puedes actualizar los datos visualmente aquí si lo deseas
                 // location.reload(); // o actualizar dinámicamente si prefieres
@@ -70,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
         })
         .catch(error => {
             console.error('Error al actualizar vehículo:', error);
-            alert("Error al actualizar el vehículo.");
         });
     });
 

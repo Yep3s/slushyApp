@@ -33,11 +33,9 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
 
         String token = jwtUtil.extractTokenFromCookie(request);
-        System.out.println(">>> TOKEN que se usará para getEmailFromToken(): " + token);
 
         if (token != null && jwtUtil.validateToken(token)) {
             String email = jwtUtil.getEmailFromToken(token);
-            System.out.println(">>> EMAIL extraído del token: " + email);
         } else {
             System.out.println(">>> Token inválido o nulo");
         }
@@ -48,7 +46,6 @@ public class JwtFilter extends OncePerRequestFilter {
             for (Cookie cookie : request.getCookies()) {
                 if ("jwt".equals(cookie.getName())) {
                     token = cookie.getValue();
-                    System.out.println("Token JWT extraído de cookie: " + token); // 👈 esto debe imprimir el token
                     break;
                 }
             }

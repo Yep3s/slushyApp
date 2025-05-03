@@ -21,6 +21,26 @@ document.querySelectorAll(".chart-filter").forEach(btn => {
     });
 });
 
+// admin-clientes.js (continuación o al final del archivo)
+
+const inputBusqueda = document.querySelector(".search-box input");
+
+inputBusqueda.addEventListener("input", () => {
+    const termino = inputBusqueda.value.trim().toLowerCase();
+    filtrarClientes(termino);
+});
+
+function filtrarClientes(termino) {
+    const filas = document.querySelectorAll(".table tbody tr");
+
+    filas.forEach(fila => {
+        const email = fila.querySelector(".client-email").textContent.toLowerCase();
+        const telefono = fila.children[2].textContent.toLowerCase();
+
+        const coincide = email.includes(termino) || telefono.includes(termino);
+        fila.style.display = coincide ? "" : "none";
+    });
+}
 
 function cargarEstadisticasClientes() {
     fetch("/admin/clientes/estadisticas")

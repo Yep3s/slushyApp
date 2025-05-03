@@ -65,8 +65,6 @@ public class AdminClientesController {
         return ResponseEntity.ok(respuesta);
     }
 
-
-
     @GetMapping("/todos")
     public List<Usuario> obtenerTodosLosClientes() {
         return usuarioRepository.findAll();

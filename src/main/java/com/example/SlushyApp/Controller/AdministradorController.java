@@ -1,5 +1,7 @@
-package com.example.SlushyApp.Model;
+package com.example.SlushyApp.Controller;
 
+import com.example.SlushyApp.Model.Rol;
+import com.example.SlushyApp.Model.Usuario;
 import com.example.SlushyApp.Service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

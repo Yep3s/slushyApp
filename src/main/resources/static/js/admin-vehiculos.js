@@ -49,6 +49,12 @@ document.addEventListener("DOMContentLoaded", () => {
             });
     });
 
+    //side bar responsive
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                const sidebar = document.getElementById('adminSidebar');
+                sidebar.classList.toggle('active');
+            });
+
 
    //Cerrar Modal Automatico
    function closeModalFunc() {

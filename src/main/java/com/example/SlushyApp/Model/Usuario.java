@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +44,11 @@ public class Usuario {
     private String telefono;
 
     private Set<Rol> roles;
+
+    private Membresia membresia = Membresia.STANDARD;
+
+    private LocalDate fechaRegistro = LocalDate.now();
+
 
     public String getId() {
         return id;
@@ -108,4 +114,19 @@ public class Usuario {
         this.roles = roles;
     }
 
+    public Membresia getMembresia() {
+        return membresia;
+    }
+
+    public void setMembresia(Membresia membresia) {
+        this.membresia = membresia;
+    }
+
+    public LocalDate getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDate fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 }

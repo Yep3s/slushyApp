@@ -6,6 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+let membresiaSeleccionada = ""; // "", "VIP", "STANDARD"
+
+    // Filtro por tipo
+document.querySelectorAll(".chart-filter").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".chart-filter").forEach(f => f.classList.remove("active"));
+        btn.classList.add("active");
+
+        const tipo = btn.textContent.trim().toUpperCase();
+        membresiaSeleccionada = (tipo === "TODOS") ? "" : tipo;
+
+        cargarTablaClientes(1); // ¡Llama la función correcta de clientes!
+    });
+});
+
+
 function cargarEstadisticasClientes() {
     fetch("/admin/clientes/estadisticas")
         .then(res => res.json())
@@ -61,6 +77,18 @@ function cargarEstadisticasClientes() {
     // Botones de cierre
     const closeButtons = document.querySelectorAll('.modal-close');
 
+    document.querySelectorAll(".chart-filter").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".chart-filter").forEach(f => f.classList.remove("active"));
+            btn.classList.add("active");
+
+            const tipo = btn.textContent.trim().toUpperCase();
+            membresiaSeleccionada = (tipo === "TODOS") ? "" : tipo;
+
+            cargarTablaClientes(1);
+        });
+    });
+
     // Abrir modales desde la tabla
     document.querySelectorAll('.table-action[title="Ver detalles"]').forEach(btn => {
         btn.addEventListener('click', function(e) {
@@ -111,48 +139,51 @@ function cargarEstadisticasClientes() {
 
     let paginaActual = 1;
 
-    function cargarTablaClientes(pagina = 1) {
-        fetch(`/admin/clientes/pagina?pagina=${pagina}`)
-            .then(res => res.json())
-            .then(data => {
-                const tbody = document.querySelector(".table tbody");
-                tbody.innerHTML = "";
+function cargarTablaClientes(pagina = 1) {
+    const query = `/admin/clientes/pagina?pagina=${pagina}&membresia=${membresiaSeleccionada}`;
 
-                data.clientes.forEach(c => {
-                    const avatar = `${c.nombre[0] || ''}${c.apellido[0] || ''}`.toUpperCase();
-                    const nombreCompleto = `${c.nombre} ${c.apellido}`;
-                    const email = c.email;
-                    const telefono = c.telefono || "";
-                    const membresia = c.membresia || "STANDARD";
+    fetch(query)
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.querySelector(".table tbody");
+            tbody.innerHTML = "";
 
-                    const fila = document.createElement("tr");
-                    fila.innerHTML = `
-                        <td>${c.id}</td>
-                        <td>
-                            <div class="client-info">
-                                <div class="client-avatar">${avatar}</div>
-                                <div>
-                                    <div class="client-name">${nombreCompleto}</div>
-                                    <div class="client-email">${email}</div>
-                                </div>
+            data.clientes.forEach(c => {
+                const avatar = `${c.nombre[0] || ''}${c.apellido[0] || ''}`.toUpperCase();
+                const nombreCompleto = `${c.nombre} ${c.apellido}`;
+                const email = c.email;
+                const telefono = c.telefono || "";
+                const membresia = c.membresia || "STANDARD";
+
+                const fila = document.createElement("tr");
+                fila.innerHTML = `
+                    <td>${c.id}</td>
+                    <td>
+                        <div class="client-info">
+                            <div class="client-avatar">${avatar}</div>
+                            <div>
+                                <div class="client-name">${nombreCompleto}</div>
+                                <div class="client-email">${email}</div>
                             </div>
-                        </td>
-                        <td>${telefono}</td>
-                        <td><span class="membership-badge ${membresia.toLowerCase()}">${membresia}</span></td>
-                        <td>—</td>
-                        <td>
-                            <div class="table-actions">
-                                <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
-                                <a href="#" class="table-action" title="Eliminar"><i class="fas fa-trash"></i></a>
-                            </div>
-                        </td>
-                    `;
-                    tbody.appendChild(fila);
-                });
-
-                actualizarPaginacion(data.totalPaginas, pagina);
+                        </div>
+                    </td>
+                    <td>${telefono}</td>
+                    <td><span class="membership-badge ${membresia.toLowerCase()}">${membresia}</span></td>
+                    <td>—</td>
+                    <td>
+                        <div class="table-actions">
+                            <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="table-action" title="Eliminar"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(fila);
             });
-    }
+
+            actualizarPaginacion(data.totalPaginas, pagina);
+        });
+}
+
 
     function actualizarPaginacion(totalPaginas, paginaActual) {
         const paginacion = document.querySelector(".pagination");

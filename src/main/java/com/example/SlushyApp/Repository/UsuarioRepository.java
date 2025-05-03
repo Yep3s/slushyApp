@@ -2,6 +2,8 @@ package com.example.SlushyApp.Repository;
 
 import com.example.SlushyApp.Model.Membresia;
 import com.example.SlushyApp.Model.Usuario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,6 +21,9 @@ public interface UsuarioRepository extends MongoRepository<Usuario,String> {
     long countByMembresia(Membresia membresia);
 
     long countByFechaRegistroAfter(LocalDate date);
+
+    Page<Usuario> findByMembresia(Membresia membresia, Pageable pageable);
+
 
 
 }

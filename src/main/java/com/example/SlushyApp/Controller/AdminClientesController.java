@@ -45,17 +45,26 @@ public class AdminClientesController {
     @GetMapping("/pagina")
     public ResponseEntity<Map<String, Object>> obtenerClientesPaginados(
             @RequestParam(defaultValue = "1") int pagina,
-            @RequestParam(defaultValue = "6") int tamaño) {
+            @RequestParam(defaultValue = "6") int tamaño,
+            @RequestParam(required = false) String membresia) {
 
         Pageable pageable = PageRequest.of(pagina - 1, tamaño);
-        Page<Usuario> paginaUsuarios = usuarioRepository.findAll(pageable);
+        Page<Usuario> paginaUsuarios;
+
+        if (membresia != null && !membresia.isEmpty()) {
+            paginaUsuarios = usuarioRepository.findByMembresia(Membresia.valueOf(membresia.toUpperCase()), pageable);
+        } else {
+            paginaUsuarios = usuarioRepository.findAll(pageable);
+        }
 
         Map<String, Object> respuesta = new HashMap<>();
-        respuesta.put("clientes", paginaUsuarios.getContent());
+        respuesta.put("clientes", paginaUsuarios.getContent()); // <--- debe ser "clientes" (NO "usuarios")
         respuesta.put("totalPaginas", paginaUsuarios.getTotalPages());
+
 
         return ResponseEntity.ok(respuesta);
     }
+
 
 
     @GetMapping("/todos")

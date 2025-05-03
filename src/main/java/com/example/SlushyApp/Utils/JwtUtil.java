@@ -56,6 +56,10 @@ public class JwtUtil {
 
     // Obtener email desde el token
     public String getEmailFromToken(String token) {
+        if (token == null || token.trim().isEmpty()) {
+            throw new IllegalArgumentException("El token JWT está vacío o es null");
+        }
+
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -64,8 +68,13 @@ public class JwtUtil {
                 .getSubject();
     }
 
+
     // ✅ Obtener roles desde el token
     public Object getRolesFromToken(String token) {
+        if (token == null || token.trim().isEmpty()) {
+            throw new IllegalArgumentException("El token JWT está vacío o es null");
+        }
+
         return Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -73,6 +82,7 @@ public class JwtUtil {
                 .getBody()
                 .get("roles");
     }
+
 
     public String extractTokenFromCookie(HttpServletRequest request) {
         if (request.getCookies() != null) {

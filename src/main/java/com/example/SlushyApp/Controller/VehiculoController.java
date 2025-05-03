@@ -63,8 +63,14 @@ public class VehiculoController {
 
     // ✏️ Actualizar un vehículo por ID
     @PutMapping("/editar/{id}")
-    public ResponseEntity<Vehiculo> actualizarVehiculo(@PathVariable String id, @Valid @RequestBody Vehiculo vehiculoActualizado, HttpServletRequest request) {
-        String email = jwtUtil.getEmailFromToken(extractTokenFromRequest(request));
+    public ResponseEntity<Vehiculo> actualizarVehiculo(
+            @PathVariable String id,
+            @Valid @RequestBody Vehiculo vehiculoActualizado,
+            HttpServletRequest request) {
+
+        String token = jwtUtil.extractTokenFromCookie(request);
+        String email = jwtUtil.getEmailFromToken(token);
+
         vehiculoActualizado.setUsuarioEmail(email); // Mantén el email del dueño actual
         return ResponseEntity.ok(vehiculoService.actualizarVehiculo(id, vehiculoActualizado));
     }

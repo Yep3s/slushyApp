@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`/user/vehiculos/editar/${vehiculoIdParaEditar}`, {
             method: 'PUT',
             headers: {
-                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
                 'Content-Type': 'application/json'
             },
+            credentials: 'include', // 👈 Esto incluye la cookie JWT en la petición
             body: JSON.stringify({
                 placa: placa,
                 marca: marca,
@@ -98,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(`/user/vehiculos/eliminar/${vehiculoIdParaEliminar}`, {
                 method: 'DELETE',
                 headers: {
-                    'Authorization': 'Bearer ' + localStorage.getItem('jwtToken'),
                     'Content-Type': 'application/json'
                 }
             })

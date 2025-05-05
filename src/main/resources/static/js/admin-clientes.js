@@ -192,12 +192,66 @@ function cargarTablaClientes(pagina = 1) {
                     <td>—</td>
                     <td>
                         <div class="table-actions">
+                            <a href="#" class="table-action" title="Ver Cliente"><i class="fas fa-eye"></i></a>
                             <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
                             <a href="#" class="table-action" title="Eliminar"><i class="fas fa-trash"></i></a>
                         </div>
                     </td>
                 `;
                 tbody.appendChild(fila);
+
+                // Agregar listener al botón "Ver Cliente"
+                const verBtn = fila.querySelector('.table-action[title="Ver Cliente"]');
+                verBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    fetch(`/admin/clientes/detalle?email=${encodeURIComponent(email)}`)
+                        .then(res => res.json())
+                        .then(data => {
+                            const u = data.usuario;
+                            document.getElementById("client-detail-title").textContent = `Historial de Servicios - ${u.nombre} ${u.apellido}`;
+                            document.getElementById("client-name").textContent = `${u.nombre} ${u.apellido}`;
+                            document.getElementById("client-email").textContent = u.email;
+                            document.getElementById("client-phone").textContent = u.telefono || "No registrado";
+                            document.getElementById("client-membership").textContent = u.membresia;
+                            document.getElementById("client-membership").className = `membership-badge ${u.membresia.toLowerCase()}`;
+                            document.getElementById("client-since").textContent = new Date(u.fechaRegistro).toLocaleDateString("es-CO");
+
+                            const vehiculosContainer = document.getElementById("client-vehicles");
+                            vehiculosContainer.innerHTML = "";
+                            data.vehiculos.forEach(v => {
+                                const card = document.createElement("div");
+                                card.classList.add("vehicle-card");
+                                card.innerHTML = `
+                                    <div class="vehicle-card-header">
+                                        <h5>${v.marca} ${v.linea}</h5>
+                                        <span class="vehicle-year">${v.modelo}</span>
+                                    </div>
+                                    <div class="vehicle-details">
+                                        <span><i class="fas fa-palette"></i> ${v.color}</span>
+                                        <span><i class="fas fa-tag"></i> ${v.placa}</span>
+                                    </div>
+                                `;
+                                vehiculosContainer.appendChild(card);
+                            });
+
+                            const serviciosBody = document.getElementById("client-services");
+                            serviciosBody.innerHTML = "";
+                            data.reservas.forEach(r => {
+                                const row = document.createElement("tr");
+                                row.innerHTML = `
+                                    <td>${new Date(r.fechaReserva).toLocaleDateString("es-CO")}</td>
+                                    <td>${r.servicioNombre}</td>
+                                    <td>${r.placaVehiculo}</td>
+                                    <td>$${r.monto || "—"}</td>
+                                    <td><span class="status-badge status-${r.estado.toLowerCase()}">${r.estado}</span></td>
+                                `;
+                                serviciosBody.appendChild(row);
+                            });
+
+                        })
+                        .catch(err => console.error("Error al cargar detalle del cliente:", err));
+                });
+
             });
 
             actualizarPaginacion(data.totalPaginas, pagina);
@@ -220,8 +274,6 @@ function cargarTablaClientes(pagina = 1) {
             paginacion.appendChild(btn);
         }
     }
-
-
 
     // Mostrar alertas
     function showAlert(alertId) {

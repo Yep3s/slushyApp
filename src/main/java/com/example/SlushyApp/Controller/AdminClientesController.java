@@ -1,7 +1,11 @@
 package com.example.SlushyApp.Controller;
 import com.example.SlushyApp.Model.Membresia;
+import com.example.SlushyApp.Model.Reserva;
 import com.example.SlushyApp.Model.Usuario;
+import com.example.SlushyApp.Model.Vehiculo;
+import com.example.SlushyApp.Repository.ReservaRepository;
 import com.example.SlushyApp.Repository.UsuarioRepository;
+import com.example.SlushyApp.Repository.VehiculoRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,15 +19,22 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin/clientes")
 public class AdminClientesController {
 
     private final UsuarioRepository usuarioRepository;
+    private final VehiculoRepository vehiculoRepository;
+    private final ReservaRepository reservaRepository;
 
-    public AdminClientesController(UsuarioRepository usuarioRepository) {
+    public AdminClientesController(UsuarioRepository usuarioRepository,
+                                           VehiculoRepository vehiculoRepository,
+                                           ReservaRepository reservaRepository) {
         this.usuarioRepository = usuarioRepository;
+        this.vehiculoRepository = vehiculoRepository;
+        this.reservaRepository = reservaRepository;
     }
 
     @GetMapping("/estadisticas")
@@ -69,5 +80,22 @@ public class AdminClientesController {
     public List<Usuario> obtenerTodosLosClientes() {
         return usuarioRepository.findAll();
     }
+
+    @GetMapping("/detalle")
+    public ResponseEntity<?> obtenerDetalleCliente(@RequestParam String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario == null) return ResponseEntity.notFound().build();
+
+        List<Vehiculo> vehiculos = vehiculoRepository.findByUsuarioEmail(email);
+        List<Reserva> reservas = reservaRepository.findByUsuarioEmailOrderByFechaReservaDesc(email);
+
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("usuario", usuario);
+        respuesta.put("vehiculos", vehiculos);
+        respuesta.put("reservas", reservas);
+
+        return ResponseEntity.ok(respuesta);
+    }
+
 
 }

@@ -18,5 +18,8 @@ public interface ReservaRepository extends MongoRepository<Reserva, String> {
 
     List<Reserva> findByPlacaVehiculoIn(List<String> placas);
 
+    List<Reserva> findByUsuarioEmailOrderByFechaReservaDesc(String email);
+
+
 
 }

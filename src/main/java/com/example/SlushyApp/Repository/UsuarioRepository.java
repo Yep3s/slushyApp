@@ -25,5 +25,4 @@ public interface UsuarioRepository extends MongoRepository<Usuario,String> {
     Page<Usuario> findByMembresia(Membresia membresia, Pageable pageable);
 
 
-
 }

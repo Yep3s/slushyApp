@@ -31,6 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     document.getElementById("deleteClientModal").classList.remove("show");
                     showAlert("deleteAlert");
                     cargarTablaClientes(); // Refrescar tabla
+                    cargarEstadisticasClientes();      // ✅ Refresca los stats
+
                 })
                 .catch(err => {
                     console.error("Error al eliminar cliente:", err);

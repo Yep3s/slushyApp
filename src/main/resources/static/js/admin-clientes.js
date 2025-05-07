@@ -6,6 +6,70 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+// Función para abrir el modal de edición con los datos del cliente
+document.addEventListener("click", function (e) {
+    if (e.target.closest('.table-action[title="Editar"]')) {
+        e.preventDefault();
+        const row = e.target.closest("tr");
+        const email = row.querySelector(".client-email").textContent;
+
+        fetch(`/admin/clientes/detalle?email=${encodeURIComponent(email)}`)
+            .then(res => res.json())
+            .then(data => {
+                const u = data.usuario;
+
+                // Llenar los campos del modal
+                document.getElementById("editNombre").value = u.nombre;
+                document.getElementById("editApellido").value = u.apellido;
+                document.getElementById("editEmail").value = u.email;
+                document.getElementById("editCedula").value = u.cedula || "";
+                document.getElementById("editTelefono").value = u.telefono || "";
+                document.getElementById("editMembresia").value = u.membresia;
+
+                // Mostrar el modal
+                document.getElementById("editClientModal").classList.add("show");
+            })
+            .catch(err => console.error("Error al cargar datos del cliente para edición:", err));
+    }
+});
+
+// Envío del formulario de edición
+document.getElementById("editClientForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const clienteEditado = {
+        nombre: document.getElementById("editNombre").value,
+        apellido: document.getElementById("editApellido").value,
+        email: document.getElementById("editEmail").value,
+        cedula: document.getElementById("editCedula").value,
+        telefono: document.getElementById("editTelefono").value,
+        membresia: document.getElementById("editMembresia").value
+    };
+
+    fetch("/admin/clientes/editar", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(clienteEditado)
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Error al guardar cambios");
+        return res.text(); // ⚠️ usa text en lugar de .json()
+    })
+    .then(() => {
+        document.getElementById("editClientModal").classList.remove("show");
+        showAlert("saveAlert");
+        cargarTablaClientes();
+    })
+    .catch(err => {
+        console.error("Error al editar cliente:", err);
+        alert("Hubo un problema al guardar los cambios");
+    });
+});
+
+
+
 let membresiaSeleccionada = ""; // "", "VIP", "STANDARD"
 
     // Filtro por tipo
@@ -144,13 +208,6 @@ function cargarEstadisticasClientes() {
         if (e.target === deleteModal) deleteModal.classList.remove('show');
     });
 
-    // Formulario de edición
-    document.getElementById('editClientForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        editModal.classList.remove('show');
-        showAlert('saveAlert');
-    });
-
     // Confirmar eliminación
     document.getElementById('confirmDelete').addEventListener('click', function() {
         deleteModal.classList.remove('show');
@@ -192,9 +249,9 @@ function cargarTablaClientes(pagina = 1) {
                     <td>—</td>
                     <td>
                         <div class="table-actions">
-                            <a href="#" class="table-action" title="Ver Cliente"><i class="fas fa-eye"></i></a>
-                            <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
-                            <a href="#" class="table-action" title="Eliminar"><i class="fas fa-trash"></i></a>
+                            <a href="#" class="table-action view-btn" data-email="${email}" title="Ver Cliente"><i class="fas fa-eye"></i></a>
+                            <a href="#" class="table-action edit-btn" data-email="${email}" title="Editar"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="table-action delete-btn" data-email="${email}" title="Eliminar"><i class="fas fa-trash"></i></a>
                         </div>
                     </td>
                 `;
@@ -274,6 +331,16 @@ function cargarTablaClientes(pagina = 1) {
             paginacion.appendChild(btn);
         }
     }
+
+        // Cerrar modales
+        document.querySelectorAll(".modal-close").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const modal = this.closest(".modal");
+                if (modal) modal.classList.remove("show");
+            });
+        });
+
+
 
     // Mostrar alertas
     function showAlert(alertId) {

@@ -6,14 +6,14 @@ import com.example.SlushyApp.Model.Vehiculo;
 import com.example.SlushyApp.Repository.ReservaRepository;
 import com.example.SlushyApp.Repository.UsuarioRepository;
 import com.example.SlushyApp.Repository.VehiculoRepository;
+import com.example.SlushyApp.Utils.JwtUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -28,13 +28,16 @@ public class AdminClientesController {
     private final UsuarioRepository usuarioRepository;
     private final VehiculoRepository vehiculoRepository;
     private final ReservaRepository reservaRepository;
+    private final JwtUtil jwtUtil;
+
 
     public AdminClientesController(UsuarioRepository usuarioRepository,
                                            VehiculoRepository vehiculoRepository,
-                                           ReservaRepository reservaRepository) {
+                                           ReservaRepository reservaRepository, JwtUtil jwtUtil) {
         this.usuarioRepository = usuarioRepository;
         this.vehiculoRepository = vehiculoRepository;
         this.reservaRepository = reservaRepository;
+        this.jwtUtil = jwtUtil;
     }
 
     @GetMapping("/estadisticas")
@@ -97,5 +100,19 @@ public class AdminClientesController {
         return ResponseEntity.ok(respuesta);
     }
 
+    @PutMapping("/editar")
+    public ResponseEntity<?> editarCliente(@RequestBody Usuario clienteEditado) {
+        Usuario existente = usuarioRepository.findByEmail(clienteEditado.getEmail());
+        if (existente == null) return ResponseEntity.notFound().build();
+
+        existente.setNombre(clienteEditado.getNombre());
+        existente.setApellido(clienteEditado.getApellido());
+        existente.setCedula(clienteEditado.getCedula());
+        existente.setTelefono(clienteEditado.getTelefono());
+        existente.setMembresia(clienteEditado.getMembresia());
+
+        usuarioRepository.save(existente);
+        return ResponseEntity.ok().build();
+    }
 
 }

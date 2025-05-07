@@ -4,6 +4,40 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarEstadisticasClientes();
     cargarTablaClientes();
 
+            // Cerrar modales
+            // Botones que cierran cualquier modal al hacer clic
+            document.querySelectorAll(".modal-close").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    document.querySelectorAll(".modal").forEach(modal => {
+                        modal.classList.remove("show");
+                    });
+                });
+            });
+
+
+
+            document.getElementById("confirmDelete").addEventListener("click", () => {
+                if (!clienteAEliminarEmail) return;
+
+                fetch(`/admin/clientes/eliminar?email=${encodeURIComponent(clienteAEliminarEmail)}`, {
+                    method: "DELETE"
+                })
+                .then(res => {
+                    if (!res.ok) throw new Error("Error al eliminar cliente");
+                    return res.text();
+                })
+                .then(() => {
+                    clienteAEliminarEmail = null;
+                    document.getElementById("deleteClientModal").classList.remove("show");
+                    showAlert("deleteAlert");
+                    cargarTablaClientes(); // Refrescar tabla
+                })
+                .catch(err => {
+                    console.error("Error al eliminar cliente:", err);
+                    alert("Hubo un problema al eliminar el cliente");
+                });
+            });
+
 });
 
 // Función para abrir el modal de edición con los datos del cliente
@@ -71,6 +105,9 @@ document.getElementById("editClientForm").addEventListener("submit", function (e
 
 
 let membresiaSeleccionada = ""; // "", "VIP", "STANDARD"
+let emailClienteAEliminar = "";
+let clienteAEliminarEmail = null;
+
 
     // Filtro por tipo
 document.querySelectorAll(".chart-filter").forEach(btn => {
@@ -257,6 +294,7 @@ function cargarTablaClientes(pagina = 1) {
                 `;
                 tbody.appendChild(fila);
 
+
                 // Agregar listener al botón "Ver Cliente"
                 const verBtn = fila.querySelector('.table-action[title="Ver Cliente"]');
                 verBtn.addEventListener("click", (e) => {
@@ -309,6 +347,20 @@ function cargarTablaClientes(pagina = 1) {
                         .catch(err => console.error("Error al cargar detalle del cliente:", err));
                 });
 
+                // DENTRO de data.clientes.forEach
+                const deleteBtn = fila.querySelector('.delete-btn');
+                deleteBtn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    clienteAEliminarEmail = email;
+
+                    document.getElementById("deleteAvatar").textContent = avatar;
+                    document.getElementById("deleteName").textContent = nombreCompleto;
+                    document.getElementById("deleteEmail").textContent = email;
+
+                    document.getElementById("deleteClientModal").classList.add("show");
+                });
+
+
             });
 
             actualizarPaginacion(data.totalPaginas, pagina);
@@ -331,16 +383,6 @@ function cargarTablaClientes(pagina = 1) {
             paginacion.appendChild(btn);
         }
     }
-
-        // Cerrar modales
-        document.querySelectorAll(".modal-close").forEach(btn => {
-            btn.addEventListener("click", function () {
-                const modal = this.closest(".modal");
-                if (modal) modal.classList.remove("show");
-            });
-        });
-
-
 
     // Mostrar alertas
     function showAlert(alertId) {

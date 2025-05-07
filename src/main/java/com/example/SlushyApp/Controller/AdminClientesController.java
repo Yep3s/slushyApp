@@ -115,4 +115,14 @@ public class AdminClientesController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/eliminar")
+    public ResponseEntity<?> eliminarCliente(@RequestParam String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario == null) return ResponseEntity.notFound().build();
+
+        usuarioRepository.delete(usuario);
+        return ResponseEntity.ok("Cliente eliminado");
+    }
+
+
 }

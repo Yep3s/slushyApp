@@ -25,10 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const cancelDeleteBtn   = document.getElementById('cancelDeleteBtn');
   const confirmDeleteBtn  = document.getElementById('confirmDeleteBtn');
 
+  const searchInput       = document.querySelector('.search-box input');
   const tbody             = document.getElementById('empleadosTbody');
   const paginationEl      = document.getElementById('empleadosPagination');
   const totalEl           = document.getElementById('totalEmployees');
 
+  let allEmps             = [];
   let currentPage         = 0;
   const pageSize          = 5;
   let selectedId          = null;
@@ -60,14 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === deleteModal) hideModal(deleteModal);
   });
 
+  // Filtrado por búsqueda (cédula o email)
+  searchInput.addEventListener('input', () => {
+    const term = searchInput.value.trim().toLowerCase();
+    const filtered = allEmps.filter(emp =>
+      emp.cedula.toLowerCase().includes(term) ||
+      emp.email.toLowerCase().includes(term)
+    );
+    renderTable(filtered);
+  });
+
   // Carga y render de empleados
   async function loadEmpleados(page = 0) {
     currentPage = page;
     try {
-      const resp = await fetch(`/admin/empleados?page=${page}&size=${pageSize}`, { credentials: 'include' });
+      const resp = await fetch(`/admin/empleados?page=${page}&size=${pageSize}`, {
+        credentials: 'include'
+      });
       if (!resp.ok) throw new Error('Error al cargar empleados');
       const data = await resp.json();
-      renderTable(data.content);
+      allEmps = data.content;
+      renderTable(allEmps);
       renderPagination(data.totalPages, page);
       if (totalEl) totalEl.textContent = data.totalElements;
     } catch (err) {
@@ -224,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const id = tr.children[0].textContent.trim();
       const editBtn = tr.querySelector('i.fa-edit')?.parentElement;
       const deleteBtn = tr.querySelector('i.fa-trash')?.parentElement;
+
       if (editBtn) {
         editBtn.addEventListener('click', e => {
           e.preventDefault();

@@ -3,9 +3,14 @@ package com.example.SlushyApp.Service;
 import com.example.SlushyApp.Exceptions.CedulaYaRegistradaException;
 import com.example.SlushyApp.Exceptions.EmailYaRegistradoException;
 import com.example.SlushyApp.Model.EmpleadoRequest;
+import com.example.SlushyApp.Model.Membresia;
 import com.example.SlushyApp.Model.Rol;
 import com.example.SlushyApp.Model.Usuario;
 import com.example.SlushyApp.Repository.UsuarioRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -102,24 +107,16 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario registrarEmpleado(String nombre, String apellido, String email, String password, String cedula, String telefono) {
-        if (usuarioRepository.existsByEmail(email)) {
+    public Usuario registrarEmpleado(Usuario empleado) {
+        if (usuarioRepository.existsByEmail(empleado.getEmail())) {
             throw new EmailYaRegistradoException("Error: El email ya está registrado.");
         }
-
-        if (usuarioRepository.existsByCedula(cedula)) {
+        if (usuarioRepository.existsByCedula(empleado.getCedula())) {
             throw new CedulaYaRegistradaException("Error: La cédula ya está registrada.");
         }
 
-        Usuario empleado = new Usuario();
-        empleado.setNombre(nombre);
-        empleado.setApellido(apellido);
-        empleado.setEmail(email);
-        empleado.setPassword(passwordEncoder.encode(password));
-        empleado.setCedula(cedula);
-        empleado.setTelefono(telefono);
-        empleado.setRoles(Set.of(Rol.EMPLOYEE)); // 👈 asigna rol EMPLOYEE
-
+        empleado.setRoles(Set.of(Rol.EMPLOYEE));
+        empleado.setPassword(passwordEncoder.encode(empleado.getPassword()));
         Usuario guardado = usuarioRepository.save(empleado);
 
         String nombreCompleto = guardado.getNombre().trim() + " " + guardado.getApellido().trim();
@@ -128,7 +125,6 @@ public class UsuarioService {
                 "¡Bienvenido a SlushyApp como empleado!",
                 "Hola " + nombreCompleto + ",\n\nTu cuenta de empleado ha sido registrada exitosamente en SlushyApp."
         );
-
         return guardado;
     }
 
@@ -155,6 +151,11 @@ public class UsuarioService {
             throw new RuntimeException("Empleado no encontrado");
         }
         usuarioRepository.deleteById(id);
+    }
+
+    public Page<Usuario> obtenerEmpleadosPaginados(int page, int size) {
+        Pageable pg = PageRequest.of(page, size, Sort.by("fechaRegistro").descending());
+        return usuarioRepository.findByRolesContains(Rol.EMPLOYEE, pg);
     }
 
 

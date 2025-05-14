@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empleados - Slushy App</title>
+    <link rel="stylesheet" href="/css/empleados-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Precargar la fuente para asegurar que se cargue correctamente -->
+    <link rel="preload" href="../../../fonts/Quicksand-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">G</div>
+                    <span class="logo-text">SLUSHY</span>
+                </div>
+
+                <div class="header-actions">
+                    <a href="../../../Publico/Iniciar-Sesion/iniciar-sesion.html" class="btn-icon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <nav class="sidebar-menu">
+            <a href="/admin/dashboard" class="sidebar-link">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/admin/dashboard/vehiculos" class="sidebar-link">
+                <i class="fas fa-car"></i>
+                <span>Vehículos</span>
+            </a>
+            <a href="/admin/dashboard/clientes" class="sidebar-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+            <a href="/admin/dashboard/empleados" class="sidebar-link active">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+            <a href="Reservas/reservas.html" class="sidebar-link">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Reservas</span>
+            </a>
+            <a href="Reportes/reportes.html" class="sidebar-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Reportes</span>
+            </a>
+            <a href="Configuracion/configuracion.html" class="sidebar-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+            <a href="/logoutSlushy" class="sidebar-link">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Salir</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Admin Content -->
+    <main class="admin-content">
+        <div class="page-header">
+            <h1>Gestión de Empleados</h1>
+            <button class="btn btn-primary" id="openAddEmployeeModal">
+                <i class="fas fa-plus"></i> Agregar Empleado
+            </button>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="filters-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar empleado...">
+            </div>
+
+
+            <!-- Employee Stats -->
+
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-title">Total Empleados</div>
+                        <div class="stat-icon primary">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">24</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Employees Table -->
+        <div class="table-container" id="empleadosTable">
+            <div class="chart-header">
+                <h2 class="chart-title">Lista de Empleados</h2>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Teléfono</th>
+                        <th>Fecha de Ingreso</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="empleadosTbody"></tbody>
+            </table>
+
+            <div class="pagination" id="empleadosPagination"></div>
+        </div>
+
+        <!-- Add Employee Modal -->
+        <div class="modal" id="addEmployeeModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Agregar Nuevo Empleado</h2>
+                    <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="employeeForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" id="apellido" name="apellido" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <!-- Contraseña -->
+                            <div class="form-group">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" id="password" name="password" class="form-input"
+                                    placeholder="Mínimo 6 caracteres" required>
+                            </div>
+                            <!-- Cédula -->
+                            <div class="form-group">
+                                <label for="cedula" class="form-label">Cédula</label>
+                                <input type="text" id="cedula" name="cedula" class="form-input" required>
+                            </div>
+                            <!-- Telefono -->
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="rolEmpleado">Rol</label>
+                                <select id="rolEmpleado" name="rolEmpleado" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="EMPLOYEE">Employee</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelBtn">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Empleado</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Employee Modal -->
+        <div class="modal" id="viewEmployeeModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detalles del Empleado</h2>
+                    <button class="modal-close" id="closeViewModal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="employee-details">
+                        <div class="employee-avatar-lg">JR</div>
+                        <div class="employee-info-lg">
+                            <h3 class="employee-name-lg">Juan Rodríguez</h3>
+                            <p class="employee-email-lg">juan.rodriguez@slushy.com</p>
+                        </div>
+                    </div>
+
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">ID Empleado:</span>
+                            <span class="detail-value">#E-1001</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"> Rol:</span>
+                            <span class="detail-value">Employee</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Teléfono:</span>
+                            <span class="detail-value">3030342553</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Fecha De Ingreso:</span>
+                            <span class="detail-value">15/03/2022</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" id="closeViewModalBtn">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Employee Modal -->
+        <div class="modal" id="editEmployeeModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Editar Empleado</h2>
+                    <button class="modal-close" id="closeEditModal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editEmployeeForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editNombre">Nombre</label>
+                                <input type="text" id="editNombre" name="editNombre" value="Juan" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editApellido">Apellido</label>
+                                <input type="text" id="editApellido" name="editApellido" value="Rodríguez" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editEmail">Email</label>
+                                <input type="email" id="editEmail" name="editEmail" value="juan.rodriguez@slushy.com"
+                                    required>
+                            </div>
+
+                            <!-- Contraseña -->
+                            <div class="form-group">
+                                <label for="editpassword" class="form-label">Contraseña</label>
+                                <input type="password" id="editpassword" name="editpassword" class="form-input"
+                                    placeholder="Mínimo 6 caracteres" required>
+                            </div>
+                            <!-- Cédula -->
+                            <div class="form-group">
+                                <label for="editcedula" class="form-label">Cédula</label>
+                                <input type="text" id="editcedula" name="editcedula" class="form-input" required>
+                            </div>
+                            <!-- Telefono -->
+                            <div class="form-group">
+                                <label for="editTelefono">Teléfono</label>
+                                <input type="tel" id="editTelefono" name="editTelefono" value="555-123-4567" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editRolEmpleado">Rol</label>
+                                <select id="editRolEmpleado" name="editRolEmpleado" required>
+                                    <option value="">Seleccionar...</option>
+                                    <option value="EMPLOYEE">Employee</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelEditBtn">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Employee Modal -->
+        <div class="modal" id="deleteEmployeeModal">
+            <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h2>Eliminar Empleado</h2>
+                    <button class="modal-close" id="closeDeleteModal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="delete-confirmation">
+                        <div class="delete-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>¿Estás seguro de eliminar este empleado?</h3>
+                        <p>Esta acción eliminará permanentemente los datos del empleado <strong>Juan Rodríguez
+                                (#E-1001)</strong> y no se podrá deshacer.</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" id="cancelDeleteBtn">Cancelar</button>
+                    <button class="btn btn-danger" id="confirmDeleteBtn">Eliminar Empleado</button>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="alert-notification" id="saveEmployeeAlert">
+            <div class="alert-content">
+                <i class="fas fa-check-circle alert-icon"></i>
+                <span class="alert-text">Los cambios se guardaron correctamente</span>
+            </div>
+        </div>
+
+        <div class="alert-notification alert-danger" id="deleteEmployeeAlert">
+            <div div class="alert-content">
+                <i class="fas fa-trash-alt alert-icon"></i>
+                <span class="alert-text">Empleado eliminado correctamente</span>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/admin-empleados.js"></script>
+
+</body>
+
+</html>

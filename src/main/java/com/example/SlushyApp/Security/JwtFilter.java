@@ -55,6 +55,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
 
+
+
         if (token != null && !token.trim().isEmpty() && jwtUtil.validateToken(token)) {
             try {
                 String email = jwtUtil.getEmailFromToken(token);
@@ -76,5 +78,24 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+
+        // Rutas públicas que no deben pasar por el filtro JWT
+        return path.equals("/auth/register") ||
+                path.equals("/auth/login") ||
+                path.equals("/auth/forgot-password") ||
+                path.equals("/auth/reset-password") ||
+                path.equals("/") ||
+                path.startsWith("/css/") ||
+                path.startsWith("/js/") ||
+                path.startsWith("/images/") ||
+                path.startsWith("/webjars/") ||
+                path.equals("/login") ||
+                path.equals("/registerSlushy") ||
+                path.equals("/logoutSlushy");
     }
 }

@@ -4,6 +4,7 @@ import com.example.SlushyApp.Model.EmpleadoRequest;
 import com.example.SlushyApp.Model.Rol;
 import com.example.SlushyApp.Model.Usuario;
 import com.example.SlushyApp.Service.UsuarioService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,20 +23,13 @@ public class EmpleadoAdminController {
 
     @PostMapping("/crear")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<Usuario> registrarEmpleado(@RequestBody EmpleadoRequest request) {
-        Usuario nuevoEmpleado = usuarioService.registrarEmpleado(
-                request.getNombre(),
-                request.getApellido(),
-                request.getEmail(),
-                request.getPassword(),
-                request.getCedula(),
-                request.getTelefono()
-        );
-        return ResponseEntity.ok(nuevoEmpleado);
+    public ResponseEntity<Usuario> registrarEmpleado(@RequestBody Usuario empleado) {
+        Usuario nuevoEmpleado = usuarioService.registrarEmpleado(empleado);
+        return ResponseEntity.status(201).body(nuevoEmpleado);
     }
 
     // Obtener todos los empleados
-    @GetMapping
+    @GetMapping("/all")
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<List<Usuario>> listarEmpleados() {
         return ResponseEntity.ok(usuarioService.obtenerUsuariosPorRol(Rol.EMPLOYEE));
@@ -58,6 +52,15 @@ public class EmpleadoAdminController {
     public ResponseEntity<String> eliminarEmpleado(@PathVariable String id) {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.ok("Empleado eliminado correctamente");
+    }
+
+    // GET paginado
+    @GetMapping
+    public Page<Usuario> listarEmpleados(
+            @RequestParam(defaultValue="0") int page,
+            @RequestParam(defaultValue="5") int size
+    ) {
+        return usuarioService.obtenerEmpleadosPaginados(page, size);
     }
 
 }

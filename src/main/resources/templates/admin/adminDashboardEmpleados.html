@@ -99,7 +99,7 @@
                             <i class="fas fa-user-tie"></i>
                         </div>
                     </div>
-                    <div class="stat-value">24</div>
+                    <div class="stat-value" id="totalEmployees">24</div>
                 </div>
             </div>
         </div>
@@ -183,47 +183,6 @@
                             <button type="submit" class="btn btn-primary">Guardar Empleado</button>
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- View Employee Modal -->
-        <div class="modal" id="viewEmployeeModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2>Detalles del Empleado</h2>
-                    <button class="modal-close" id="closeViewModal"><i class="fas fa-times"></i></button>
-                </div>
-                <div class="modal-body">
-                    <div class="employee-details">
-                        <div class="employee-avatar-lg">JR</div>
-                        <div class="employee-info-lg">
-                            <h3 class="employee-name-lg">Juan Rodríguez</h3>
-                            <p class="employee-email-lg">juan.rodriguez@slushy.com</p>
-                        </div>
-                    </div>
-
-                    <div class="details-grid">
-                        <div class="detail-item">
-                            <span class="detail-label">ID Empleado:</span>
-                            <span class="detail-value">#E-1001</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label"> Rol:</span>
-                            <span class="detail-value">Employee</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Teléfono:</span>
-                            <span class="detail-value">3030342553</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Fecha De Ingreso:</span>
-                            <span class="detail-value">15/03/2022</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-outline" id="closeViewModalBtn">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -315,7 +274,6 @@
             </div>
         </div>
 
-
         <div class="alert-notification" id="saveEmployeeAlert">
             <div class="alert-content">
                 <i class="fas fa-check-circle alert-icon"></i>
@@ -329,6 +287,7 @@
                 <span class="alert-text">Empleado eliminado correctamente</span>
             </div>
         </div>
+
     </main>
 
     <script src="/js/admin-empleados.js"></script>

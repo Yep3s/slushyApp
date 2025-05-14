@@ -73,6 +73,7 @@ form.addEventListener('submit', async e => {
 });
 
 // Carga y render de empleados
+// Carga y render de empleados
 async function loadEmpleados(page = 0) {
   currentPage = page;
   try {
@@ -80,7 +81,12 @@ async function loadEmpleados(page = 0) {
       credentials: 'include'
     });
     if (!resp.ok) throw new Error('Error al cargar empleados');
-    const data = await resp.json();
+    const data = await resp.json();                    // ← Solo una vez
+
+    // Actualizar estadística de total empleados
+    const totalEl = document.getElementById('totalEmployees');
+    if (totalEl) totalEl.textContent = data.totalElements;
+
     renderTable(data.content);
     renderPagination(data.totalPages, page);
   } catch (err) {
@@ -108,7 +114,6 @@ function renderTable(emps) {
       <td>${new Date(emp.fechaRegistro).toLocaleDateString()}</td>
       <td>
         <div class="table-actions">
-          <a href="#" class="table-action"><i class="fas fa-eye"></i></a>
           <a href="#" class="table-action"><i class="fas fa-edit"></i></a>
           <a href="#" class="table-action"><i class="fas fa-trash"></i></a>
         </div>

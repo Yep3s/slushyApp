@@ -163,7 +163,7 @@ a {
 }
 
 body {
-    background: url('https://e-carwash.com/wp-content/uploads/2024/03/recubrimiento-ceramica-cuatro-anos.jpg') no-repeat center center fixed;
+    background: url('../images/logoutSlushy.jpg') no-repeat center center fixed;
     background-size: cover;
     height: 100vh;
     display: flex;

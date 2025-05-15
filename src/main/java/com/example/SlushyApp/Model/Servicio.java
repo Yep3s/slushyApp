@@ -3,11 +3,11 @@ package com.example.SlushyApp.Model;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.Map;
 
 @Document(collection = "Servicios")
 @Data
@@ -18,19 +18,19 @@ public class Servicio {
     @Id
     private String id;
 
-    @NotBlank(message = "El nombre no puede estar vacío.")
+    //@NotBlank(message = "El nombre no puede estar vacío.")
     private String nombre;
 
-    @NotBlank(message = "La descripción no puede estar vacía.")
+    //@NotBlank(message = "La descripción no puede estar vacía.")
     private String descripcion;
 
-    @Min(value = 0, message = "El precio debe ser igual o mayor a 0.")
-    private double precio;
 
-    @Min(value = 1, message = "La duración debe ser mayor a 0 minutos.")
+    private Map<TipoVehiculo, Double> preciosPorTipo;
+
+    //@Min(value = 1, message = "La duración debe ser mayor a 0 minutos.")
     private int duracionMinutos;
 
-    private EstadoServicio estado ;
+    private EstadoServicio estado;
 
     public String getId() {
         return id;
@@ -56,12 +56,12 @@ public class Servicio {
         this.descripcion = descripcion;
     }
 
-    public double getPrecio() {
-        return precio;
+    public Map<TipoVehiculo, Double> getPreciosPorTipo() {
+        return preciosPorTipo;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setPreciosPorTipo(Map<TipoVehiculo, Double> preciosPorTipo) {
+        this.preciosPorTipo = preciosPorTipo;
     }
 
     public int getDuracionMinutos() {
@@ -80,3 +80,5 @@ public class Servicio {
         this.estado = estado;
     }
 }
+
+

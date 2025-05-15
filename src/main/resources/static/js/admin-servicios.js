@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 2. Pestañas
-  const tabBtns = document.querySelectorAll('.tab-btn');
+  const tabBtns     = document.querySelectorAll('.tab-btn');
   const tabContents = document.querySelectorAll('.tab-content');
   tabBtns.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // 3. Modales
-  function showModal(modal)   { modal.classList.add('active'); }
-  function hideModal(modal)   { modal.classList.remove('active'); }
+  function showModal(modal) { modal.classList.add('active'); }
+  function hideModal(modal) { modal.classList.remove('active'); }
 
   document.querySelectorAll('.modal-close, .modal-close-btn').forEach(btn => {
     btn.addEventListener('click', () => hideModal(btn.closest('.modal')));
@@ -60,17 +60,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const saveEditBtn      = document.getElementById('saveServiceChanges');
   const confirmDeleteBtn = document.getElementById('confirmDeleteService');
 
+  // Form fields (create)
   const serviceName      = document.getElementById('service-name');
   const serviceDuration  = document.getElementById('service-duration');
-  const servicePrice     = document.getElementById('service-price');
-  const serviceStatus    = document.getElementById('service-status');
   const serviceDesc      = document.getElementById('service-description');
+  const serviceStatus    = document.getElementById('service-status');
 
+  // Form fields (edit)
   const editName         = document.getElementById('edit-service-name');
   const editDuration     = document.getElementById('edit-service-duration');
-  const editPrice        = document.getElementById('edit-service-price');
-  const editStatus       = document.getElementById('edit-service-status');
   const editDesc         = document.getElementById('edit-service-description');
+  const editStatus       = document.getElementById('edit-service-status');
 
   const deleteInfoDiv    = deleteModal.querySelector('.service-to-delete');
   const tbody            = document.querySelector('#servicesTable tbody');
@@ -81,9 +81,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function clearAddForm() {
     serviceName.value     = '';
     serviceDuration.value = '';
-    servicePrice.value    = '';
-    serviceStatus.value   = 'ACTIVO';
     serviceDesc.value     = '';
+    serviceStatus.value   = 'ACTIVO';
+    // desmarcar y limpiar precios
+    document.querySelectorAll('#addServiceModal input[name="vehicleType"]').forEach(cb => cb.checked = false);
+    document.querySelectorAll('#addServiceModal input[name^="price-"]').forEach(inp => inp.value = '');
   }
 
   async function loadServices() {
@@ -101,6 +103,11 @@ document.addEventListener('DOMContentLoaded', function() {
   function renderTable(services) {
     tbody.innerHTML = '';
     services.forEach(s => {
+      const precios = s.preciosPorTipo || {};
+      const preciosHtml = Object.entries(precios)
+        .map(([tipo, precio]) => `${tipo}: $${precio.toFixed(2)}`)
+        .join('<br>');
+
       const tr = document.createElement('tr');
       tr.dataset.id = s.id;
       tr.innerHTML = `
@@ -108,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <td>${s.nombre}</td>
         <td>${s.descripcion}</td>
         <td>${s.duracionMinutos} min</td>
-        <td>$${s.precio.toFixed(2)}</td>
+        <td>${preciosHtml}</td>
         <td><span class="status-badge ${s.estado.toLowerCase()}">${s.estado}</span></td>
         <td>
           <div class="table-actions">
@@ -120,6 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Crear servicio
   openAddBtn.addEventListener('click', () => {
     clearAddForm();
     showModal(addModal);
@@ -127,13 +135,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   saveAddBtn.addEventListener('click', async e => {
     e.preventDefault();
+    // recolectar tipos y precios
+    const seleccionados = Array.from(document.querySelectorAll('#addServiceModal input[name="vehicleType"]:checked'));
+    const preciosPorTipo = {};
+    seleccionados.forEach(cb => {
+      const tipo = cb.value;
+      const inp  = document.querySelector(`#addServiceModal input[name="price-${tipo}"]`);
+      preciosPorTipo[tipo] = parseFloat(inp.value) || 0;
+    });
+
     const payload = {
       nombre:          serviceName.value.trim(),
       descripcion:     serviceDesc.value.trim(),
-      precio:          parseFloat(servicePrice.value),
       duracionMinutos: parseInt(serviceDuration.value, 10),
-      estado:          serviceStatus.value
+      estado:          serviceStatus.value,
+      preciosPorTipo:  preciosPorTipo
     };
+
     try {
       const resp = await fetch('/admin/servicios/crearServicio', {
         method: 'POST',
@@ -151,19 +169,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // Editar / eliminar delegados
   tbody.addEventListener('click', e => {
     const tr    = e.target.closest('tr');
     if (!tr) return;
     selectedId = tr.dataset.id;
-    const svc = allServices.find(s => s.id === selectedId);
+    const svc  = allServices.find(s => s.id === selectedId);
     const editA = e.target.closest('a[title="Editar"]');
     const delA  = e.target.closest('a[title="Eliminar"]');
+
     if (editA) {
+      // precargar formulario de edición
       editName.value     = svc.nombre;
       editDesc.value     = svc.descripcion;
-      editDuration.value = svc.duracionMinutos;
-      editPrice.value    = svc.precio;
-      editStatus.value   = svc.estado;
+      document.getElementById('edit-service-duration').value = svc.duracionMinutos;
+      document.getElementById('edit-service-status').value   = svc.estado;
+      // limpiar checks anteriores
+      document.querySelectorAll('#editServiceModal input[name="editVehicleType"]').forEach(cb => cb.checked = false);
+      Object.entries(svc.preciosPorTipo || {}).forEach(([tipo, precio]) => {
+        const cb   = document.querySelector(`#editServiceModal input[name="editVehicleType"][value="${tipo}"]`);
+        const inp  = document.getElementById(`edit-price-${tipo}`);
+        if (cb) { cb.checked = true; inp.value = precio; }
+      });
       showModal(editModal);
     }
     if (delA) {
@@ -172,15 +199,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // Guardar cambios
   saveEditBtn.addEventListener('click', async e => {
     e.preventDefault();
+    const seleccionados = Array.from(document.querySelectorAll('#editServiceModal input[name="editVehicleType"]:checked'));
+    const preciosPorTipo = {};
+    seleccionados.forEach(cb => {
+      const tipo = cb.value;
+      const inp  = document.getElementById(`edit-price-${tipo}`);
+      preciosPorTipo[tipo] = parseFloat(inp.value) || 0;
+    });
+
     const payload = {
       nombre:          editName.value.trim(),
       descripcion:     editDesc.value.trim(),
-      precio:          parseFloat(editPrice.value),
       duracionMinutos: parseInt(editDuration.value, 10),
-      estado:          editStatus.value
+      estado:          editStatus.value,
+      preciosPorTipo:  preciosPorTipo
     };
+
     try {
       const resp = await fetch(`/admin/servicios/actualizarServicio/${selectedId}`, {
         method: 'PUT',
@@ -198,6 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  // Eliminar servicio
   confirmDeleteBtn.addEventListener('click', async e => {
     e.preventDefault();
     try {
@@ -215,6 +253,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Initial load
+  // Carga inicial
   loadServices();
 });

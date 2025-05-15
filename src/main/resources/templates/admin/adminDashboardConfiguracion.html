@@ -19,7 +19,7 @@
                     <div class="logo-icon">G</div>
                     <span class="logo-text">SLUSHY</span>
                 </div>
-                
+
                 <div class="header-actions">
                     <a href="../../../Publico/Iniciar-Sesion/iniciar-sesion.html" class="btn-icon">
                         <i class="fas fa-user"></i>
@@ -75,7 +75,7 @@
         <div class="page-header">
             <h1>Configuración del Sistema</h1>
         </div>
-        
+
         <!-- Settings Tabs -->
         <div class="settings-container">
             <div class="settings-tabs">
@@ -88,18 +88,18 @@
                     <span>Servicios</span>
                 </button>
             </div>
-            
+
             <div class="settings-content">
                 <!-- General Settings -->
                 <div class="tab-content active" id="general">
                     <h2 class="settings-title">Informacion General De La Empresa</h2>
-                    
+
                     <form class="settings-form">
                         <div class="form-group">
                             <label for="companyName">Nombre de la Empresa</label>
                             <input type="text" id="companyName" value="Slushy Car Wash" class="form-control">
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="email">Email de Contacto</label>
@@ -110,12 +110,12 @@
                                 <input type="tel" id="phone" value="3041005508" class="form-control">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="address">Dirección</label>
                             <input type="text" id="address" value="Cra. 44 #30-2, Cartagena Bolivar" class="form-control">
                         </div>
-                        
+
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="workingHoursStart">Horario de Apertura</label>
@@ -126,7 +126,7 @@
                                 <input type="" id="workingHoursEnd" value="06:00 PM" class="form-control">
                             </div>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="timezone">Zona Horaria</label>
                             <select id="timezone" class="form-control">
@@ -134,21 +134,21 @@
 
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <label for="currency">Moneda</label>
                             <select id="currency" class="form-control">
                                 <option value="COP">Peso Colombiano (COP)</option>
                             </select>
                         </div>
-                        
+
                     </form>
                 </div>
-                
+
                 <!-- Services Settings -->
                 <div class="tab-content" id="services">
                     <h2 class="settings-title">Configuración de Servicios</h2>
-                    
+
                     <div class="table-container">
                         <div class="table-actions">
                             <button id="openAddServiceModal" class="btn btn-primary">
@@ -172,8 +172,8 @@
                         </table>
                     </div>
                 </div>
-                
-                
+
+
             <!-- Modal para Agregar Servicio -->
     <div class="modal" id="addServiceModal">
         <div class="modal-content">
@@ -193,12 +193,29 @@
                             <input type="number" id="service-duration" class="form-control" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="service-price" class="modal-label">Precio</label>
-                            <input type="number" id="service-price" class="form-control" step="0.01" required>
+                            <label class="modal-label">Tipos de Vehículo y Precio</label>
+                            <div class="vehicle-types">
+                                <label>
+                                    <input type="checkbox" name="vehicleType" value="AUTOMOVIL">
+                                    Automóvil
+                                    <input type="number" name="price-AUTOMOVIL" class="form-control-inline" placeholder="Precio" step="0.01">
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="vehicleType" value="CAMIONETA">
+                                    Camioneta
+                                    <input type="number" name="price-CAMIONETA" class="form-control-inline" placeholder="Precio" step="0.01">
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="vehicleType" value="MOTO">
+                                    Moto
+                                    <input type="number" name="price-MOTO" class="form-control-inline" placeholder="Precio" step="0.01">
+                                </label>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="service-status" class="modal-label">Estado</label>
                             <select id="service-status" class="form-control" required>
@@ -207,7 +224,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="service-description" class="modal-label">Descripción</label>
                         <textarea id="service-description" class="form-control" rows="3" required></textarea>
@@ -240,12 +257,51 @@
                             <input type="number" id="edit-service-duration" class="form-control" value="45" required>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="edit-service-price" class="modal-label">Precio</label>
-                            <input type="number" id="edit-service-price" class="form-control" value="80.00" step="0.01" required>
-                        </div>
+                        <!-- Tipos de Vehículo y Precio -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="modal-label">Tipos de Vehículo y Precio</label>
+                                <div class="vehicle-types">
+                                    <label>
+                                        <input type="checkbox" name="editVehicleType" value="AUTOMOVIL">
+                                        Automóvil
+                                        <input
+                                                type="number"
+                                                name="edit-price-AUTOMOVIL"
+                                                id="edit-price-AUTOMOVIL"
+                                                class="form-control-inline"
+                                                placeholder="Precio"
+                                                step="0.01"
+                                        >
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="editVehicleType" value="CAMIONETA">
+                                        Camioneta
+                                        <input
+                                                type="number"
+                                                name="edit-price-CAMIONETA"
+                                                id="edit-price-CAMIONETA"
+                                                class="form-control-inline"
+                                                placeholder="Precio"
+                                                step="0.01"
+                                        >
+                                    </label>
+                                    <label>
+                                        <input type="checkbox" name="editVehicleType" value="MOTO">
+                                        Moto
+                                        <input
+                                                type="number"
+                                                name="edit-price-MOTO"
+                                                id="edit-price-MOTO"
+                                                class="form-control-inline"
+                                                placeholder="Precio"
+                                                step="0.01"
+                                        >
+                                    </label>
+                                </div>
+                            </div>
                         <div class="form-group">
                             <label for="edit-service-status" class="modal-label">Estado</label>
                             <select id="edit-service-status" class="form-control" required>
@@ -254,7 +310,7 @@
                             </select>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="edit-service-description" class="modal-label">Descripción</label>
                         <textarea id="edit-service-description" class="form-control" rows="3" required>Lavado exterior e interior completo con encerado</textarea>
@@ -287,7 +343,7 @@
             </div>
         </div>
     </div>
- 
+
     <!-- Alerta de guardado -->
     <div class="alert-notification" id="saveSettingsAlert">
         <div class="alert-content">

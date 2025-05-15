@@ -1,28 +1,29 @@
 package com.example.SlushyApp.Controller;
+
 import com.example.SlushyApp.Model.Membresia;
 import com.example.SlushyApp.Model.Reserva;
 import com.example.SlushyApp.Model.Usuario;
 import com.example.SlushyApp.Model.Vehiculo;
+import com.example.SlushyApp.Model.Rol;
 import com.example.SlushyApp.Repository.ReservaRepository;
 import com.example.SlushyApp.Repository.UsuarioRepository;
 import com.example.SlushyApp.Repository.VehiculoRepository;
 import com.example.SlushyApp.Utils.JwtUtil;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin/clientes")
+@PreAuthorize("hasAuthority('ADMIN')")
 public class AdminClientesController {
 
     private final UsuarioRepository usuarioRepository;
@@ -30,22 +31,28 @@ public class AdminClientesController {
     private final ReservaRepository reservaRepository;
     private final JwtUtil jwtUtil;
 
-
     public AdminClientesController(UsuarioRepository usuarioRepository,
-                                           VehiculoRepository vehiculoRepository,
-                                           ReservaRepository reservaRepository, JwtUtil jwtUtil) {
+                                   VehiculoRepository vehiculoRepository,
+                                   ReservaRepository reservaRepository,
+                                   JwtUtil jwtUtil) {
         this.usuarioRepository = usuarioRepository;
         this.vehiculoRepository = vehiculoRepository;
         this.reservaRepository = reservaRepository;
         this.jwtUtil = jwtUtil;
     }
 
+    /**
+     * Estadísticas solo para usuarios con rol USER
+     */
     @GetMapping("/estadisticas")
     public ResponseEntity<Map<String, Long>> obtenerEstadisticasClientes() {
-        long total = usuarioRepository.count();
-        long vip = usuarioRepository.countByMembresia(Membresia.VIP);
-        long standard = usuarioRepository.countByMembresia(Membresia.STANDARD);
-        long nuevos = usuarioRepository.countByFechaRegistroAfter(LocalDate.now().minusDays(7)); // últimos 7 días
+        long total = usuarioRepository.countByRolesContains(Rol.USER);
+        long vip = usuarioRepository.countByRolesContainsAndMembresia(Rol.USER, Membresia.VIP);
+        long standard = usuarioRepository.countByRolesContainsAndMembresia(Rol.USER, Membresia.STANDARD);
+        long nuevos = usuarioRepository.countByRolesContainsAndFechaRegistroAfter(
+                Rol.USER,
+                LocalDate.now().minusDays(7)
+        );
 
         Map<String, Long> stats = new HashMap<>();
         stats.put("total", total);
@@ -56,6 +63,9 @@ public class AdminClientesController {
         return ResponseEntity.ok(stats);
     }
 
+    /**
+     * Paginado para usuarios con rol USER, opcional filtro por membresía
+     */
     @GetMapping("/pagina")
     public ResponseEntity<Map<String, Object>> obtenerClientesPaginados(
             @RequestParam(defaultValue = "1") int pagina,
@@ -63,31 +73,42 @@ public class AdminClientesController {
             @RequestParam(required = false) String membresia) {
 
         Pageable pageable = PageRequest.of(pagina - 1, tamaño);
-        Page<Usuario> paginaUsuarios;
+        Page<Usuario> page;
 
         if (membresia != null && !membresia.isEmpty()) {
-            paginaUsuarios = usuarioRepository.findByMembresia(Membresia.valueOf(membresia.toUpperCase()), pageable);
+            page = usuarioRepository.findByRolesContainsAndMembresia(
+                    Rol.USER,
+                    Membresia.valueOf(membresia.toUpperCase()),
+                    pageable
+            );
         } else {
-            paginaUsuarios = usuarioRepository.findAll(pageable);
+            page = usuarioRepository.findByRolesContains(Rol.USER, pageable);
         }
 
         Map<String, Object> respuesta = new HashMap<>();
-        respuesta.put("clientes", paginaUsuarios.getContent()); // <--- debe ser "clientes" (NO "usuarios")
-        respuesta.put("totalPaginas", paginaUsuarios.getTotalPages());
-
+        respuesta.put("clientes", page.getContent());
+        respuesta.put("totalPaginas", page.getTotalPages());
 
         return ResponseEntity.ok(respuesta);
     }
 
+    /**
+     * Listado completo de clientes (rol USER)
+     */
     @GetMapping("/todos")
-    public List<Usuario> obtenerTodosLosClientes() {
-        return usuarioRepository.findAll();
+    public ResponseEntity<List<Usuario>> obtenerTodosLosClientes() {
+        List<Usuario> clientes = usuarioRepository
+                .findByRolesContains(Rol.USER, Pageable.unpaged())
+                .getContent();
+        return ResponseEntity.ok(clientes);
     }
 
     @GetMapping("/detalle")
     public ResponseEntity<?> obtenerDetalleCliente(@RequestParam String email) {
         Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario == null) return ResponseEntity.notFound().build();
+        if (usuario == null || !usuario.getRoles().contains(Rol.USER)) {
+            return ResponseEntity.notFound().build();
+        }
 
         List<Vehiculo> vehiculos = vehiculoRepository.findByUsuarioEmail(email);
         List<Reserva> reservas = reservaRepository.findByUsuarioEmailOrderByFechaReservaDesc(email);
@@ -103,7 +124,9 @@ public class AdminClientesController {
     @PutMapping("/editar")
     public ResponseEntity<?> editarCliente(@RequestBody Usuario clienteEditado) {
         Usuario existente = usuarioRepository.findByEmail(clienteEditado.getEmail());
-        if (existente == null) return ResponseEntity.notFound().build();
+        if (existente == null || !existente.getRoles().contains(Rol.USER)) {
+            return ResponseEntity.notFound().build();
+        }
 
         existente.setNombre(clienteEditado.getNombre());
         existente.setApellido(clienteEditado.getApellido());
@@ -118,11 +141,11 @@ public class AdminClientesController {
     @DeleteMapping("/eliminar")
     public ResponseEntity<?> eliminarCliente(@RequestParam String email) {
         Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario == null) return ResponseEntity.notFound().build();
+        if (usuario == null || !usuario.getRoles().contains(Rol.USER)) {
+            return ResponseEntity.notFound().build();
+        }
 
         usuarioRepository.delete(usuario);
         return ResponseEntity.ok("Cliente eliminado");
     }
-
-
 }

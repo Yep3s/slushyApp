@@ -36,5 +36,10 @@ public class WebControllerAdmin {
         return "admin/adminDashboardEmpleados";
     }
 
+    @GetMapping("/dashboard/configuracion")
+    public String adminDashboardConfiguracion() {
+        return "admin/adminDashboardConfiguracion";
+    }
+
 
 }

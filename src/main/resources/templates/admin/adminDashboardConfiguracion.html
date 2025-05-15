@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración - Slushy App</title>
+    <link rel="stylesheet" href="/css/configuracion-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Precargar la fuente para asegurar que se cargue correctamente -->
+    <link rel="preload" href="../../../fonts/Quicksand-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">G</div>
+                    <span class="logo-text">SLUSHY</span>
+                </div>
+                
+                <div class="header-actions">
+                    <a href="../../../Publico/Iniciar-Sesion/iniciar-sesion.html" class="btn-icon">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <nav class="sidebar-menu">
+            <a href="/admin/dashboard" class="sidebar-link">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/admin/dashboard/vehiculos" class="sidebar-link">
+                <i class="fas fa-car"></i>
+                <span>Vehículos</span>
+            </a>
+            <a href="/admin/dashboard/clientes" class="sidebar-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+            <a href="/admin/dashboard/empleados" class="sidebar-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+            <a href="Reservas/reservas.html" class="sidebar-link">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Reservas</span>
+            </a>
+            <a href="Reportes/reportes.html" class="sidebar-link">
+                <i class="fas fa-chart-line"></i>
+                <span>Reportes</span>
+            </a>
+            <a href="/admin/dashboard/configuracion" class="sidebar-link active">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+            <a href="/logoutSlushy" class="sidebar-link">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Salir</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Admin Content -->
+    <main class="admin-content">
+        <div class="page-header">
+            <h1>Configuración del Sistema</h1>
+        </div>
+        
+        <!-- Settings Tabs -->
+        <div class="settings-container">
+            <div class="settings-tabs">
+                <button class="tab-btn active" data-tab="general">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>General</span>
+                </button>
+                <button class="tab-btn" data-tab="services">
+                    <i class="fas fa-concierge-bell"></i>
+                    <span>Servicios</span>
+                </button>
+            </div>
+            
+            <div class="settings-content">
+                <!-- General Settings -->
+                <div class="tab-content active" id="general">
+                    <h2 class="settings-title">Informacion General De La Empresa</h2>
+                    
+                    <form class="settings-form">
+                        <div class="form-group">
+                            <label for="companyName">Nombre de la Empresa</label>
+                            <input type="text" id="companyName" value="Slushy Car Wash" class="form-control">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email de Contacto</label>
+                                <input type="email" id="email" value="slushyappcol@gmail.com" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Teléfono de Contacto</label>
+                                <input type="tel" id="phone" value="3041005508" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Dirección</label>
+                            <input type="text" id="address" value="Cra. 44 #30-2, Cartagena Bolivar" class="form-control">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="workingHoursStart">Horario de Apertura</label>
+                                <input type="" id="workingHoursStart" value="08:00 AM" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="workingHoursEnd">Horario de Cierre</label>
+                                <input type="" id="workingHoursEnd" value="06:00 PM" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="timezone">Zona Horaria</label>
+                            <select id="timezone" class="form-control">
+                                <option value="UTC-5">UTC-5 (Bogotá)</option>
+
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="currency">Moneda</label>
+                            <select id="currency" class="form-control">
+                                <option value="COP">Peso Colombiano (COP)</option>
+                            </select>
+                        </div>
+                        
+                    </form>
+                </div>
+                
+                <!-- Services Settings -->
+                <div class="tab-content" id="services">
+                    <h2 class="settings-title">Configuración de Servicios</h2>
+                    
+                    <div class="table-container">
+                        <div class="table-actions">
+                            <button id="openAddServiceModal" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Agregar Servicio
+                            </button>
+                        </div>
+
+                        <table id="servicesTable" class="table">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Duración</th>
+                                <th>Precio</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                
+            <!-- Modal para Agregar Servicio -->
+    <div class="modal" id="addServiceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Agregar Nuevo Servicio</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service-name" class="modal-label">Nombre</label>
+                            <input type="text" id="service-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service-duration" class="modal-label">Duración (min)</label>
+                            <input type="number" id="service-duration" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="service-price" class="modal-label">Precio</label>
+                            <input type="number" id="service-price" class="form-control" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service-status" class="modal-label">Estado</label>
+                            <select id="service-status" class="form-control" required>
+                                <option value="ACTIVO">Activo</option>
+                                <option value="INACTIVO">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service-description" class="modal-label">Descripción</label>
+                        <textarea id="service-description" class="form-control" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close-btn">Cancelar</button>
+                <button class="btn btn-primary" id="saveService">Guardar Servicio</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Editar Servicio -->
+    <div class="modal" id="editServiceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Servicio</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="modal-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="edit-service-name" class="modal-label">Nombre</label>
+                            <input type="text" id="edit-service-name" class="form-control" value="Lavado Premium" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-service-duration" class="modal-label">Duración (min)</label>
+                            <input type="number" id="edit-service-duration" class="form-control" value="45" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="edit-service-price" class="modal-label">Precio</label>
+                            <input type="number" id="edit-service-price" class="form-control" value="80.00" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-service-status" class="modal-label">Estado</label>
+                            <select id="edit-service-status" class="form-control" required>
+                                <option value="ACTIVO">Activo</option>
+                                <option value="INACTIVO">Inactivo</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="edit-service-description" class="modal-label">Descripción</label>
+                        <textarea id="edit-service-description" class="form-control" rows="3" required>Lavado exterior e interior completo con encerado</textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close-btn">Cancelar</button>
+                <button class="btn btn-primary" id="saveServiceChanges">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Eliminar Servicio -->
+    <div class="modal" id="deleteServiceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Eliminar Servicio</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro que deseas eliminar este servicio? Esta acción no se puede deshacer.</p>
+                <div class="service-to-delete">
+                    <strong>Servicio:</strong> Lavado Premium
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close-btn">Cancelar</button>
+                <button class="btn btn-danger" id="confirmDeleteService">Eliminar</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- Alerta de guardado -->
+    <div class="alert-notification" id="saveSettingsAlert">
+        <div class="alert-content">
+            <i class="fas fa-check-circle alert-icon"></i>
+            <span class="alert-text">Los cambios se guardaron correctamente</span>
+        </div>
+    </div>
+
+    <!-- Alerta de eliminación -->
+    <div class="alert-notification alert-danger" id="deleteItemAlert">
+        <div class="alert-content">
+            <i class="fas fa-trash-alt alert-icon"></i>
+            <span class="alert-text">Elemento eliminado correctamente</span>
+        </div>
+    </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <script src="/js/admin-servicios.js"></script>
+
+
+</body>
+</html>

@@ -31,6 +31,7 @@ public class ServicioService {
         existente.setDescripcion(servicioActualizado.getDescripcion());
         existente.setPrecio(servicioActualizado.getPrecio());
         existente.setDuracionMinutos(servicioActualizado.getDuracionMinutos());
+        existente.setEstado(servicioActualizado.getEstado());
 
         return servicioRepository.save(existente);
     }
@@ -46,7 +47,6 @@ public class ServicioService {
     public Optional<Servicio> obtenerPorId(String id) {
         return servicioRepository.findById(id);
     }
-
 
 
 }

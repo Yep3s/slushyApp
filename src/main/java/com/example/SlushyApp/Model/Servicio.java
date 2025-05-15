@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "servicios")
+@Document(collection = "Servicios")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +29,8 @@ public class Servicio {
 
     @Min(value = 1, message = "La duración debe ser mayor a 0 minutos.")
     private int duracionMinutos;
+
+    private EstadoServicio estado ;
 
     public String getId() {
         return id;
@@ -68,5 +70,13 @@ public class Servicio {
 
     public void setDuracionMinutos(int duracionMinutos) {
         this.duracionMinutos = duracionMinutos;
+    }
+
+    public EstadoServicio getEstado() {
+        return estado;
+    }
+
+    public void setEstado(EstadoServicio estado) {
+        this.estado = estado;
     }
 }

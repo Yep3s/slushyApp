@@ -1,170 +1,95 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let vehiculoIdParaEditar = null;
+    let vehiculoIdParaEditar  = null;
+    let vehiculoIdParaEliminar = null;  // ← Declaración necesaria
 
-    // Abrir modal y cargar datos del vehículo
+    // ————— EDITAR VEHÍCULO —————
     document.querySelectorAll('.edit-vehicle-btn').forEach(link => {
         link.addEventListener('click', function (e) {
             e.preventDefault();
+            const ds = this.dataset;
+            vehiculoIdParaEditar = ds.id;
 
-            const target = e.currentTarget; // Siempre el <a>
-            const dataset = target.dataset;
-
-            vehiculoIdParaEditar = dataset.id;
-            console.log("Vehículo a editar:", dataset);
-
-            document.getElementById('edit-vehicle-plate').value = dataset.placa || '';
-            document.getElementById('edit-vehicle-make').value = dataset.marca || '';
-            document.getElementById('edit-vehicle-line').value = dataset.linea || '';
-            document.getElementById('edit-vehicle-model').value = dataset.modelo || '';
-            document.getElementById('edit-vehicle-color').value = dataset.color || '';
-            document.getElementById('edit-vehicle-type').value = dataset.tipo || '';
+            // Rellenar formulario
+            document.getElementById('edit-vehicle-plate').value = ds.placa  || '';
+            document.getElementById('edit-vehicle-make').value  = ds.marca  || '';
+            document.getElementById('edit-vehicle-line').value  = ds.linea  || '';
+            document.getElementById('edit-vehicle-model').value = ds.modelo || '';
+            document.getElementById('edit-vehicle-color').value = ds.color  || '';
+            document.getElementById('edit-vehicle-type').value  = ds.tipo   || '';
 
             document.getElementById('editVehicleModal').classList.add('active');
         });
     });
 
-    // Cerrar el modal
-    document.querySelectorAll('.modal-close, .modal-close-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.getElementById('editVehicleModal').classList.remove('active');
-        });
-    });
+    // Cerrar modal de edición (sólo ese)
+    document.querySelectorAll('#editVehicleModal .modal-close, #editVehicleModal .modal-close-btn')
+      .forEach(btn => btn.addEventListener('click', () => {
+          document.getElementById('editVehicleModal').classList.remove('active');
+          vehiculoIdParaEditar = null;
+    }));
 
-    // Guardar cambios del vehículo
+    // Guardar edición
     document.getElementById('saveEditVehicleBtn').addEventListener('click', function () {
         if (!vehiculoIdParaEditar) return;
+        // … tu fetch PUT y lógica de actualizar tarjeta …
+    });
 
-        const placa = document.getElementById('edit-vehicle-plate').value;
-        const marca = document.getElementById('edit-vehicle-make').value;
-        const linea = document.getElementById('edit-vehicle-line').value;
-        const modelo = document.getElementById('edit-vehicle-model').value;
-        const color = document.getElementById('edit-vehicle-color').value;
-        const tipo = document.getElementById('edit-vehicle-type').value;
+    // ————— ELIMINAR VEHÍCULO —————
+    document.querySelectorAll('.delete-vehicle-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            vehiculoIdParaEliminar = this.dataset.id;
+            document.getElementById('deleteVehicleModal').classList.add('active');
+        });
+    });
 
-        fetch(`/user/vehiculos/editar/${vehiculoIdParaEditar}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include', // 👈 Esto incluye la cookie JWT en la petición
-            body: JSON.stringify({
-                placa: placa,
-                marca: marca,
-                linea: linea,
-                modelo: modelo,
-                tipoVehiculo: tipo,
-                color: color
-            })
+    // Confirmar eliminación
+    document.getElementById('confirmDeleteVehicleBtn').addEventListener('click', function () {
+        if (!vehiculoIdParaEliminar) return;
+
+        fetch(`/user/vehiculos/eliminar/${vehiculoIdParaEliminar}`, {
+            method: 'DELETE',
+            credentials: 'include'
         })
-        .then(response => {
-            if (response.ok) {
-                // Cerrar modal y mostrar alerta
-                document.getElementById('editVehicleModal').classList.remove('active');
+        .then(res => {
+            if (res.ok) {
+                // Cerrar modal
+                document.getElementById('deleteVehicleModal').classList.remove('active');
+                showAlert('deleteAlert', 'Vehículo eliminado correctamente');
 
-                // Actualizar los datos visualmente en la tarjeta del vehículo
-                const card = document.querySelector(`.vehicle-card[data-id="${vehiculoIdParaEditar}"]`);
-                if (card) {
-                    // Título (marca + línea)
-                    const title = card.querySelector('.vehicle-title');
-                    if (title) title.textContent = `${marca} ${linea}`;
+                // Quitar tarjeta y actualizar contador
+                const card = document.querySelector(`.vehicle-card[data-id="${vehiculoIdParaEliminar}"]`);
+                if (card) card.remove();
+                const vc = document.getElementById('vehicleCount');
+                const n  = parseInt(vc.textContent) || 0;
+                vc.textContent = (n - 1) + ' Vehículos';
 
-                    // Tipo
-                    const tipoSpan = card.querySelector('.vehicle-info-item:nth-child(1) span');
-                    if (tipoSpan) tipoSpan.textContent = tipo;
-
-                    // Color
-                    const colorSpan = card.querySelector('.vehicle-info-item:nth-child(2) span');
-                    if (colorSpan) colorSpan.textContent = color;
-
-                    // Placa
-                    const placaSpan = card.querySelector('.vehicle-info-item:nth-child(3) span');
-                    if (placaSpan) placaSpan.textContent = placa;
-
-                    // Actualizar atributos data-* para futuras ediciones
-                    const editBtn = card.querySelector('.edit-vehicle-btn');
-                    if (editBtn) {
-                        editBtn.dataset.placa = placa;
-                        editBtn.dataset.marca = marca;
-                        editBtn.dataset.linea = linea;
-                        editBtn.dataset.modelo = modelo;
-                        editBtn.dataset.color = color;
-                        editBtn.dataset.tipo = tipo;
-                    }
-                }
-
-                showAlert('editAlert', 'Vehículo actualizado correctamente');
-
-
-                // Puedes actualizar los datos visualmente aquí si lo deseas
-                // location.reload(); // o actualizar dinámicamente si prefieres
+                vehiculoIdParaEliminar = null;
             } else {
-                return response.text().then(text => { throw new Error(text); });
+                return res.text().then(t => { throw new Error(t || 'Error servidor'); });
             }
         })
-        .catch(error => {
-            console.error('Error al actualizar vehículo:', error);
+        .catch(err => {
+            console.error(err);
+            showAlert('errorAlert', 'Error al eliminar el vehículo');
+            vehiculoIdParaEliminar = null;
         });
     });
 
-    // Cerrar modal sin guardar cambios
-    document.querySelectorAll('.modal-close, .modal-close-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            document.getElementById('editVehicleModal').classList.remove('active');
-            vehiculoIdParaEditar = null;
-        });
-    });
+    // Cerrar modal de eliminación
+    document.querySelectorAll('#deleteVehicleModal .modal-close, #deleteVehicleModal .modal-close-btn')
+      .forEach(btn => btn.addEventListener('click', () => {
+          document.getElementById('deleteVehicleModal').classList.remove('active');
+          vehiculoIdParaEliminar = null;
+    }));
 
-        // Cuando el usuario hace clic en el icono de eliminar
-        document.querySelectorAll('.delete-vehicle-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                vehiculoIdParaEliminar = this.dataset.id;
-                document.getElementById('deleteVehicleModal').classList.add('active');
-            });
-        });
-
-        // Confirmar eliminación del vehículo
-        document.getElementById('confirmDeleteVehicleBtn').addEventListener('click', function() {
-            if (!vehiculoIdParaEliminar) return;
-
-            fetch(`/user/vehiculos/eliminar/${vehiculoIdParaEliminar}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    document.getElementById('deleteVehicleModal').classList.remove('active');
-                    showAlert('deleteAlert', 'Vehículo eliminado correctamente');
-
-                    // Elimina visualmente la tarjeta del vehículo
-                    const card = document.querySelector(`.vehicle-card[data-id="${vehiculoIdParaEliminar}"]`);
-                    if (card) card.remove();
-
-                    // Actualizar contador visual
-                    const vehicleCountElement = document.getElementById('vehicleCount');
-                    const currentCount = parseInt(vehicleCountElement.textContent) || 0;
-                    if (currentCount > 0) {
-                        vehicleCountElement.textContent = (currentCount - 1) + ' Vehículos';
-                    }
-
-                    vehiculoIdParaEliminar = null;
-                } else {
-                    return response.text().then(text => { throw new Error(text); });
-                }
-            })
-            .catch(error => {
-                console.error('Error al eliminar vehículo:', error);
-                alert("Error al eliminar el vehículo.");
-            });
-        });
-
-        // Cerrar modal sin eliminar
-        document.querySelectorAll('.modal-close-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.getElementById('deleteVehicleModal').classList.remove('active');
-                vehiculoIdParaEliminar = null;
-            });
-        });
+    // ————— FUNCIÓN DE ALERTAS —————
+    function showAlert(id, mensaje) {
+        const a = document.getElementById(id);
+        if (!a) return;
+        const txt = a.querySelector('.alert-text');
+        if (txt) txt.textContent = mensaje;
+        a.classList.add('show');
+        setTimeout(() => a.classList.remove('show'), 3000);
+    }
 });

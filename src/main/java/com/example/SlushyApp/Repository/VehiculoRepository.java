@@ -25,5 +25,7 @@ public interface VehiculoRepository extends MongoRepository<Vehiculo, String> {
 
     List<Vehiculo> findByPlacaContainingIgnoreCaseOrUsuarioEmailContainingIgnoreCase(String placa, String email);
 
+    // añade este para buscar directamente por placa _y_ email
+    Vehiculo findByPlacaAndUsuarioEmail(String placa, String usuarioEmail);
 
 }

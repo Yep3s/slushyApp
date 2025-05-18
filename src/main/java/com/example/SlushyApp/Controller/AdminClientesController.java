@@ -104,19 +104,25 @@ public class AdminClientesController {
     }
 
     @GetMapping("/detalle")
-    public ResponseEntity<?> obtenerDetalleCliente(@RequestParam String email) {
+    public ResponseEntity<Map<String,Object>> obtenerDetalleCliente(@RequestParam("email") String email) {
+        // 1) Buscamos al usuario
         Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario == null || !usuario.getRoles().contains(Rol.USER)) {
             return ResponseEntity.notFound().build();
         }
 
+        // 2) Todas las órdenes de los repositorios
         List<Vehiculo> vehiculos = vehiculoRepository.findByUsuarioEmail(email);
-        List<Reserva> reservas = reservaRepository.findByUsuarioEmailOrderByFechaReservaDesc(email);
 
-        Map<String, Object> respuesta = new HashMap<>();
-        respuesta.put("usuario", usuario);
+        // Asegúrate de que este método exista en ReservaRepository:
+        // List<Reserva> findByUsuarioEmailOrderByFechaReservaDesc(String email);
+        List<Reserva>  reservas  = reservaRepository.findByUsuarioEmailOrderByFechaInicioDesc(email);
+
+        // 3) Empaquetamos la respuesta
+        Map<String,Object> respuesta = new HashMap<>();
+        respuesta.put("usuario",   usuario);
         respuesta.put("vehiculos", vehiculos);
-        respuesta.put("reservas", reservas);
+        respuesta.put("reservas",  reservas);
 
         return ResponseEntity.ok(respuesta);
     }

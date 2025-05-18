@@ -21,10 +21,12 @@ public class Reserva {
     @NotBlank(message = "La placa del vehículo es obligatoria")
     private String placaVehiculo;
 
-    @NotBlank(message = "El nombre del servicio es obligatorio")
-    private String servicioNombre;
+    @NotBlank(message = "El servicio es obligatorio")
+    private String servicioId;
 
-    private LocalDateTime fechaReserva;
+    private LocalDateTime fechaInicio;
+
+    private LocalDateTime fechaFin;
 
     private EstadoReserva estado = EstadoReserva.PENDIENTE;
 
@@ -33,7 +35,6 @@ public class Reserva {
     private String usuarioEmail;
 
     private int progreso; // Porcentaje de progreso del lavado (0 a 100)
-
 
     public String getId() {
         return id;
@@ -51,20 +52,28 @@ public class Reserva {
         this.placaVehiculo = placaVehiculo;
     }
 
-    public String getServicioNombre() {
-        return servicioNombre;
+    public String getServicioId() {
+        return servicioId;
     }
 
-    public void setServicioNombre(String servicioNombre) {
-        this.servicioNombre = servicioNombre;
+    public void setServicioId(String servicioId) {
+        this.servicioId = servicioId;
     }
 
-    public LocalDateTime getFechaReserva() {
-        return fechaReserva;
+    public LocalDateTime getFechaInicio() {
+        return fechaInicio;
     }
 
-    public void setFechaReserva(LocalDateTime fechaReserva) {
-        this.fechaReserva = fechaReserva;
+    public void setFechaInicio(LocalDateTime fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalDateTime getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(LocalDateTime fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
     public EstadoReserva getEstado() {
@@ -98,5 +107,4 @@ public class Reserva {
     public void setProgreso(int progreso) {
         this.progreso = progreso;
     }
-
 }

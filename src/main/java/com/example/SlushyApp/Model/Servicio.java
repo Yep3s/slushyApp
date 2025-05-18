@@ -18,16 +18,16 @@ public class Servicio {
     @Id
     private String id;
 
-    //@NotBlank(message = "El nombre no puede estar vacío.")
+    @NotBlank(message = "El nombre no puede estar vacío.")
     private String nombre;
 
-    //@NotBlank(message = "La descripción no puede estar vacía.")
+    @NotBlank(message = "La descripción no puede estar vacía.")
     private String descripcion;
 
 
     private Map<TipoVehiculo, Double> preciosPorTipo;
 
-    //@Min(value = 1, message = "La duración debe ser mayor a 0 minutos.")
+    @Min(value = 1, message = "La duración debe ser mayor a 0 minutos.")
     private int duracionMinutos;
 
     private EstadoServicio estado;

@@ -270,7 +270,12 @@
                             <i class="fas fa-check-circle" style="color: var(--success);"></i>
                             <span>Último servicio: --</span> <!-- Puedes reemplazar esto por la fecha del último servicio si la tienes -->
                         </div>
-                        <button class="btn btn-outline" th:href="@{'/reserva/crear/' + ${vehiculo.id}}">Reservar</button>
+                        <button
+                                type="button"
+                                class="btn btn-outline reservar"
+                                th:attr="data-placa=${vehiculo.placa}">
+                            Reservar
+                        </button>
                     </div>
                 </div>
             </th:block>
@@ -449,38 +454,32 @@
         </div>
         <div class="modal-body">
             <form class="modal-form">
-                <div class="form-group">
-                    <label for="reserve-vehicle" class="modal-label">Vehículo</label>
-                    <select id="reserve-vehicle" class="form-control">
-                        <option value="">Selecciona un vehículo</option>
-                        <option value="1">Toyota Corolla (ABC-123)</option>
-                        <option value="2">Honda CR-V (XYZ-789)</option>
-                    </select>
-                </div>
+                <!-- guardamos la placa en un hidden -->
+                <input type="hidden" id="reserve-placa">
+
                 <div class="form-group">
                     <label for="reserve-service" class="modal-label">Servicio</label>
                     <select id="reserve-service" class="form-control">
                         <option value="">Selecciona un servicio</option>
-                        <option value="1">Lavado Básico - $8.99</option>
-                        <option value="2">Lavado Premium - $14.99</option>
-                        <option value="3">Lavado Deluxe - $24.99</option>
-                        <option value="4">Encerado - $12.99</option>
-                        <option value="5">Pulido de Faros - $9.99</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label for="reserve-date" class="modal-label">Fecha</label>
                     <input type="date" id="reserve-date" class="form-control">
                 </div>
+
                 <div class="form-group">
                     <label for="reserve-time" class="modal-label">Hora</label>
                     <select id="reserve-time" class="form-control">
                         <option value="">Selecciona una hora</option>
-                        <option value="08:00">08:00 AM</option>
-                        <option value="08:30">08:30 AM</option>
-                        <option value="09:00">09:00 AM</option>
-                        <!-- Más opciones de hora -->
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reserve-notes" class="modal-label">Observaciones</label>
+                    <textarea id="reserve-notes" class="form-control"
+                              placeholder="Por ejemplo: Por favor revisar tapicería."></textarea>
                 </div>
             </form>
         </div>
@@ -490,6 +489,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Alertas Actualizadas -->
 
@@ -756,796 +756,137 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1) Cambio de pestañas
-      const tabs     = document.querySelectorAll('.user-tab');
-      const panes    = document.querySelectorAll('.tab-content');
-      tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-          tabs.forEach(t => t.classList.remove('active'));
-          panes.forEach(p => p.classList.remove('active'));
-          tab.classList.add('active');
-          document.getElementById(tab.dataset.tab + '-content').classList.add('active');
+      const modal         = document.getElementById('reserveModal');
+      const placaField    = document.getElementById('reserve-placa');
+      const dateInput     = document.getElementById('reserve-date');
+      const serviceSelect = document.getElementById('reserve-service');
+      const timeSelect    = document.getElementById('reserve-time');
+      const notesInput    = document.getElementById('reserve-notes');
+      const confirmBtn    = document.getElementById('confirmReserveBtn');
+
+      // 1️⃣ Abrir modal y fijar placa
+      document.querySelectorAll('.reservar').forEach(btn => {
+        btn.addEventListener('click', () => {
+          placaField.value = btn.dataset.placa;
+          dateInput.value  = '';
+          serviceSelect.innerHTML = '<option value="">Selecciona un servicio</option>';
+          timeSelect.innerHTML    = '<option value="">Selecciona una hora</option>';
+          notesInput.value = '';
+          modal.classList.add('active');
         });
       });
 
-      // 2) Elementos del modal de Membresía
-      const btnOpen  = document.getElementById('changeMembershipBtn');
-      const modal    = document.getElementById('membershipModal');
-      const btnClose = modal.querySelectorAll('.modal-close, .modal-close-btn');
-      const radios   = modal.querySelectorAll('input[name="membership"]');
-      const payInfo  = document.getElementById('paymentInfo');
-      const btnConf  = document.getElementById('confirmMembershipBtn');
-
-      // Abrir modal
-      btnOpen.addEventListener('click', () => {
-        // → si VIP está seleccionado, mostrar pago; si no, ocultar
-        payInfo.style.display = modal.querySelector('input[value="vip"]').checked
-          ? 'block' : 'none';
-        modal.classList.add('active');
-      });
-
-      // Cerrar modal
-      btnClose.forEach(b => b.addEventListener('click', () => modal.classList.remove('active')));
+      // 2️⃣ Cerrar modal
+      modal.querySelectorAll('.modal-close, .modal-close-btn').forEach(x =>
+        x.addEventListener('click', () => modal.classList.remove('active'))
+      );
       modal.addEventListener('click', e => {
         if (e.target === modal) modal.classList.remove('active');
       });
 
-      // Al cambiar opción estándar/VIP ocultar/mostrar pago
-      radios.forEach(r => r.addEventListener('change', () => {
-        payInfo.style.display = (r.value === 'vip' && r.checked) ? 'block' : 'none';
-      }));
+      // 3️⃣ Al cambiar fecha → cargar servicios disponibles
+      dateInput.addEventListener('change', async () => {
+        const placa = placaField.value;
+        const fecha = dateInput.value;
+        if (!placa || !fecha) return;
 
-      // Confirmar cambio
-      btnConf.addEventListener('click', () => {
-        const sel     = modal.querySelector('input[name="membership"]:checked').value;
-        const title   = document.querySelector('#membership-content .membership-title');
-        const badge   = document.querySelector('#membership-content .membership-badge');
+        try {
+          const res = await fetch(
+            `/user/reservas/servicios-disponibles?placa=${encodeURIComponent(placa)}&fecha=${fecha}`,
+            { credentials: 'include' }
+          );
+          if (!res.ok) throw new Error(res.statusText);
+          const servicios = await res.json();
 
-        title.textContent = sel === 'vip' ? 'VIP' : 'Standard';
-        badge.textContent = 'Activa';
-        badge.classList.toggle('vip', sel === 'vip');
-        badge.classList.toggle('standard', sel === 'standard');
-
-        modal.classList.remove('active');
-      });
-    });
-</script>
-
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // 1) Gestión de pestañas
-      const tabs     = document.querySelectorAll('.user-tab');
-      const contents = document.querySelectorAll('.tab-content');
-
-      tabs.forEach(tab => {
-        tab.addEventListener('click', e => {
-          e.preventDefault();
-          // Desactivar todo
-          tabs.forEach(t => t.classList.remove('active'));
-          contents.forEach(c => c.classList.remove('active'));
-          // Activar la pestaña/correspondiente contenido
-          tab.classList.add('active');
-          const panel = document.getElementById(tab.dataset.tab + '-content');
-          if (panel) panel.classList.add('active');
-        });
-      });
-
-      // 2) Lógica de Membresía dentro del panel #membership-content
-      let userMembership = 'Standard';
-      const currentSpan  = document.getElementById('current-membership');
-      const stdBenefit   = document.getElementById('membership-benefits-standard');
-      const vipOpt       = document.getElementById('vip-options');
-      const cancelOpt    = document.getElementById('cancel-vip-option');
-      const activateBtn  = document.getElementById('activate-vip-btn');
-      const cancelBtn    = document.getElementById('cancel-vip-btn');
-
-      function updateMembershipUI() {
-        currentSpan.textContent = userMembership;
-        if (userMembership === 'VIP') {
-          stdBenefit.style.display   = 'none';
-          vipOpt.style.display       = 'none';
-          cancelOpt.style.display    = 'block';
-        } else {
-          stdBenefit.style.display   = 'block';
-          vipOpt.style.display       = 'block';
-          cancelOpt.style.display    = 'none';
+          serviceSelect.innerHTML = '<option value="">Selecciona un servicio</option>';
+          servicios.forEach(s => {
+            const precio = Object.values(s.preciosPorTipo)[0];
+            serviceSelect.innerHTML += `
+              <option value="${s.id}">
+                ${s.nombre} – $${precio}
+              </option>`;
+          });
+          timeSelect.innerHTML = '<option value="">Selecciona una hora</option>';
+        } catch (err) {
+          console.error(err);
+          showAlert('errorAlert','No se pudieron cargar los servicios.');
         }
+      });
+
+      // 4️⃣ Al seleccionar servicio → cargar franjas horarias
+      serviceSelect.addEventListener('change', async () => {
+        const servicioId = serviceSelect.value;
+        const fecha      = dateInput.value;
+        if (!servicioId || !fecha) return;
+
+        try {
+          const res   = await fetch(
+            `/user/reservas/disponibilidad?servicioId=${servicioId}&fecha=${fecha}`,
+            { credentials: 'include' }
+          );
+          if (!res.ok) throw new Error(res.statusText);
+          const slots = await res.json();
+
+          timeSelect.innerHTML = '<option value="">Selecciona una hora</option>';
+          slots.forEach(dt => {
+            const hhmm = dt.split('T')[1].substr(0,5);
+            const [hh,mm] = hhmm.split(':').map(n=>+n);
+            const ampm = hh>=12?'PM':'AM';
+            const h12  = (hh%12||12).toString().padStart(2,'0');
+            timeSelect.innerHTML += `
+              <option value="${hhmm}">
+                ${h12}:${mm.toString().padStart(2,'0')} ${ampm}
+              </option>`;
+          });
+        } catch (err) {
+          console.error(err);
+          showAlert('errorAlert','No se pudieron cargar los horarios.');
+        }
+      });
+
+      // 5️⃣ Confirmar reserva + pago simulado
+      confirmBtn.addEventListener('click', async () => {
+        const body = {
+          placaVehiculo: placaField.value,
+          servicioId:    serviceSelect.value,
+          fechaInicio:   `${dateInput.value}T${timeSelect.value}:00`,
+          observaciones: notesInput.value
+        };
+        if (!body.placaVehiculo || !body.servicioId || !timeSelect.value) {
+          showAlert('errorAlert','Completa todos los campos.');
+          return;
+        }
+
+        try {
+          const res = await fetch('/user/reservas/crear', {
+            method: 'POST',
+            headers: { 'Content-Type':'application/json' },
+            credentials: 'include',
+            body: JSON.stringify(body)
+          });
+          if (!res.ok) throw new Error(await res.text()||res.statusText);
+          await res.json();
+
+          modal.classList.remove('active');
+          showAlert('reserveAlert','Reserva confirmada exitosamente.');
+        } catch (err) {
+          console.error(err);
+          showAlert('errorAlert', err.message);
+        }
+      });
+
+      // — Helper de alertas —
+      function showAlert(id, msg) {
+        const a = document.getElementById(id);
+        if (!a) return;
+        const t = a.querySelector('.alert-text');
+        if (t) t.textContent = msg;
+        a.classList.add('show');
+        setTimeout(()=>a.classList.remove('show'),3000);
       }
-
-      activateBtn.addEventListener('click', () => {
-        userMembership = 'VIP';
-        updateMembershipUI();
-        alert('¡Felicidades! Has activado tu Membresía VIP.');
-      });
-
-      cancelBtn.addEventListener('click', () => {
-        if (!confirm('¿Estás seguro de que deseas cancelar tu VIP?')) return;
-        userMembership = 'Standard';
-        updateMembershipUI();
-        alert('Membresía VIP cancelada.');
-      });
-
-      // Inicializa la UI al cargar
-      updateMembershipUI();
     });
 </script>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-const changeBtn    = document.getElementById('changeMembershipBtn');
-const modal        = document.getElementById('membershipModal');
-const closeBtns    = modal.querySelectorAll('.modal-close, .modal-close-btn');
-const radios       = document.querySelectorAll('input[name="membership"]');
-const paymentInfo  = document.getElementById('paymentInfo');
-const confirmBtn   = document.getElementById('confirmMembershipBtn');
-
-// Abrir modal
-changeBtn.addEventListener('click', () => {
-// Si el radio VIP está seleccionado al abrir, mostramos el pago
-const sel = document.querySelector('input[name="membership"]:checked').value;
-paymentInfo.style.display = (sel === 'vip' ? 'block' : 'none');
-modal.classList.add('active');
-});
-
-// Cerrar modal
-closeBtns.forEach(b => b.addEventListener('click', () => modal.classList.remove('active')));
-modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('active'); });
-
-// Mostrar u ocultar sección de pago al cambiar de opción
-radios.forEach(radio => {
-radio.addEventListener('change', () => {
-  paymentInfo.style.display = (radio.value === 'vip' ? 'block' : 'none');
-});
-});
-
-// Confirmar cambio de membresía
-confirmBtn.addEventListener('click', () => {
-const selected = document.querySelector('input[name="membership"]:checked').value;
-const titleEl  = document.querySelector('.membership-title');
-const badgeEl  = document.querySelector('.membership-badge');
-
-// Actualizamos card
-titleEl.textContent = selected === 'vip' ? 'VIP' : 'Standard';
-badgeEl.textContent = 'Activa';
-badgeEl.classList.remove('standard','vip');
-badgeEl.classList.add(selected);
-
-// (Opcional) podrías actualizar aquí los detalles dentro de .membership-info
-
-modal.classList.remove('active');
-});
-});
-
-
-</script>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const membershipTab = document.querySelector('.user-tab[data-tab="membership"]');
-        const membershipModal = document.getElementById('membershipModal');
-        const modalCloseButtons = document.querySelectorAll('.modal-close, .modal-close-btn');
-        const currentMembershipSpan = document.getElementById('current-membership');
-        const vipOptionsDiv = document.getElementById('vip-options');
-        const cancelVipOptionDiv = document.getElementById('cancel-vip-option');
-        const activateVipBtn = document.getElementById('activate-vip-btn');
-        const cancelVipBtn = document.getElementById('cancel-vip-btn');
-        const membershipBenefitsStandard = document.getElementById('membership-benefits-standard');
-
-        let userMembership = 'Standard'; // Simulación del estado inicial de la membresía
-
-        // Función para actualizar la interfaz del modal según el estado de la membresía
-        function updateMembershipUI() {
-            currentMembershipSpan.textContent = userMembership;
-            if (userMembership === 'VIP') {
-                vipOptionsDiv.style.display = 'none';
-                cancelVipOptionDiv.style.display = 'block';
-                membershipBenefitsStandard.style.display = 'none';
-            } else {
-                vipOptionsDiv.style.display = 'block';
-                cancelVipOptionDiv.style.display = 'none';
-                membershipBenefitsStandard.style.display = 'block';
-            }
-        }
-
-        // Mostrar el modal de membresía al hacer clic en la pestaña
-        if (membershipTab) {
-            membershipTab.addEventListener('click', () => {
-                membershipModal.style.display = 'block';
-                updateMembershipUI(); // Actualizar la interfaz al abrir el modal
-
-                // Desactivar la clase 'active' de otras pestañas y ocultar otros contenidos
-                const tabs = document.querySelectorAll('.user-tab');
-                const tabContents = document.querySelectorAll('.tab-content');
-                tabs.forEach(t => t.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                membershipTab.classList.add('active'); // Activar la pestaña de membresía (si es necesario)
-            });
-        }
-
-        // Cerrar el modal
-        modalCloseButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                membershipModal.style.display = 'none';
-            });
-        });
-
-        window.addEventListener('click', (event) => {
-            if (event.target === membershipModal) {
-                membershipModal.style.display = 'none';
-            }
-        });
-
-        // Simulación de la activación de la membresía VIP
-        if (activateVipBtn) {
-            activateVipBtn.addEventListener('click', () => {
-                userMembership = 'VIP';
-                updateMembershipUI();
-                alert('¡Felicidades! Has activado tu Membresía VIP. Ahora disfrutas de descuentos y beneficios exclusivos.');
-            });
-        }
-
-        // Simulación de la cancelación de la membresía VIP
-        if (cancelVipBtn) {
-            cancelVipBtn.addEventListener('click', () => {
-                const confirmCancel = confirm('¿Estás seguro de que deseas cancelar tu Membresía VIP?');
-                if (confirmCancel) {
-                    userMembership = 'Standard';
-                    updateMembershipUI();
-                    alert('Tu Membresía VIP ha sido cancelada. Has vuelto a la Membresía Standard.');
-                }
-            });
-        }
-
-        // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        if (menuToggle) {
-            menuToggle.addEventListener('click', function() {
-                document.getElementById('mobileMenu').classList.toggle('active');
-            });
-        }
-
-        // Close mobile menu when clicking on a link
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobileMenu').classList.remove('active');
-            });
-        });
-
-        // Tabs functionality (MODIFICADO PARA NO INTERFERIR CON EL MODAL)
-        const tabs = document.querySelectorAll('.user-tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabs.forEach(tab => {
-            if (tab.getAttribute('data-tab') !== 'membership') { // Ignorar la pestaña de membresía aquí
-                tab.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-
-                    // Add active class to current tab and content
-                    this.classList.add('active');
-                    const contentToShow = document.getElementById(tabId + '-content');
-                    if (contentToShow) {
-                        contentToShow.classList.add('active');
-                    }
-                });
-            }
-        });
-
-        // Update current year in footer (asegúrate de que el elemento exista)
-        const currentYearElement = document.getElementById('currentYear');
-        if (currentYearElement) {
-            currentYearElement.textContent = new Date().getFullYear();
-        }
-
-        // Modal functionality (general para otros modales)
-        const modals = document.querySelectorAll('.modal');
-        const generalModalCloseButtons = document.querySelectorAll('.modal .modal-close, .modal .modal-close-btn'); // Especificar dentro de modales
-
-        // Abrir modal para agregar vehículo
-        const addVehicleButton = document.querySelector('.add-vehicle');
-        const addVehicleModal = document.getElementById('addVehicleModal');
-        if (addVehicleButton && addVehicleModal) {
-            addVehicleButton.addEventListener('click', function() {
-                addVehicleModal.classList.add('active');
-            });
-        }
-
-        // Abrir modal para ver historial completo
-        const historyButton = document.querySelector('.tab-content#services-content .btn-outline');
-        const fullHistoryModal = document.getElementById('fullHistoryModal');
-        if (historyButton && fullHistoryModal) {
-            historyButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                fullHistoryModal.classList.add('active');
-            });
-        }
-
-        // Abrir modal para ver todos los niveles
-        const levelsButton = document.querySelector('.tab-content#level-content .btn-primary');
-        const allLevelsModal = document.getElementById('allLevelsModal');
-        if (levelsButton && allLevelsModal) {
-            levelsButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                allLevelsModal.classList.add('active');
-            });
-        }
-
-        // Abrir modal para eliminar cuenta
-        const deleteAccountButton = document.querySelector('.danger-zone .btn-danger');
-        const deleteAccountModal = document.getElementById('deleteAccountModal');
-        if (deleteAccountButton && deleteAccountModal) {
-            deleteAccountButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                deleteAccountModal.classList.add('active');
-            });
-        }
-
-        // Abrir modal para invitar amigo
-        const inviteFriendButtons = document.querySelectorAll('.btn-outline');
-        const inviteFriendModal = document.getElementById('inviteFriendModal');
-        inviteFriendButtons.forEach(btn => {
-            if (btn.textContent.trim() === 'Invitar Amigo' && inviteFriendModal) {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    inviteFriendModal.classList.add('active');
-                });
-            }
-        });
-
-        // Función para abrir el modal de reserva
-        function openReserveModal(vehicleId = null) {
-            const modal = document.getElementById('reserveModal');
-            const vehicleSelect = document.getElementById('reserve-vehicle');
-
-            if (modal) {
-                if (vehicleId && vehicleSelect) {
-                    vehicleSelect.value = vehicleId;
-                    vehicleSelect.disabled = true;
-                } else if (vehicleSelect) {
-                    vehicleSelect.disabled = false;
-                    vehicleSelect.value = ''; // Resetear si no hay ID
-                }
-
-                const serviceSelect = document.getElementById('reserve-service');
-                const dateInput = document.getElementById('reserve-date');
-                const timeInput = document.getElementById('reserve-time');
-                const notesInput = document.getElementById('reserve-notes');
-
-                if (serviceSelect) serviceSelect.value = '';
-                if (dateInput) dateInput.value = '';
-                if (timeInput) timeInput.value = '';
-                if (notesInput) notesInput.value = '';
-
-                modal.classList.add('active');
-            }
-        }
-
-        // Conectar botones de reserva
-        const reserveButtons = document.querySelectorAll('[data-action="reserve"]');
-        reserveButtons.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const vehicleId = this.getAttribute('data-vehicle-id');
-                openReserveModal(vehicleId);
-            });
-        });
-
-        // Conectar botones "Reservar" en vehículos
-        const vehicleReserveButtons = document.querySelectorAll('.vehicle-footer .btn-outline');
-        vehicleReserveButtons.forEach(btn => {
-            if (btn.textContent.trim() === 'Reservar') {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const vehicleCard = this.closest('.vehicle-card');
-                    const vehicleTitle = vehicleCard ? vehicleCard.querySelector('.vehicle-title') : null;
-                    const vehicleId = vehicleTitle ? (vehicleTitle.textContent.includes('Toyota') ? '1' : '2') : null;
-                    if (vehicleId) {
-                        openReserveModal(vehicleId);
-                    }
-                });
-            }
-        });
-
-        // Conectar botones "Reservar Ahora" en misiones (asegúrate de que existan)
-        const missionReserveButtons = document.querySelectorAll('.mission-footer .btn-outline');
-        missionReserveButtons.forEach(btn => {
-            if (btn.textContent.trim() === 'Reservar Ahora') {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openReserveModal();
-                });
-            }
-        });
-
-        // Mostrar alerta para botones "Reclamado"
-        const claimedButtons = document.querySelectorAll('.btn-outline.disabled');
-        claimedButtons.forEach(btn => {
-            if (btn.textContent.trim() === 'Reclamado') {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    showAlert('saveAlert', 'Ya has reclamado esta recompensa');
-                });
-            }
-        });
-
-        // Cerrar modales (general)
-        generalModalCloseButtons.forEach(btn => {
-            const modal = btn.closest('.modal');
-            if (modal) {
-                btn.addEventListener('click', function() {
-                    modal.classList.remove('active');
-                });
-            }
-        });
-
-        // Cerrar modal al hacer clic fuera (general)
-        modals.forEach(modal => {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    this.classList.remove('active');
-                }
-            });
-        });
-
-        // Guardar edición de vehículo
-        const saveEditVehicleBtn = document.getElementById('saveEditVehicleBtn');
-        const editVehicleModal = document.getElementById('editVehicleModal');
-        if (saveEditVehicleBtn && editVehicleModal) {
-            saveEditVehicleBtn.addEventListener('click', function() {
-                editVehicleModal.classList.remove('active');
-                showAlert('saveAlert', 'Vehículo actualizado correctamente');
-            });
-        }
-
-        // Confirmar eliminación de cuenta
-        const confirmDeleteAccountBtn = document.getElementById('confirmDeleteAccountBtn');
-        const deletePasswordInput = document.getElementById('delete-password');
-        const deleteAccountModalElement = document.getElementById('deleteAccountModal');
-        if (confirmDeleteAccountBtn && deletePasswordInput && deleteAccountModalElement) {
-            confirmDeleteAccountBtn.addEventListener('click', function() {
-                const password = deletePasswordInput.value;
-                if (!password) {
-                    showAlert('errorAlert', 'Por favor ingresa tu contraseña');
-                    return;
-                }
-                deleteAccountModalElement.classList.remove('active');
-                showAlert('deleteAlert', 'Tu cuenta se ha eliminado correctamente');
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-            });
-        }
-
-        // Guardar cambios en información personal
-        const settingsFormSubmit = document.querySelector('.settings-form button[type="submit"]');
-        if (settingsFormSubmit) {
-            settingsFormSubmit.addEventListener('click', function(e) {
-                e.preventDefault();
-                showAlert('saveAlert', 'Cambios guardados correctamente');
-            });
-        }
-
-        // Cambiar contraseña
-        const changePasswordButtons = document.querySelectorAll('.settings-form button[type="submit"]');
-        if (changePasswordButtons.length > 1) {
-            changePasswordButtons[1].addEventListener('click', function(e) {
-                e.preventDefault();
-
-                const currentPassInput = document.getElementById('current-password');
-                const newPassInput = document.getElementById('new-password');
-                const confirmPassInput = document.getElementById('confirm-password');
-
-                const currentPass = currentPassInput ? currentPassInput.value : '';
-                const newPass = newPassInput ? newPassInput.value : '';
-                const confirmPass = confirmPassInput ? confirmPassInput.value : '';
-
-                if (!currentPass || !newPass || !confirmPass) {
-                    showAlert('errorAlert', 'Por favor completa todos los campos');
-                    return;
-                }
-
-                if (newPass !== confirmPass) {
-                    showAlert('errorAlert', 'Las contraseñas no coinciden');
-                    return;
-                }
-
-                showAlert('saveAlert', 'Contraseña cambiada correctamente');
-                if (currentPassInput) currentPassInput.value = '';
-                if (newPassInput) newPassInput.value = '';
-                if (confirmPassInput) confirmPassInput.value = '';
-            });
-        }
-
-        // Confirmar reserva
-        const confirmReserveBtn = document.getElementById('confirmReserveBtn');
-        const reserveVehicleSelect = document.getElementById('reserve-vehicle');
-        const reserveServiceSelect = document.getElementById('reserve-service');
-        const reserveDateInput = document.getElementById('reserve-date');
-        const reserveTimeInput = document.getElementById('reserve-time');
-        const reserveModalElement = document.getElementById('reserveModal');
-
-        if (confirmReserveBtn && reserveVehicleSelect && reserveServiceSelect && reserveDateInput && reserveTimeInput && reserveModalElement) {
-            confirmReserveBtn.addEventListener('click', function() {
-                const vehicle = reserveVehicleSelect.value;
-                const service = reserveServiceSelect.value;
-                const date = reserveDateInput.value;
-                const time = reserveTimeInput.value;
-
-                if (!vehicle || !service || !date || !time) {
-                    showAlert('errorAlert', 'Por favor completa todos los campos');
-                    return;
-                }
-
-                reserveModalElement.classList.remove('active');
-                showAlert('reserveAlert', 'Reserva confirmada exitosamente');
-            });
-        }
-
-        // Enviar invitación
-        const sendInviteBtn = document.getElementById('sendInviteBtn');
-        const friendEmailInput = document.getElementById('friend-email');
-        const inviteFriendModalElement = document.getElementById('inviteFriendModal');
-
-        if (sendInviteBtn && friendEmailInput && inviteFriendModalElement) {
-            sendInviteBtn.addEventListener('click', function() {
-                const email = friendEmailInput.value;
-                if (!email) {
-                    showAlert('errorAlert', 'Por favor ingresa un correo electrónico');
-                    return;
-                }
-                inviteFriendModalElement.classList.remove('active');
-                showAlert('saveAlert', 'Invitación enviada correctamente');
-            });
-        }
-
-        // Función para mostrar alertas
-        function showAlert(alertId, customMessage = null) {
-            const alert = document.getElementById(alertId);
-
-            if (alert) {
-                const alertText = alert.querySelector('.alert-text');
-                if (customMessage && alertText) {
-                    alertText.textContent = customMessage;
-                }
-                alert.classList.add('show');
-                setTimeout(() => {
-                    alert.classList.remove('show');
-                }, 3000);
-            }
-        }
-
-        // Inicializar datepicker con fechas disponibles
-        const reserveDateInputInit = document.getElementById('reserve-date');
-        if (reserveDateInputInit) {
-            reserveDateInputInit.min = new Date().toISOString().split('T')[0];
-        }
-
-        // Cargar horas disponibles cuando se selecciona una fecha
-        const reserveDateChangeListener = document.getElementById('reserve-date');
-        if (reserveDateChangeListener) {
-            reserveDateChangeListener.addEventListener('change', function() {
-                const timeSelect = document.getElementById('reserve-time');
-                if (timeSelect) {
-                    timeSelect.innerHTML = '<option value="">Selecciona una hora</option>';
-                    const selectedDate = new Date(this.value);
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0); // Reset time for comparison
-
-                    for (let hour = 8; hour <= 17; hour++) {
-                        for (let minute = 0; minute < 60; minute += 30) {
-                            const timeString = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-                            const displayHour = hour > 12 ? hour - 12 : hour;
-                            const ampm = hour >= 12 ? 'PM' : 'AM';
-                            const displayTime = `${displayHour === 0 ? 12 : displayHour}:${minute.toString().padStart(2, '0')} ${ampm}`;
-
-                            // Excluir horas pasadas si la fecha seleccionada es hoy
-                            if (selectedDate > today || (selectedDate.getTime() === today.getTime() && hour > today.getHours() + (today.getMinutes() > 30 ? 1 : 0))) {
-                                const option = document.createElement('option');
-                                option.value = timeString;
-                                option.textContent = displayTime;
-                                timeSelect.appendChild(option);
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        // Evento para el botón "Eliminar todos mis vehículos" en Configuración
-        const deleteAllVehiclesButton = document.querySelector('.danger-zone .btn-outline');
-        const deleteAllVehiclesModal = document.getElementById('deleteAllVehiclesModal');
-        const confirmDeleteAllBtn = document.getElementById('confirmDeleteAllBtn');
-        const confirmDeleteAllInput = document.getElementById('confirm-password-delete-all');
-
-        if (deleteAllVehiclesButton && deleteAllVehiclesModal) {
-            deleteAllVehiclesButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                deleteAllVehiclesModal.classList.add('active');
-            });
-        }
-
-        // Lógica para eliminar todos los vehículos
-        if (confirmDeleteAllBtn && confirmDeleteAllInput) {
-            confirmDeleteAllBtn.addEventListener('click', function() {
-                const password = confirmDeleteAllInput.value;
-
-                if (!password) {
-                    showAlert('errorAlert', 'Por favor ingresa tu contraseña');
-                    return;
-                }
-
-
-                // 2. Actualizar contador en el perfil (Asegúrate de que esto funcione con tu HTML)
-                const vehicleStats = document.querySelectorAll('.user-stat');
-                if (vehicleStats.length > 0) {
-                    vehicleStats[0].querySelector('span').textContent = '0 Vehículos';
-                }
-
-                // 3. Cerrar modal y limpiar campo
-                deleteAllVehiclesModal.classList.remove('active');
-                confirmDeleteAllInput.value = '';
-
-                // 4. Mostrar feedback
-                showAlert('deleteAlert', 'Todos los vehículos fueron eliminados');
-
-                // Aquí iría la llamada real al backend:
-                // fetch('/api/vehiculos', { method: 'DELETE' })
-                // .then(response => response.json())
-                // .then(data => { ... })
-                // .catch(error => showAlert('errorAlert', 'Error al eliminar vehículos'));
-            });
-        }
-
-        // Cerrar modal al hacer clic en Cancelar
-        const cancelDeleteAllBtn = document.querySelector('#deleteAllVehiclesModal .modal-close-btn');
-        if (cancelDeleteAllBtn) {
-            cancelDeleteAllBtn.addEventListener('click', function() {
-                deleteAllVehiclesModal.classList.remove('active');
-            });
-        }
-
-        // En la sección de scripts, agregar:
-        // Conectar botones "Ver Detalles" con el modal de seguimiento
-        const viewDetailsButtons = document.querySelectorAll('.btn-view-details');
-        const trackingModal = document.getElementById('trackingModal');
-        const updateStatusBtn = document.getElementById('updateStatusBtn');
-
-
-        if (viewDetailsButtons && trackingModal) {
-            viewDetailsButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const serviceId = this.getAttribute('data-service-id');
-                    openTrackingModal(serviceId);
-                });
-            });
-        }
-
-        // Función para abrir el modal de seguimiento con los datos del servicio
-        function openTrackingModal(serviceId) {
-            // Aquí podrías cargar datos específicos del servicio basado en serviceId
-            // Por ahora usaremos datos de ejemplo
-
-            trackingModal.classList.add('active');
-
-            // Iniciar simulación de progreso si el servicio está en proceso
-            if (serviceId === "123") { // ID del servicio en proceso
-                simulateProgress();
-            }
-        }
-
-        // Manejar el botón de actualizar estado en el modal de seguimiento
-        if (updateStatusBtn) {
-            updateStatusBtn.addEventListener('click', function() {
-                // Aquí iría la lógica real para actualizar el estado
-                // Por ahora solo mostramos la alerta
-                showAlert('updateStatusAlert', 'Estado actualizado correctamente');
-
-                // Cerrar el modal después de 1 segundo (opcional)
-                setTimeout(() => {
-                    trackingModal.classList.remove('active');
-                }, 1000);
-            });
-        }
-
-
-
-        // Conectar botones "Ver Estado Actual" con el modal de seguimiento
-        const viewStatusButtons = document.querySelectorAll('.btn-view-status');
-        if (viewStatusButtons && trackingModal) {
-            viewStatusButtons.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    openTrackingModal('123'); // Puedes pasar el ID del servicio específico
-                });
-            });
-        }
-
-        // Función para abrir el modal de seguimiento
-        function openTrackingModal(serviceId) {
-            // Aquí podrías cargar datos específicos del servicio basado en serviceId
-            // Por ahora usaremos datos de ejemplo
-
-            // Actualiza los datos en el modal según el servicio seleccionado
-            const modal = document.getElementById('trackingModal');
-            const serviceTitle = modal ? modal.querySelector('h4') : null;
-            const serviceDesc = modal ? modal.querySelector('p') : null;
-            const statusBadge = modal ? modal.querySelector('.status-badge') : null;
-            const progressFill = modal ? modal.querySelector('.progress-bar-fill') : null;
-
-            // Ejemplo de datos basados en el serviceId
-            if (serviceId === '123') {
-                if (serviceTitle) serviceTitle.textContent = 'Servicio #SL-12345';
-                if (serviceDesc) serviceDesc.textContent = 'Toyota Corolla (Sedán) • Lavado Premium';
-                if (statusBadge) statusBadge.textContent = 'En Proceso';
-                if (progressFill) progressFill.style.width = '60%';
-            } else {
-                if (serviceTitle) serviceTitle.textContent = 'Servicio #SL-67890';
-                if (serviceDesc) serviceDesc.textContent = 'Honda CR-V (SUV) • Lavado Deluxe';
-                if (statusBadge) statusBadge.textContent = 'Completado';
-                if (progressFill) progressFill.style.width = '100%';
-            }
-
-            // Muestra el modal
-            modal.classList.add('active');
-
-            // Iniciar simulación de progreso si el servicio está en proceso
-            if (serviceId === "123") {
-                simulateProgress();
-            }
-        }
-
-        // Función de ejemplo para simular progreso (opcional)
-        function simulateProgress() {
-            const progressFill = document.querySelector('.progress-bar-fill');
-            const statusBadge = document.querySelector('.status-badge');
-            let progress = 60;
-
-            const interval = setInterval(() => {
-                progress += 5;
-                if (progressFill) progressFill.style.width = `${progress}%`;
-
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    if (statusBadge) statusBadge.textContent = 'Completado';
-                    if (statusBadge) {
-                        statusBadge.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
-                        statusBadge.style.color = 'var(--success)';
-                    }
-                }
-            }, 1000);
-        }
-
-        // En la sección de scripts, agregar:
-        // Conectar botón "Ver Todas las Misiones" con el modal
-        const allMissionsButton = document.querySelector('.tab-content#missions-content .btn-primary');
-        const allMissionsModal = document.getElementById('allMissionsModal');
-
-        if (allMissionsButton && allMissionsModal) {
-            allMissionsButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                allMissionsModal.classList.add('active');
-            });
-        }
-
-        // Conectar botones "Invitar Amigo" dentro del modal
-        const inviteFriendButtonsModal = document.querySelectorAll('.btn-invite-friend');
-        if (inviteFriendButtonsModal && inviteFriendModalElement) {
-            inviteFriendButtonsModal.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    allMissionsModal.classList.remove('active');
-                    inviteFriendModalElement.classList.add('active');
-                });
-            });
-        }
-    });
-</script>
 <script src="/js/user-dashboard.js"></script>
 <script src="/js/delete-vehicle.js"></script>
 

@@ -72,9 +72,21 @@ public class ReservaController {
     }
 
     private String getEmailFromToken(HttpServletRequest request) {
-        String token = request.getHeader("Authorization").replace("Bearer ", "");
+        String token = null;
+        // 1) Intentamos en el header Authorization
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.replace("Bearer ", "");
+        } else {
+            // 2) Si no está, lo sacamos de la cookie 'jwt'
+            token = jwtUtil.extractTokenFromCookie(request);
+        }
+        if (token == null || !jwtUtil.validateToken(token)) {
+            throw new RuntimeException("No autenticado");
+        }
         return jwtUtil.getEmailFromToken(token);
     }
+
 
     private String extractEmail(HttpServletRequest req) {
         // 1) Revisa header Authorization

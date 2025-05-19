@@ -1,5 +1,7 @@
 package com.example.SlushyApp.Controller;
 
+import com.example.SlushyApp.DTO.PasswordChangeDto;
+import com.example.SlushyApp.DTO.ProfileUpdateDto;
 import com.example.SlushyApp.Model.LoginRequest;
 import com.example.SlushyApp.Model.PasswordResetToken;
 import com.example.SlushyApp.Model.Usuario;
@@ -160,5 +162,34 @@ public class AuthController {
         Usuario usuario = usuarioService.findByEmail(email);
         return ResponseEntity.ok(usuario);
     }
+
+    /** ✏️ Actualiza solo nombre, apellido, cédula y teléfono */
+    @PutMapping("/me")
+    public ResponseEntity<Usuario> updateProfile(
+            @Valid @RequestBody ProfileUpdateDto dto,
+            HttpServletRequest req
+    ) {
+        String token = jwtUtil.extractTokenFromCookie(req);
+        String email = jwtUtil.getEmailFromToken(token);
+        Usuario updated = usuarioService.updateProfile(email, dto);
+        return ResponseEntity.ok(updated);
+    }
+
+    // 👉 Cambiar contraseña
+    @PutMapping("/me/password")
+    public ResponseEntity<String> changePassword(
+            @Valid @RequestBody PasswordChangeDto dto,
+            HttpServletRequest request
+    ) {
+        String token = jwtUtil.extractTokenFromCookie(request);
+        String email = jwtUtil.getEmailFromToken(token);
+        usuarioService.changePassword(email,
+                dto.getCurrentPassword(),
+                dto.getNewPassword(),
+                dto.getConfirmPassword()
+        );
+        return ResponseEntity.ok("Contraseña actualizada correctamente");
+    }
+
 
 }

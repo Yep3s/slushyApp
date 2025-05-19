@@ -1,5 +1,6 @@
 package com.example.SlushyApp.Service;
 
+import com.example.SlushyApp.DTO.ProfileUpdateDto;
 import com.example.SlushyApp.Exceptions.CedulaYaRegistradaException;
 import com.example.SlushyApp.Exceptions.EmailYaRegistradoException;
 import com.example.SlushyApp.Model.EmpleadoRequest;
@@ -186,4 +187,30 @@ public class UsuarioService {
         LocalDate desde = LocalDate.now().minusDays(dias);
         return usuarioRepository.countByRolesContainsAndFechaRegistroAfter(Rol.USER, desde);
     }
+
+    //camio contraseñas y actualizar perfil
+
+    public Usuario updateProfile(String email, ProfileUpdateDto dto) {
+        Usuario u = usuarioRepository.findByEmail(email);
+        if (u == null) throw new RuntimeException("Usuario no encontrado");
+        u.setNombre(dto.getNombre());
+        u.setApellido(dto.getApellido());
+        u.setCedula(dto.getCedula());
+        u.setTelefono(dto.getTelefono());
+        return usuarioRepository.save(u);
+    }
+
+    public void changePassword(String email, String current, String nuevo, String confirm) {
+        Usuario u = usuarioRepository.findByEmail(email);
+        if (!passwordEncoder.matches(current, u.getPassword())) {
+            throw new RuntimeException("La contraseña actual no coincide.");
+        }
+        if (!nuevo.equals(confirm)) {
+            throw new RuntimeException("La nueva contraseña y su confirmación no coinciden.");
+        }
+        u.setPassword(passwordEncoder.encode(nuevo));
+        usuarioRepository.save(u);
+    }
+
+
 }

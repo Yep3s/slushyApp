@@ -322,8 +322,8 @@
     <div class="settings-card">
         <h3 class="settings-title">Información Personal</h3>
 
-        <form class="settings-form">
-            <div class="form-group">
+        <form id="settingsFormProfile" class="settings-form">
+        <div class="form-group">
                 <label for="name">Nombre</label>
                 <input type="text" id="name" value="Juan" class="form-input">
             </div>
@@ -331,11 +331,6 @@
             <div class="form-group">
                 <label for="lastname">Apellido</label>
                 <input type="text" id="lastname" value="Pérez" class="form-input">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" value="juan.perez@email.com" class="form-input">
             </div>
 
             <div class="form-group">
@@ -355,7 +350,7 @@
     <div class="settings-card">
         <h3 class="settings-title">Seguridad</h3>
 
-        <form class="settings-form">
+        <form id="settingsFormPassword" class="settings-form">
             <div class="form-group">
                 <label for="current-password">Contraseña Actual</label>
                 <input type="password" id="current-password" class="form-input" placeholder="Ingresa tu contraseña actual">
@@ -755,6 +750,28 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+      const tabs     = document.querySelectorAll('.user-tab');
+      const contents = document.querySelectorAll('.tab-content');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          // 1️⃣ Desactivar todas las pestañas y contenidos
+          tabs.forEach(t => t.classList.remove('active'));
+          contents.forEach(c => c.classList.remove('active'));
+
+          // 2️⃣ Activar la pestaña clickeada...
+          tab.classList.add('active');
+          // …y su contenido correspondiente
+          const panel = document.getElementById(`${tab.dataset.tab}-content`);
+          if (panel) panel.classList.add('active');
+        });
+      });
+    });
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
       const modal         = document.getElementById('reserveModal');
       const placaField    = document.getElementById('reserve-placa');
       const dateInput     = document.getElementById('reserve-date');
@@ -888,6 +905,8 @@
 
 <script src="/js/user-dashboard.js"></script>
 <script src="/js/delete-vehicle.js"></script>
+<script src="/js/settings-usuario.js"></script>
+<script src="/js/settings-password.js"></script>
 
 </body>
 </html>

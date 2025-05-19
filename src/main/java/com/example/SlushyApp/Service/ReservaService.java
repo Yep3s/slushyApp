@@ -1,5 +1,6 @@
 package com.example.SlushyApp.Service;
 
+import com.example.SlushyApp.DTO.HistorialReservaDto;
 import com.example.SlushyApp.Model.*;
 import com.example.SlushyApp.Repository.PagoRepository;
 import com.example.SlushyApp.Repository.ReservaRepository;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -280,6 +282,29 @@ public class ReservaService {
         pago.setMetodo(PaymentMethod.SIMULATED);   // método de pago simulado
 
         return pagoRepository.save(pago);
+    }
+
+    public List<HistorialReservaDto> obtenerHistorial(String emailUsuario) {
+        // 1️⃣ traer todas las reservas del usuario
+        List<Reserva> reservas = obtenerReservasPorUsuario(emailUsuario);
+        // 2️⃣ mapear cada reserva a nuestro DTO
+        return reservas.stream()
+                .sorted(Comparator.comparing(Reserva::getFechaInicio).reversed())
+                .map(r -> {
+                    Servicio svc = servicioRepository.findById(r.getServicioId())
+                            .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+                    Pago pago = pagoRepository.findByReservaId(r.getId()).orElse(null);
+
+                    HistorialReservaDto dto = new HistorialReservaDto();
+                    dto.setReservaId(r.getId());
+                    dto.setServicioNombre(svc.getNombre());
+                    dto.setFechaInicio(r.getFechaInicio());
+                    dto.setEstado(r.getEstado().name());
+                    dto.setPlacaVehiculo(r.getPlacaVehiculo());
+                    dto.setMonto(pago != null ? pago.getMonto() : 0);
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
 

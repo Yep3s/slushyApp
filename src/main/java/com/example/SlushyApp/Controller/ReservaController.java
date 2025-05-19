@@ -1,5 +1,6 @@
 package com.example.SlushyApp.Controller;
 
+import com.example.SlushyApp.DTO.HistorialReservaDto;
 import com.example.SlushyApp.Model.*;
 import com.example.SlushyApp.Repository.PagoRepository;
 import com.example.SlushyApp.Repository.ServicioRepository;
@@ -125,7 +126,11 @@ public class ReservaController {
         return ResponseEntity.ok(lista);
     }
 
-
-
+    @GetMapping("/historial")
+    public ResponseEntity<List<HistorialReservaDto>> historial(HttpServletRequest request) {
+        String email = getEmailFromToken(request);
+        List<HistorialReservaDto> lista = reservaService.obtenerHistorial(email);
+        return ResponseEntity.ok(lista);
+    }
 
 }

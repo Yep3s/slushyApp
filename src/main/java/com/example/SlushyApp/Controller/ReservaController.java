@@ -9,6 +9,7 @@ import com.example.SlushyApp.Utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -105,32 +106,23 @@ public class ReservaController {
      * Devuelve sólo aquellos servicios cuyo map preciosPorTipo
      * contiene la clave igual al tipoVehiculo de la placa.
      */
-    @GetMapping("/servicios-disponibles")  // ← nuevo endpoint con esto te muestra los servicios disponibles segun la placa y tipo de vehiculo
+    @GetMapping("/servicios-disponibles")
     public ResponseEntity<List<Servicio>> serviciosDisponibles(
             @RequestParam String placa,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
-            @RequestParam(required = false) String email,           // ← opcional
             HttpServletRequest request
     ) {
-        // si te pasaron email por parámetro, úsalo; sino extrae del JWT
-        String usuarioEmail = (email != null && !email.isBlank())
-                ? email.trim()
-                : extractEmail(request);
+        // autentica igual que en disponibilidad…
+        String email = getEmailFromToken(request);
 
-        String placaLimpia = placa.trim().toUpperCase();
-        Vehiculo veh = vehiculoRepository
-                .findByPlacaAndUsuarioEmail(placaLimpia, usuarioEmail);
-        if (veh == null) {
-            throw new RuntimeException(
-                    "No tienes asociado ningún vehículo con placa: " + placaLimpia
-            );
+        Vehiculo v = vehiculoRepository.findByPlaca(placa.trim());
+        if (v == null || !v.getUsuarioEmail().equals(email)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        List<Servicio> disponibles = servicioRepository.findAll().stream()
-                .filter(s -> s.getPreciosPorTipo().containsKey(veh.getTipoVehiculo()))
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(disponibles);
+        // aquí le pasamos la placa al servicio
+        List<Servicio> lista = reservaService.obtenerServiciosPorVehiculo(placa.trim());
+        return ResponseEntity.ok(lista);
     }
 
 

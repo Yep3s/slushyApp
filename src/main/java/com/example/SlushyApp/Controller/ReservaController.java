@@ -1,37 +1,40 @@
 package com.example.SlushyApp.Controller;
 
-import com.example.SlushyApp.Model.Reserva;
-import com.example.SlushyApp.Model.Servicio;
-import com.example.SlushyApp.Model.TipoVehiculo;
-import com.example.SlushyApp.Model.Vehiculo;
+import com.example.SlushyApp.Model.*;
+import com.example.SlushyApp.Repository.PagoRepository;
 import com.example.SlushyApp.Repository.ServicioRepository;
 import com.example.SlushyApp.Repository.VehiculoRepository;
 import com.example.SlushyApp.Service.ReservaService;
 import com.example.SlushyApp.Utils.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user/reservas")
 public class ReservaController {
 
+    private final PagoRepository pagoRepository;
     private final ServicioRepository servicioRepository;
     private final VehiculoRepository vehiculoRepository;
     private final ReservaService reservaService;
     private final JwtUtil jwtUtil;
 
-    public ReservaController(ServicioRepository servicioRepository ,VehiculoRepository vehiculoRepository,ReservaService reservaService, JwtUtil jwtUtil) {
+    public ReservaController(PagoRepository pagoRepository, ServicioRepository servicioRepository ,VehiculoRepository vehiculoRepository,ReservaService reservaService, JwtUtil jwtUtil) {
         this.reservaService = reservaService;
         this.jwtUtil = jwtUtil;
         this.vehiculoRepository = vehiculoRepository;
         this.servicioRepository = servicioRepository;
+        this.pagoRepository = pagoRepository;
     }
 
     // 🔍 Obtener franjas libres para un servicio en un día
@@ -49,16 +52,24 @@ public class ReservaController {
 
     // 🟢 Crear reserva
     @PostMapping("/crear")
-    public ResponseEntity<Reserva> crearReserva(
-            @RequestBody Reserva nueva,
+    public ResponseEntity<Map<String,Object>> crearReserva(
+            @RequestBody @Valid Reserva nueva,
             HttpServletRequest request
     ) {
         String email = getEmailFromToken(request);
-        Reserva creada = reservaService.crearReserva(nueva, email);
-        return ResponseEntity.ok(creada);
-    }
 
-    // … resto de endpoints (mis-reservas, cancelar, confirmar, reprogramar) …
+        // 1) guardamos la reserva
+        Reserva creada = reservaService.crearReserva(nueva, email);
+
+        // 2) recuperamos el pago simulado
+        Pago pago = reservaService.simularPago(creada);
+
+        // 3) devolvemos ambos
+        Map<String,Object> resp = new HashMap<>();
+        resp.put("reserva", creada);
+        resp.put("pago",    pago);
+        return ResponseEntity.ok(resp);
+    }
 
     private String getEmailFromToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization").replace("Bearer ", "");
@@ -109,6 +120,8 @@ public class ReservaController {
 
         return ResponseEntity.ok(disponibles);
     }
+
+
 
 
 }

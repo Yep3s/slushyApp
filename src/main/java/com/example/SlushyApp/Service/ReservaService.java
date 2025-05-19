@@ -1,6 +1,7 @@
 package com.example.SlushyApp.Service;
 
 import com.example.SlushyApp.Model.*;
+import com.example.SlushyApp.Repository.PagoRepository;
 import com.example.SlushyApp.Repository.ReservaRepository;
 import com.example.SlushyApp.Repository.ServicioRepository;
 import com.example.SlushyApp.Repository.VehiculoRepository;
@@ -21,16 +22,18 @@ public class ReservaService {
     private static final LocalTime HORA_APERTURA = LocalTime.of(8, 0);
     private static final LocalTime HORA_CIERRE   = LocalTime.of(18, 0);
 
+    private final PagoRepository pagoRepository;
     private final ReservaRepository reservaRepository;
     private final VehiculoRepository vehiculoRepository;
     private final ServicioRepository servicioRepository;
 
-    public ReservaService(ReservaRepository reservaRepository,
+    public ReservaService(PagoRepository pagoRepository, ReservaRepository reservaRepository,
                           VehiculoRepository vehiculoRepository,
                           ServicioRepository servicioRepository) {
         this.reservaRepository = reservaRepository;
         this.vehiculoRepository = vehiculoRepository;
         this.servicioRepository = servicioRepository;
+        this.pagoRepository = pagoRepository;
     }
 
     /** 1️⃣ Crear reserva con validaciones básicas */
@@ -122,34 +125,37 @@ public class ReservaService {
         LocalDateTime inicio = fecha.atTime(HORA_APERTURA);
         LocalDateTime fin    = fecha.atTime(HORA_CIERRE);
 
-        // reservas ocupadas ese día y ese servicio
+        // Recoger **todas** las reservas de ese día (independientemente del servicio)
         List<Reserva> ocupadas = reservaRepository.findAll().stream()
-                .filter(r -> r.getServicioId().equals(servicioId))
-                .filter(r ->
-                        !r.getFechaFin().toLocalDate().isAfter(fecha) &&
-                                !r.getFechaInicio().toLocalDate().isBefore(fecha)
-                )
+                .filter(r -> r.getFechaInicio().toLocalDate().isEqual(fecha))
                 .collect(Collectors.toList());
 
         List<LocalDateTime> slots = new ArrayList<>();
         LocalDateTime pointer = inicio;
 
         while (!pointer.plusMinutes(duracion).isAfter(fin)) {
+            // 1) "Congelamos" el valor de pointer en final para usarlo en la lambda
             final LocalDateTime slotStart = pointer;
-            final LocalDateTime slotEnd   = slotStart.plusMinutes(duracion);
+            final LocalDateTime slotEnd   = pointer.plusMinutes(duracion);
 
+            // 2) Comprobamos solapamientos sobre esas variables finales
             boolean overlap = ocupadas.stream().anyMatch(r ->
                     r.getFechaInicio().isBefore(slotEnd) &&
                             r.getFechaFin().isAfter(slotStart)
             );
+
             if (!overlap) {
                 slots.add(slotStart);
             }
+
+            // 3) Avanzamos el puntero para el siguiente bloque
             pointer = pointer.plusMinutes(duracion);
         }
 
         return slots;
     }
+
+
 
     /** 6️⃣ Métodos “administrativos” sin validar propiedad */
     public Reserva cambiarEstadoComoAdmin(String id, EstadoReserva estado) {
@@ -249,5 +255,33 @@ public class ReservaService {
                 })
                 .collect(Collectors.toList());
     }
+
+    public Pago obtenerPagoPorReserva(String reservaId) {
+        return pagoRepository.findByReservaId(reservaId)
+                .orElseThrow(() -> new RuntimeException("Pago no encontrado para reserva " + reservaId));
+    }
+
+    public Pago simularPago(Reserva reserva) {
+        Servicio svc = servicioRepository.findById(reserva.getServicioId())
+                .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+        Vehiculo veh = vehiculoRepository.findByPlaca(reserva.getPlacaVehiculo());
+
+        TipoVehiculo tipo = veh.getTipoVehiculo();
+        Double precio = svc.getPreciosPorTipo().get(tipo);
+        if (precio == null) {
+            throw new RuntimeException("No hay precio para tipo " + tipo);
+        }
+
+        Pago pago = new Pago();
+        pago.setReservaId(reserva.getId());
+        pago.setMonto(precio);
+        pago.setFechaPago(LocalDateTime.now());
+        pago.setStatus(PaymentStatus.COMPLETED);   // coincide con tu campo `status`
+        pago.setMetodo(PaymentMethod.SIMULATED);   // método de pago simulado
+
+        return pagoRepository.save(pago);
+    }
+
+
 
 }

@@ -3,231 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - FastReserve</title>
+    <title>Iniciar Sesión - Slushyapp</title>
     <link rel="stylesheet" href="/css/login-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+
 <body>
-    <!-- Header -->
-    <header class="header">
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+            </div>
+
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="/" class="nav-link">Inicio</a></li>
+                    <li><a href="/servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="/mebresia" class="nav-link">Membresía VIP</a></li>
+                    <li><a href="/contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <a href="/login" class="btn btn-primary">Ingresa</a>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-content">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="mobile-menu-container">
+            <ul class="mobile-nav-list">
+                <li><a href="/" class="nav-link">Inicio</a></li>
+                <li><a href="/servicios" class="nav-link">Servicios</a></li>
+                <li><a href="/mebresia" class="nav-link">Membresía VIP</a></li>
+                <li><a href="/contacto" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<main class="auth-main">
+    <!-- Elementos del fondo -->
+    <div class="auth-background">
+        <div class="auth-water-effect"></div>
+        <div class="auth-car-silhouettes"></div>
+        <div class="auth-light-reflections"></div>
+    </div>
+
+    <!-- Contenido del formulario -->
+    <section class="auth-section">
         <div class="container">
-            <div class="header-content">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <h1 class="section-title">Accede a tu cuenta</h1>
+                    <p class="section-description">Ingresa tus credenciales para Loguearte en tu cuenta de Slushy</p>
+                </div>
+
+                <form class="auth-form" id="loginForm">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" id="email" class="form-input" placeholder="tucorreo@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" id="password" class="form-input" placeholder="Ingresa Tu Contraseña" required>
+                    </div>
+
+                    <div class="form-group remember-forgot">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember" class="form-checkbox">
+                            <label for="remember">Recordar sesión</label>
+                        </div>
+         <!---               <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a> -->
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">Iniciar Sesión</button>
+                    <div class="auth-footer">
+                        ¿No tienes una cuenta? <a href="/registerSlushy" class="auth-link">Regístrate aquí</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-about">
                 <div class="logo">
-                    <div class="logo-icon"></div> <!-- Pendiente Por Agregar Logo de la app -->
-                    <span class="logo-text">Slushy</span>
+                    <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
                 </div>
-                
-                <nav class="main-nav"> <!-- Slushy app navbar -->
-                    <ul class="nav-list">
-                        <li><a href="/" class="nav-link">Inicio</a></li>
-                        <li><a href="../Servicios-Disponibles/servicios.html" class="nav-link">Servicios</a></li>
-                        <li><a href="../Membresias/vip.html" class="nav-link">Membresía VIP</a></li>
-                        <li><a href="../Recompensas/recompensas.html" class="nav-link">Recompensas</a></li>
-                        <li><a href="../Contacto/contacto.html" class="nav-link">Contacto</a></li>
-                    </ul>
-                </nav>
-                
-                <div class="header-actions">
-                    <a href="/login" class="btn btn-primary">
-                        <i class="fas fa-user"></i> Ingresa
-                    </a>
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
+                <p class="footer-description">
+                    La mejor aplicación para el cuidado de tu vehículo. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h3 class="footer-title">Enlaces Rápidos</h3>
+                <ul class="footer-nav">
+                    <li><a href="/" class="nav-link">Inicio</a></li>
+                    <li><a href="/servicios" class="nav-link">Servicios</a></li>
+                    <li><a href="/mebresia" class="nav-link">Membresía VIP</a></li>
+                    <li><a href="/contacto" class="nav-link">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-newsletter">
+                <h3 class="footer-title">Suscríbete</h3>
+                <p class="footer-description">
+                    Recibe nuestras últimas noticias y promociones exclusivas
+                </p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico" class="newsletter-input">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
                 </div>
-                
             </div>
         </div>
-    </header>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-content">
-            <button class="close-menu" id="closeMenu">X</button>
-          <ul class="mobile-nav-list">
-            <li><a href="/" class="mobile-nav-link">Inicio</a></li>
-            <li><a href="../Servicios-Disponibles/servicios.html" class="mobile-nav-link">Servicios</a></li>
-            <li><a href="../Membresias/vip.html" class="mobile-nav-link">Membresía VIP</a></li>
-            <li><a href="../Recompensas/recompensas.html" class="mobile-nav-link">Recompensas</a></li>
-            <li><a href="../Contacto/contacto.html" class="mobile-nav-link">Contacto</a></li>
-          </ul>
+        <div class="footer-bottom">
+            <p class="copyright">© <span id="currentYear">2023</span> Slushy App. Todos los derechos reservados.</p>
         </div>
-      </div>
+    </div>
+</footer>
+<script>
+    // Mobile Menu Toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeMenu = document.getElementById('closeMenu');
 
-    <!-- Main con el nuevo fondo premium -->
-    <main class="auth-main">
-        <!-- Elementos del fondo -->
-        <div class="auth-background">
-            <div class="auth-water-effect"></div>
-            <div class="auth-car-silhouettes"></div>
-            <div class="auth-light-reflections"></div>
-        </div>
-        
-        <!-- Contenido del formulario (se mantiene igual) -->
-        <section class="auth-section">
-            <div class="container">
-                <div class="auth-container">
-                    <div class="auth-header">
-                        <h1 class="section-title">Accede a tu cuenta</h1>
-                        <p class="section-description">Ingresa tus credenciales para Loguearte en tu cuenta de Slushy</p>
-                    </div>
+  // Abrir el menú al hacer clic en el botón de hamburguesa (☰)
+  menuToggle.addEventListener('click', function() {
+      mobileMenu.classList.add('active');
+  });
 
-                    <form class="auth-form" id="loginForm">
-                        <div class="form-group">
-                            <label for="email" class="form-label">Correo Electrónico</label>
-                            <input type="email" id="email" class="form-input" placeholder="tucorreo@example.com" required>
-                        </div>
+  // Cerrar el menú al hacer clic en el botón de "X"
+  closeMenu.addEventListener('click', function() {
+      mobileMenu.classList.remove('active');
+  });
 
-                        <div class="form-group">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input type="password" id="password" class="form-input" placeholder="Ingresa Tu Contraseña" required>
-                        </div>
+  // Cerrar el menú al hacer clic en cualquier enlace del menú móvil
+  const mobileLinks = document.querySelectorAll('.mobile-nav-list .nav-link');
+  mobileLinks.forEach(link => {
+      link.addEventListener('click', function() {
+          mobileMenu.classList.remove('active');
+      });
+  });
 
-                        <div class="form-group remember-forgot">
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="remember" class="form-checkbox">
-                                <label for="remember">Recordar sesión</label>
-                            </div>
-                            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                        </div>
+  // Cerrar el menú automáticamente al redimensionar la pantalla a desktop (≥1024px)
+  function handleResize() {
+      if (window.innerWidth >= 1024 && mobileMenu.classList.contains('active')) {
+          mobileMenu.classList.remove('active');
+      }
+  }
 
-                        <button type="submit" class="btn btn-primary btn-block btn-lg">Iniciar Sesión</button>
+  window.addEventListener('resize', handleResize);
 
-                        <div class="auth-divider">
-                            <span>o continúa con</span>
-                        </div>
+      // Actualizar el año en el footer
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+</script>
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
 
-                        <div class="social-auth">
-                            <button type="button" class="btn btn-outline btn-block">
-                                <i class="fab fa-google"></i> Google
-                            </button>
-                            <button type="button" class="btn btn-outline btn-block">
-                                <i class="fab fa-facebook-f"></i> Facebook
-                            </button>
-                        </div>
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
 
-                        <div class="auth-footer">
-                            ¿No tienes una cuenta? <a href="/registerSlushy" class="auth-link">Regístrate aquí</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <div class="logo">
-                        <div class="logo-icon"></div>
-                        <span class="logo-text">Slushy</span>
-                    </div>
-                    <p class="footer-description">
-                        La mejor aplicación para el cuidado de tu vehículo. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
-                    </p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-x"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <h3 class="footer-title">Enlaces Rápidos</h3>
-                    <ul class="footer-nav">
-                        <li><a href="#" class="footer-link">Inicio</a></li>
-                        <li><a href="servicios.html" class="footer-link">Nuestros Servicios</a></li>
-                        <li><a href="vip.html" class="footer-link">Membresía VIP</a></li>
-                        <li><a href="recompensas.html" class="footer-link">Sistema de Recompensas</a></li>
-                        <li><a href="contacto.html" class="footer-link">Contacto</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-services">
-                    <h3 class="footer-title">Servicios</h3>
-                    <ul class="footer-nav">
-                        <li><a href="servicios.html" class="footer-link">Lavado Basico</a></li> <!-- 20 mil (automivl)-->
-                        <li><a href="servicios.html" class="footer-link">Lavado Premium</a></li> <!-- 25 mil (automivl)-->
-                        <li><a href="servicios.html" class="footer-link">Lavado Deluxe</a></li> <!-- 45 mil (automivl)-->
-                        <li><a href="servicios.html" class="footer-link">Lavado Ultra Slushy</a></li> <!-- 60 mil (automivl)-->
-                        <li><a href="servicios.html" class="footer-link">Polichado</a></li> <!-- 150 mil (automivl)-->
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="copyright">© <span id="currentYear">2025</span> Slushy App. Todos los derechos reservados al equipo de desarrollo de slushyapp.</p>
-            </div>
-        </div>
-    </footer>
-    <script>
-        // Toggle del menú (abierto y cerrado) mediante el botón hamburguesa
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('mobileMenu').classList.toggle('active');
+      try {
+        const response = await fetch("/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+          credentials: "include" // 🔥 Esto es CLAVE para que reciba la cookie
         });
-    
-        // Cerrar el menú al hacer clic en algún enlace
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobileMenu').classList.remove('active');
-            });
-        });
-    
-        // Cerrar el menú al hacer clic en el botón X
-        document.getElementById('closeMenu').addEventListener('click', function() {
-            document.getElementById('mobileMenu').classList.remove('active');
-        });
-    
-        // Actualizar el año en el footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-    </script>
-    <script>
-        document.getElementById("loginForm").addEventListener("submit", async function(event) {
-          event.preventDefault();
 
-          const email = document.getElementById("email").value;
-          const password = document.getElementById("password").value;
+        if (!response.ok) {
+          const error = await response.text();
+          alert("Error: " + error);
+          return;
+        }
 
-          try {
-            const response = await fetch("/auth/login", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ email, password }),
-              credentials: "include" // 🔥 Esto es CLAVE para que reciba la cookie
-            });
+        const data = await response.json();
 
-            if (!response.ok) {
-              const error = await response.text();
-              alert("Error: " + error);
-              return;
-            }
+        switch (data.rol) {
+          case "ADMIN":
+            window.location.href = "/admin/dashboard";
+            break;
+          case "EMPLOYEE":
+            window.location.href = "/employee/dashboard";
+            break;
+          case "USER":
+            window.location.href = "/user/dashboard";
+            break;
+          default:
+            alert("Rol desconocido");
+        }
 
-            const data = await response.json();
-
-            switch (data.rol) {
-              case "ADMIN":
-                window.location.href = "/admin/dashboard";
-                break;
-              case "EMPLOYEE":
-                window.location.href = "/employee/dashboard";
-                break;
-              case "USER":
-                window.location.href = "/user/dashboard";
-                break;
-              default:
-                alert("Rol desconocido");
-            }
-
-          } catch (error) {
-            console.error("Error en login:", error);
-            alert("Ocurrió un error al iniciar sesión");
-          }
-        });
-    </script>
-
-
+      } catch (error) {
+        console.error("Error en login:", error);
+        alert("Ocurrió un error al iniciar sesión");
+      }
+    });
+</script>
 </body>
 </html>

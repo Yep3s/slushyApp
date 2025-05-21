@@ -1,195 +1,215 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <!-- METADATOS -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro - Slushy</title>
-  <link rel="stylesheet" href="/css/login-styles.css">
+  <title>Registro - SlushyApp</title>
+
+  <!-- ESTILOS -->
+  <link rel="icon" href="/images/Slushylogo.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/register-style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  <!-- SCRIPTS -->
   <script>
+    // FUNCIÓN: Mostrar mensaje y redirigir
     function mostrarMensajeYRedirigir() {
       alert("Registro exitoso. Serás redirigido al login.");
       window.location.href = "/login";
     }
   </script>
 </head>
+
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="container">
-      <div class="header-content">
-        <div class="logo">
-          <div class="logo-icon"></div> <!-- Aquí puedes agregar el logo de la app -->
-          <span class="logo-text">Slushy</span>
-        </div>
-                
-        <nav class="main-nav"> <!-- Navbar de Slushy -->
-          <ul class="nav-list">
-            <li><a href="/" class="nav-link">Inicio</a></li>
-            <li><a href="../Servicios-Disponibles/servicios.html" class="nav-link">Servicios</a></li>
-            <li><a href="../Membresias/vip.html" class="nav-link">Membresía VIP</a></li>
-            <li><a href="../Recompensas/recompensas.html" class="nav-link">Recompensas</a></li>
-            <li><a href="../Contacto/contacto.html" class="nav-link">Contacto</a></li>
-          </ul>
-        </nav>
-                
-        <div class="header-actions">
-          <a href="/login" class="btn btn-primary">
-            <i class="fas fa-user"></i> Ingresa
-          </a>
-          <button class="menu-toggle" id="menuToggle">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
+<!-- HEADER: Barra de navegación principal -->
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+      </div>
+
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/" class="nav-link">Inicio</a></li>
+          <li><a href="/servicios" class="nav-link">Servicios</a></li>
+          <li><a href="/mebresia" class="nav-link">Membresía VIP</a></li>
+          <li><a href="/contacto" class="nav-link">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="/login" class="btn btn-primary">Ingresa</a>
+        <button class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-content">
-      <button class="close-menu" id="closeMenu">X</button>
+<!-- MENÚ MÓVIL -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-content">
+    <button class="close-menu" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="mobile-menu-container">
       <ul class="mobile-nav-list">
-        <li><a href="/" class="mobile-nav-link">Inicio</a></li>
-        <li><a href="../Servicios-Disponibles/servicios.html" class="mobile-nav-link">Servicios</a></li>
-        <li><a href="../Membresias/vip.html" class="mobile-nav-link">Membresía VIP</a></li>
-        <li><a href="../Recompensas/recompensas.html" class="mobile-nav-link">Recompensas</a></li>
-        <li><a href="../Contacto/contacto.html" class="mobile-nav-link">Contacto</a></li>
+        <li><a href="/" class="nav-link">Inicio</a></li>
+        <li><a href="/servicios" class="nav-link">Servicios</a></li>
+        <li><a href="/mebresia" class="nav-link">Membresía VIP</a></li>
+        <li><a href="/contacto" class="nav-link">Contacto</a></li>
       </ul>
     </div>
   </div>
+</div>
 
-  <!-- Main para Registro -->
-  <main class="auth-main">
-    <!-- Fondo de la sección de autenticación -->
-    <div class="auth-background">
-      <div class="auth-water-effect"></div>
-      <div class="auth-car-silhouettes"></div>
-      <div class="auth-light-reflections"></div>
-    </div>
-    
-    <!-- Sección de Registro -->
-    <section class="auth-section">
-      <div class="container">
-        <div class="auth-container">
-          <div class="auth-header">
-            <h1 class="section-title">Crea tu cuenta</h1>
-            <p class="section-description">Completa tus datos para registrarte en Slushy</p>
-          </div>
-          <form class="auth-form" action="/auth/register" method="post" onsubmit="setTimeout(mostrarMensajeYRedirigir, 100);">
-            <!-- Nombre -->
-            <div class="form-group">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Tu nombre" required>
-            </div>
-            <!-- Apellido -->
-            <div class="form-group">
-              <label for="apellido" class="form-label">Apellido</label>
-              <input type="text" id="apellido" name="apellido" class="form-input" placeholder="Tu apellido" required>
-            </div>
-            <!-- Correo Electrónico -->
-            <div class="form-group">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <input type="email" id="email" name="email" class="form-input" placeholder="tucorreo@example.com" required>
-            </div>
-            <!-- Contraseña -->
-            <div class="form-group">
-              <label for="password" class="form-label">Contraseña</label>
-              <input type="password" id="password" name="password" class="form-input" placeholder="Mínimo 6 caracteres" required>
-            </div>
-            <!-- Cédula -->
-            <div class="form-group">
-              <label for="cedula" class="form-label">Cédula</label>
-              <input type="text" id="cedula" name="cedula" class="form-input" placeholder="Tu cédula" required>
-            </div>
-            <!-- Teléfono -->
-            <div class="form-group">
-              <label for="telefono" class="form-label">Teléfono</label>
-              <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="Tu número de teléfono" required>
-            </div>
+<!-- MAIN: Contenido principal de registro -->
+<main class="auth-main">
+  <!-- FONDO: Efectos visuales -->
+  <div class="auth-background">
+    <div class="auth-water-effect"></div>
+    <div class="auth-car-silhouettes"></div>
+    <div class="auth-light-reflections"></div>
+  </div>
 
-            <button type="submit" class="btn btn-primary btn-block btn-lg">Registrarse</button>
-
-            <div class="auth-footer">
-              ¿Ya tienes una cuenta? <a href="/login" class="auth-link">Inicia Sesión</a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer">
+  <!-- SECCIÓN: Formulario de registro -->
+  <section class="auth-section">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-about">
-          <div class="logo">
-            <div class="logo-icon"></div>
-            <span class="logo-text">Slushy</span>
+      <div class="auth-container">
+        <div class="auth-header">
+          <h1 class="section-title">Crea tu cuenta</h1>
+          <p class="section-description">Completa tus datos para registrarte en Slushy</p>
+        </div>
+        <form class="auth-form" action="/auth/register" method="post" onsubmit="setTimeout(mostrarMensajeYRedirigir, 100);">
+          <!-- Campos del formulario -->
+          <div class="form-group">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" id="nombre" name="nombre" class="form-input" placeholder="Tu nombre" required>
           </div>
-          <p class="footer-description">
-            La mejor aplicación para el cuidado de tu vehículo. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
-          </p>
-          <div class="social-links">
-            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-link"><i class="fab fa-x"></i></a>
+          <div class="form-group">
+            <label for="apellido" class="form-label">Apellido</label>
+            <input type="text" id="apellido" name="apellido" class="form-input" placeholder="Tu apellido" required>
           </div>
-        </div>
-        
-        <div class="footer-links">
-          <h3 class="footer-title">Enlaces Rápidos</h3>
-          <ul class="footer-nav">
-            <li><a href="/" class="footer-link">Inicio</a></li>
-            <li><a href="../Servicios-Disponibles/servicios.html" class="footer-link">Nuestros Servicios</a></li>
-            <li><a href="../Membresias/vip.html" class="footer-link">Membresía VIP</a></li>
-            <li><a href="../Recompensas/recompensas.html" class="footer-link">Sistema de Recompensas</a></li>
-            <li><a href="../Contacto/contacto.html" class="footer-link">Contacto</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-services">
-          <h3 class="footer-title">Servicios</h3>
-          <ul class="footer-nav">
-            <li><a href="../Servicios-Disponibles/servicios.html" class="footer-link">Lavado Básico</a></li>
-            <li><a href="../Servicios-Disponibles/servicios.html" class="footer-link">Lavado Premium</a></li>
-            <li><a href="../Servicios-Disponibles/servicios.html" class="footer-link">Lavado Deluxe</a></li>
-            <li><a href="../Servicios-Disponibles/servicios.html" class="footer-link">Lavado Ultra Slushy</a></li>
-            <li><a href="../Servicios-Disponibles/servicios.html" class="footer-link">Polichado</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p class="copyright">© <span id="currentYear">2025</span> Slushy App. Todos los derechos reservados.</p>
+          <div class="form-group">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="tucorreo@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" id="password" name="password" class="form-input" placeholder="Mínimo 6 caracteres" required>
+          </div>
+          <div class="form-group">
+            <label for="cedula" class="form-label">Cédula</label>
+            <input type="text" id="cedula" name="cedula" class="form-input" placeholder="Tu cédula" required>
+          </div>
+          <div class="form-group">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="Tu número de teléfono" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Registrarse</button>
+
+          <div class="auth-footer">
+            ¿Ya tienes una cuenta? <a href="/login" class="auth-link">Inicia Sesión</a>
+          </div>
+        </form>
       </div>
     </div>
-  </footer>
+  </section>
+</main>
 
-  <!-- Scripts -->
-  <script>
-    // Toggle del menú (abierto y cerrado) mediante el botón hamburguesa
-    document.getElementById('menuToggle').addEventListener('click', function() {
-      document.getElementById('mobileMenu').classList.toggle('active');
-    });
-    
-    // Cerrar el menú al hacer clic en algún enlace
-    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', function() {
-        document.getElementById('mobileMenu').classList.remove('active');
-      });
-    });
-    
-    // Cerrar el menú al hacer clic en el botón X
-    document.getElementById('closeMenu').addEventListener('click', function() {
-      document.getElementById('mobileMenu').classList.remove('active');
-    });
-    
-    // Actualizar el año en el footer
-    document.getElementById('currentYear').textContent = new Date().getFullYear();
-  </script>
+<!-- FOOTER: Pie de página -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-about">
+        <div class="logo">
+          <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+        </div>
+        <p class="footer-description">
+          La mejor aplicación para el cuidado de tu vehículo. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
+        </p>
+      </div>
 
+      <div class="footer-links">
+        <h3 class="footer-title">Enlaces Rápidos</h3>
+        <ul class="footer-nav">
+          <li><a href="/" class="nav-link">Inicio</a></li>
+          <li><a href="/servicios" class="nav-link">Servicios</a></li>
+          <li><a href="/mebresia" class="nav-link">Membresía VIP</a></li>
+          <li><a href="/contacto" class="nav-link">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-newsletter">
+        <h3 class="footer-title">Suscríbete</h3>
+        <p class="footer-description">
+          Recibe nuestras últimas noticias y promociones exclusivas
+        </p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Tu correo electrónico" class="newsletter-input">
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="copyright">© <span id="currentYear">2023</span> Slushy App. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPTS: Funcionalidad JavaScript -->
+<script>
+  // Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+
+// Abrir el menú al hacer clic en el botón de hamburguesa (☰)
+menuToggle.addEventListener('click', function() {
+ mobileMenu.classList.add('active');
+});
+
+// Cerrar el menú al hacer clic en el botón de "X"
+closeMenu.addEventListener('click', function() {
+ mobileMenu.classList.remove('active');
+});
+
+// Cerrar el menú al hacer clic en cualquier enlace del menú móvil
+const mobileLinks = document.querySelectorAll('.mobile-nav-list .nav-link');
+mobileLinks.forEach(link => {
+ link.addEventListener('click', function() {
+     mobileMenu.classList.remove('active');
+ });
+});
+
+// Cerrar el menú automáticamente al redimensionar la pantalla a desktop (≥1024px)
+function handleResize() {
+ if (window.innerWidth >= 1024 && mobileMenu.classList.contains('active')) {
+     mobileMenu.classList.remove('active');
+ }
+}
+window.addEventListener('resize', handleResize);
+//TERMINA EL MOBILE MENU
+
+// Resaltar la página actual en el menú móvil (opcional)
+function highlightCurrentPage() {
+ const currentPath = window.location.pathname;
+ const mobileNavLinks = document.querySelectorAll('.mobile-nav-list .nav-link');
+
+ mobileNavLinks.forEach(link => {
+     const href = link.getAttribute('href');
+     if (currentPath.includes('recompensas') && href.includes('recompensas')) {
+         link.classList.add('active');
+     }
+ });
+}
+highlightCurrentPage(); // Ejecutar al cargar la página
+
+</script>
 </body>
 </html>

@@ -6,10 +6,16 @@
     <title>Mi Cuenta - Slushy App</title>
     <link rel="icon" href="/images/Slushylogo.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/usuario-style.css">
+    <link rel="stylesheet" href="/css/alertasOMG.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+<!-- CONTENEDOR DE NOTIFICACIONES -->
+<div id="notification-container"></div>
+
+
 <!-- Header -->
 <header class="header">
     <div class="container">
@@ -65,9 +71,9 @@
 
                     <div class="user-stat">
                         <div class="user-stat-icon">
-                            <i class="fas fa-crown"></i>
+                            <i class="fas fa-ticket"></i>
                         </div>
-                        <span>Miembro VIP</span>
+                        <span>Miembro Standard</span>
                     </div>
                 </div>
             </div>
@@ -168,8 +174,6 @@
                             <input type="radio" name="membership" value="standard" class="membership-radio">
                             <h4>Estándar <span class="membership-price">Gratis</span></h4>
                             <ul>
-                                <li><i class="fas fa-check"></i> 5% de descuento en servicios</li>
-                                <li><i class="fas fa-check"></i> Historial de servicios</li>
                             </ul>
                         </label>
                         <label class="membership-option">
@@ -260,10 +264,6 @@
                         <button class="btn btn-primary btn-block btn-view-status" th:attr="data-vehicle-id=${vehiculo.id}">Ver Estado Actual</button>
                     </div>
                     <div class="vehicle-footer">
-                        <div class="vehicle-status">
-                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
-                            <span>Último servicio: --</span> <!-- Puedes reemplazar esto por la fecha del último servicio si la tienes -->
-                        </div>
                         <button
                                 type="button"
                                 class="btn btn-outline reservar"
@@ -367,7 +367,7 @@
 
 
 </div>
-</div>
+
 
 
 <!-- Modal para Agregar Vehículo -->
@@ -717,10 +717,10 @@
             <div class="footer-links">
                 <h3 class="footer-title">Enlaces Rápidos</h3>
                 <ul class="footer-nav">
-                    <li><a href="/" class="nav-link">Inicio</a></li>
-                    <li><a href="/servicios" class="nav-link">Servicios</a></li>
-                    <li><a href="/mebresia" class="nav-link">Membresía VIP</a></li>
-                    <li><a href="/contacto" class="nav-link">Contacto</a></li>
+                    <li><a href="#" class="nav-link">Inicio</a></li>
+                    <li><a href="#" class="nav-link">Servicios</a></li>
+                    <li><a href="#" class="nav-link">Membresía VIP</a></li>
+                    <li><a href="#" class="nav-link">Contacto</a></li>
                 </ul>
             </div>
 
@@ -896,6 +896,75 @@
       }
     });
 </script>
+
+<script>
+    const notifContainer = document.getElementById('notification-container');
+
+    function showNotification(message, type = 'info', duration = 5000) {
+      // 1) Crear tarjeta
+      const card = document.createElement('div');
+      card.className = `notification-card ${type}`;
+      card.innerHTML = `
+        <button class="close-btn" aria-label="Cerrar">&times;</button>
+        <div class="message">${message}</div>
+      `;
+
+      // 2) Añadir al DOM
+      notifContainer.appendChild(card);
+
+      // 3) Cerrar al hacer clic en cualquier parte de la tarjeta o en la X
+      const remover = () => {
+        card.removeEventListener('click', remover);
+        card.remove();
+      };
+      card.addEventListener('click', remover);
+
+      // 4) Auto-cerrar después de X ms
+      setTimeout(remover, duration);
+    }
+
+    // Ejemplo: llamarlo con showNotification('¡Hola mundo!', 'success');
+</script>
+
+<script>
+    let lastProgress = null;
+
+    async function checkProgress() {
+      try {
+        const res = await fetch('/user/reservas/enProceso', { credentials: 'include' });
+        if (res.status === 204) {
+          lastProgress = null;
+          return;
+        }
+        if (!res.ok) throw new Error(res.statusText);
+        const reserva = await res.json();
+        const progreso = reserva.progreso;
+
+        if (lastProgress !== null && progreso !== lastProgress) {
+          showNotification(`Tu servicio ha avanzado al ${progreso}%`, 'info');
+        }
+        lastProgress = progreso;
+
+        // Actualiza también la barra si quieres…
+        const fill = document.querySelector('.tracking-progress-fill');
+        const pct  = document.querySelector('.tracking-progress-header span:last-child');
+        if (fill && pct) {
+          fill.style.width = `${progreso}%`;
+          pct.textContent = `${progreso}%`;
+        }
+      } catch (e) {
+        console.error('Error comprobando progreso:', e);
+        showNotification('Error al comprobar progreso', 'error');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      checkProgress();
+      setInterval(checkProgress, 10_000);
+    });
+</script>
+
+
 
 <script src="/js/user-dashboard.js"></script>
 <script src="/js/delete-vehicle.js"></script>

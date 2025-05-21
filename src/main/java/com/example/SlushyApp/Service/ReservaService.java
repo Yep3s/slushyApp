@@ -1,6 +1,7 @@
 package com.example.SlushyApp.Service;
 
 import com.example.SlushyApp.DTO.HistorialReservaDto;
+import com.example.SlushyApp.DTO.ReservaDto;
 import com.example.SlushyApp.Model.*;
 import com.example.SlushyApp.Repository.PagoRepository;
 import com.example.SlushyApp.Repository.ReservaRepository;
@@ -39,6 +40,37 @@ public class ReservaService {
         this.pagoRepository = pagoRepository;
         this.emailService = emailService;
     }
+
+    public List<ReservaDto> findByUsuarioEmailAndEstado(String email, EstadoReserva estado) {
+        return reservaRepository
+                .findByUsuarioEmailAndEstado(email, estado)
+                .stream()
+                .map(r -> {
+                    // 1) traigo el vehículo por placa
+                    Vehiculo v = vehiculoRepository.findByPlaca(r.getPlacaVehiculo());
+                    if (v == null) throw new RuntimeException("Vehículo no encontrado: " + r.getPlacaVehiculo());
+
+                    // 2) traigo el servicio
+                    Servicio s = servicioRepository.findById(r.getServicioId())
+                            .orElseThrow(() -> new RuntimeException("Servicio no encontrado: " + r.getServicioId()));
+
+                    // 3) construyo el DTO (convierto el enum a String via name())
+                    return new ReservaDto(
+                            r.getId(),
+                            r.getPlacaVehiculo(),
+                            v.getTipoVehiculo().name(),    // <-- enum a String
+                            s.getNombre(),
+                            r.getFechaInicio(),
+                            r.getUsuarioEmail(),
+                            r.getEstado(),
+                            r.getProgreso(),
+                            r.getObservaciones(),
+                            s.getDuracionMinutos()
+                    );
+                })
+                .collect(Collectors.toList());
+    }
+
 
     /** 1️⃣ Crear reserva con validaciones básicas */
     public Reserva crearReserva(Reserva reserva, String usuarioEmail) {

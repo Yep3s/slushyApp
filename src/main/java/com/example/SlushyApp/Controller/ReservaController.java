@@ -1,6 +1,7 @@
 package com.example.SlushyApp.Controller;
 
 import com.example.SlushyApp.DTO.HistorialReservaDto;
+import com.example.SlushyApp.DTO.ReservaDto;
 import com.example.SlushyApp.Model.*;
 import com.example.SlushyApp.Repository.PagoRepository;
 import com.example.SlushyApp.Repository.ServicioRepository;
@@ -38,6 +39,16 @@ public class ReservaController {
         this.servicioRepository = servicioRepository;
         this.pagoRepository = pagoRepository;
     }
+
+    // Devuelve la reserva EN_PROCESO (o null si no hay ninguna)
+    @GetMapping("/enProceso")
+    public ResponseEntity<ReservaDto> reservaEnProceso(HttpServletRequest request) {
+        String email = getEmailFromToken(request);
+        List<ReservaDto> lista = reservaService.findByUsuarioEmailAndEstado(email, EstadoReserva.EN_PROCESO);
+        if (lista.isEmpty()) return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(lista.get(0));
+    }
+
 
 
 

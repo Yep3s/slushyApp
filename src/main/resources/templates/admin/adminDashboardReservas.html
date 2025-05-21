@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Reservas - Slushy App</title>
+    <link rel="stylesheet" href="/css/reservas-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="../../../fonts/Quicksand-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
+</head>
+
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+            </div>
+            <div class="header-actions">
+                <a href="/logoutSlushy" class="btn btn-primary">Salir</a>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<aside class="admin-sidebar" id="adminSidebar">
+    <nav class="sidebar-menu">
+        <a href="/admin/dashboard" class="sidebar-link">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="/admin/dashboard/vehiculos" class="sidebar-link">
+            <i class="fas fa-car"></i>
+            <span>Vehículos</span>
+        </a>
+        <a href="/admin/dashboard/clientes" class="sidebar-link">
+            <i class="fas fa-users"></i>
+            <span>Clientes</span>
+        </a>
+        <a href="/admin/dashboard/empleados" class="sidebar-link">
+            <i class="fas fa-user-tie"></i>
+            <span>Empleados</span>
+        </a>
+        <a href="/admin/dashboard/reservas" class="sidebar-link active">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Reservas</span>
+        </a>
+        <a href="/admin/dashboard/reportes" class="sidebar-link">
+            <i class="fas fa-chart-line"></i>
+            <span>Reportes</span>
+        </a>
+        <a href="/admin/dashboard/configuracion" class="sidebar-link">
+            <i class="fas fa-cog"></i>
+            <span>Configuración</span>
+        </a>
+        <a href="/logoutSlushy" class="sidebar-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Salir</span>
+        </a>
+    </nav>
+</aside>
+
+    <main class="admin-content">
+        <div class="page-header">
+            <h1>Gestión de Reservas</h1>
+        </div>
+
+        <div class="filters-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar reserva...">
+            </div>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="filterService">Servicio:</label>
+                    <select id="filterService" class="filter-select">
+                        <option value="">Todos</option>
+                        <option value="premium">Lavado Premium</option>
+                        <option value="basic">Lavado Básico</option>
+                        <option value="express">Lavado Exprés</option>
+                        <option value="detail">Detallado Completo</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="filterStatus">Estado:</label>
+                    <select id="filterStatus" class="filter-select">
+                        <option value="">Todos</option>
+                        <option value="pending">Pendiente</option>
+                        <option value="in-progress">En Proceso</option>
+                        <option value="completed">Completado</option>
+                        <option value="cancelled">Cancelado</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-outline">
+                    <i class="fas fa-filter"></i> Filtrar
+                </button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="chart-header">
+                <h2 class="chart-title">Próximas Reservas</h2>
+                <div class="chart-actions">
+                    <div class="chart-filter active">Todas</div>
+                    <div class="chart-filter">Hoy</div>
+                    <div class="chart-filter">Mañana</div>
+                    <div class="chart-filter">Esta Semana</div>
+                </div>
+            </div>
+            
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Vehículo</th>
+                        <th>Servicio</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#R-1248</td>
+                        <td>María González</td>
+                        <td>Toyota Corolla (Sedán)</td>
+                        <td>Lavado Premium</td>
+                        <td>12/04/2025</td>
+                        <td>9:00 AM</td>
+                        <td><span class="status-badge status-completed">Completado</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="#" class="table-action" title="Ver detalles"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="table-action" title="Cancelar"><i class="fas fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#R-1249</td>
+                        <td>Juan Pérez</td>
+                        <td>Honda Civic (Sedán)</td>
+                        <td>Lavado Básico</td>
+                        <td>12/04/2025</td>
+                        <td>11:00 AM</td>
+                        <td><span class="status-badge status-in-progress">En Proceso</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="#" class="table-action" title="Ver detalles"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="table-action" title="Cancelar"><i class="fas fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#R-1250</td>
+                        <td>Carlos Rodríguez</td>
+                        <td>Ford F-150 (Camioneta)</td>
+                        <td>Detallado Completo</td>
+                        <td>12/04/2025</td>
+                        <td>1:00 PM</td>
+                        <td><span class="status-badge status-pending">Pendiente</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="#" class="table-action" title="Ver detalles"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="table-action" title="Cancelar"><i class="fas fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#R-1251</td>
+                        <td>Ana Martínez</td>
+                        <td>Nissan Sentra (Sedán)</td>
+                        <td>Lavado Exprés</td>
+                        <td>12/04/2025</td>
+                        <td>4:00 PM</td>
+                        <td><span class="status-badge status-completed">Completado</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="#" class="table-action" title="Ver detalles"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="table-action" title="Cancelar"><i class="fas fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#R-1252</td>
+                        <td>Luis Sánchez</td>
+                        <td>Chevrolet Spark (Hatchback)</td>
+                        <td>Lavado Premium</td>
+                        <td>13/04/2025</td>
+                        <td>10:00 AM</td>
+                        <td><span class="status-badge status-pending">Pendiente</span></td>
+                        <td>
+                            <div class="table-actions">
+                                <a href="#" class="table-action" title="Ver detalles"><i class="fas fa-eye"></i></a>
+                                <a href="#" class="table-action" title="Editar"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="table-action" title="Cancelar"><i class="fas fa-times"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="pagination">
+                <button class="pagination-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <span class="pagination-ellipsis">...</span>
+                <button class="pagination-btn">8</button>
+                <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+
+        <!-- Modal Agregar Reserva -->
+        <div class="modal" id="addReservationModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Nueva Reserva</h2>
+                    <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reservationForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="cliente">Cliente</label>
+                                <select id="cliente" name="cliente" required>
+                                    <option value="">Seleccionar cliente...</option>
+                                    <option value="1">María González</option>
+                                    <option value="2">Juan Pérez</option>
+                                    <option value="3">Carlos Rodríguez</option>
+                                    <option value="4">Ana Martínez</option>
+                                    <option value="5">Luis Sánchez</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="vehiculo">Vehículo</label>
+                                <select id="vehiculo" name="vehiculo" required>
+                                    <option value="">Seleccionar vehículo...</option>
+                                    <option value="1">Toyota Corolla (Sedán)</option>
+                                    <option value="2">Honda Civic (Sedán)</option>
+                                    <option value="3">Ford F-150 (Camioneta)</option>
+                                    <option value="4">Nissan Sentra (Sedán)</option>
+                                    <option value="5">Chevrolet Spark (Hatchback)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="servicio">Servicio</label>
+                                <select id="servicio" name="servicio" required>
+                                    <option value="">Seleccionar servicio...</option>
+                                    <option value="premium">Lavado Premium</option>
+                                    <option value="basic">Lavado Básico</option>
+                                    <option value="express">Lavado Exprés</option>
+                                    <option value="detail">Detallado Completo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="fecha">Fecha</label>
+                                <input type="date" id="fecha" name="fecha" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hora">Hora</label>
+                                <input type="time" id="hora" name="hora" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="duracion">Duración (minutos)</label>
+                                <input type="number" id="duracion" name="duracion" min="30" step="30" value="60" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notas">Notas Adicionales</label>
+                            <textarea id="notas" name="notas" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline" id="cancelBtn">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Reserva</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Ver Detalles de Reserva -->
+        <div class="modal" id="viewReservationModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Detalles de la Reserva</h2>
+                    <button class="modal-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="reservation-details">
+                        <div class="detail-item">
+                            <span class="detail-label">ID Reserva:</span>
+                            <span class="detail-value" id="reservationId">#R-1248</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Cliente:</span>
+                            <span class="detail-value" id="reservationClient">María González</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Vehículo:</span>
+                            <span class="detail-value" id="reservationVehicle">Toyota Corolla (Sedán)</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Servicio:</span>
+                            <span class="detail-value" id="reservationService">Lavado Premium</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Fecha y Hora:</span>
+                            <span class="detail-value" id="reservationDateTime">12/04/2025 - 9:00 AM</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Duración:</span>
+                            <span class="detail-value" id="reservationDuration">90 minutos</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Estado:</span>
+                            <span class="detail-value"><span class="status-badge status-completed">Completado</span></span>
+                        </div>
+                        <div class="detail-item full-width">
+                            <span class="detail-label">Notas:</span>
+                            <p class="detail-value" id="reservationNotes">El cliente solicita limpieza especial de tapicería.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Editar Reserva -->
+        <div class="modal" id="editReservationModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Editar Reserva</h2>
+                    <button class="modal-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editReservationForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editReservationClient">Cliente</label>
+                                <select id="editReservationClient" name="cliente" required>
+                                    <option value="1" selected>María González</option>
+                                    <option value="2">Juan Pérez</option>
+                                    <option value="3">Carlos Rodríguez</option>
+                                    <option value="4">Ana Martínez</option>
+                                    <option value="5">Luis Sánchez</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editReservationVehicle">Vehículo</label>
+                                <select id="editReservationVehicle" name="vehiculo" required>
+                                    <option value="1" selected>Toyota Corolla (Sedán)</option>
+                                    <option value="2">Honda Civic (Sedán)</option>
+                                    <option value="3">Ford F-150 (Camioneta)</option>
+                                    <option value="4">Nissan Sentra (Sedán)</option>
+                                    <option value="5">Chevrolet Spark (Hatchback)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editReservationService">Servicio</label>
+                                <select id="editReservationService" name="servicio" required>
+                                    <option value="premium" selected>Lavado Premium</option>
+                                    <option value="basic">Lavado Básico</option>
+                                    <option value="express">Lavado Exprés</option>
+                                    <option value="detail">Detallado Completo</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editReservationDate">Fecha</label>
+                                <input type="date" id="editReservationDate" name="fecha" value="2025-04-12" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="editReservationTime">Hora</label>
+                                <input type="time" id="editReservationTime" name="hora" value="09:00" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editReservationDuration">Duración (minutos)</label>
+                                <input type="number" id="editReservationDuration" name="duracion" min="30" step="30" value="90" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="editReservationNotes">Notas Adicionales</label>
+                            <textarea id="editReservationNotes" name="notas" rows="3">El cliente solicita limpieza especial de tapicería.</textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-outline modal-close">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal Cancelar Reserva -->
+        <div class="modal" id="cancelReservationModal">
+            <div class="modal-content" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h2>Cancelar Reserva</h2>
+                    <button class="modal-close"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="cancel-confirmation">
+                        <div class="cancel-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>¿Estás seguro de cancelar esta reserva?</h3>
+                        <p>Esta acción cancelará la reserva <strong id="reservationToCancel">#R-1248 - María González (Toyota Corolla)</strong>.</p>
+                        <div class="form-group">
+                            <label for="cancelReason">Motivo de cancelación</label>
+                            <select id="cancelReason" name="cancelReason">
+                                <option value="">Seleccionar motivo...</option>
+                                <option value="client">Cancelación del cliente</option>
+                                <option value="schedule">Conflicto de horario</option>
+                                <option value="other">Otro motivo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline modal-close">No, mantener</button>
+                    <button class="btn btn-danger" id="confirmCancelBtn">Sí, cancelar</button>
+                </div>
+            </div>
+        </div>
+        
+        <!--/*===================================================
+                        ALERTAS
+        =================================================== */-->
+        <div class="alert-notification" id="saveReservationAlert">
+            <div class="alert-content">
+                <i class="fas fa-check-circle alert-icon"></i>
+                <span class="alert-text">Reserva guardada correctamente</span>
+            </div>
+        </div>
+        
+        <div class="alert-notification alert-danger" id="cancelReservationAlert">
+            <div class="alert-content">
+                <i class="fas fa-times-circle alert-icon"></i>
+                <span class="alert-text">Reserva cancelada correctamente</span>
+            </div>
+        </div>
+    </main>
+
+    <!--/*===================================================
+                        SCRIPTS
+    =================================================== */-->
+    <script>
+    //*===================================================
+    //              FUNCIONALIDAD GENERAL
+    //================================================== */
+             // Toggle del menú responsive
+    document.getElementById('menuToggle').addEventListener('click', function() {
+        const sidebar = document.getElementById('adminSidebar');
+        sidebar.classList.toggle('active');
+    });
+    
+    //*===================================================
+    //              FUNCIONALIDAD DE MODALES
+    //================================================== */
+    // Modal Agregar Reserva
+    const modal = document.getElementById('addReservationModal');
+    const btnAddReservation = document.getElementById('btnAddReservation');
+    const closeModal = document.getElementById('closeModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    
+    btnAddReservation.addEventListener('click', function() {
+        modal.classList.add('show');
+    });
+    
+    function closeModalFunc() {
+        modal.classList.remove('show');
+    }
+    
+    closeModal.addEventListener('click', closeModalFunc);
+    cancelBtn.addEventListener('click', closeModalFunc);
+    
+    // Cerrar modal al hacer clic fuera
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            closeModalFunc();
+        }
+    });
+    
+    // Envío de formulario
+    document.getElementById('reservationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        modal.classList.remove('show');
+        showAlert('saveReservationAlert', 'Reserva creada correctamente');
+    });
+    
+    //*===================================================
+    //              MODALES DE ACCIONES
+    //================================================== */
+    const viewModal = document.getElementById('viewReservationModal');
+    const editModal = document.getElementById('editReservationModal');
+    const cancelModal = document.getElementById('cancelReservationModal');
+    
+    // Configurar eventos para los botones de acción
+    document.querySelectorAll('.table-action[title="Ver detalles"]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const row = this.closest('tr');
+            fillViewModal(row);
+            viewModal.classList.add('show');
+        });
+    });
+    
+    document.querySelectorAll('.table-action[title="Editar"]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const row = this.closest('tr');
+            fillEditModal(row);
+            editModal.classList.add('show');
+        });
+    });
+    
+    document.querySelectorAll('.table-action[title="Cancelar"]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const row = this.closest('tr');
+            fillCancelModal(row);
+            cancelModal.classList.add('show');
+        });
+    });
+    
+    // Cerrar modales
+    document.querySelectorAll('.modal-close').forEach(btn => {
+        btn.addEventListener('click', function() {
+            viewModal.classList.remove('show');
+            editModal.classList.remove('show');
+            cancelModal.classList.remove('show');
+        });
+    });
+    
+    // Cerrar al hacer clic fuera del modal
+    window.addEventListener('click', function(event) {
+        if (event.target === viewModal) viewModal.classList.remove('show');
+        if (event.target === editModal) editModal.classList.remove('show');
+        if (event.target === cancelModal) cancelModal.classList.remove('show');
+    });
+    
+    // Formulario de edición
+    document.getElementById('editReservationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        editModal.classList.remove('show');
+        showAlert('saveReservationAlert', 'Cambios en la reserva guardados correctamente');
+    });
+    
+    // Confirmar cancelación
+    document.getElementById('confirmCancelBtn').addEventListener('click', function() {
+        cancelModal.classList.remove('show');
+        showAlert('cancelReservationAlert', 'Reserva cancelada correctamente');
+    });
+    
+    //*===================================================
+    //              FUNCIONES DE LLENADO DE MODALES
+    //================================================== */
+    // Función para llenar el modal de vista
+    function fillViewModal(row) {
+        const cells = row.querySelectorAll('td');
+        document.getElementById('reservationId').textContent = cells[0].textContent;
+        document.getElementById('reservationClient').textContent = cells[1].textContent;
+        document.getElementById('reservationVehicle').textContent = cells[2].textContent;
+        document.getElementById('reservationService').textContent = cells[3].textContent;
+        document.getElementById('reservationDateTime').textContent = `${cells[4].textContent} - ${cells[5].textContent}`;
+        
+        // Actualizar estado
+        const statusBadge = row.querySelector('.status-badge').cloneNode(true);
+        document.querySelector('#viewReservationModal .detail-value span').replaceWith(statusBadge);
+    }
+    
+    // Función para llenar el modal de edición
+    function fillEditModal(row) {
+        const cells = row.querySelectorAll('td');
+        document.getElementById('editReservationClient').value = cells[1].textContent.includes('María') ? '1' : 
+                                                          cells[1].textContent.includes('Juan') ? '2' : '3';
+        document.getElementById('editReservationVehicle').value = cells[2].textContent.includes('Toyota') ? '1' : 
+                                                                  cells[2].textContent.includes('Honda') ? '2' : '3';
+        document.getElementById('editReservationService').value = cells[3].textContent.includes('Premium') ? 'premium' : 
+                                                                   cells[3].textContent.includes('Básico') ? 'basic' : 'express';
+        // Notas de ejemplo
+        document.getElementById('editReservationNotes').value = 'El cliente solicita limpieza especial de tapicería.';
+    }
+    
+    // Función para llenar el modal de cancelación
+    function fillCancelModal(row) {
+        const cells = row.querySelectorAll('td');
+        document.getElementById('reservationToCancel').textContent = 
+            `${cells[0].textContent} - ${cells[1].textContent} (${cells[2].textContent})`;
+    }
+    
+    //*===================================================
+    //              FUNCIONES DE ALERTAS
+    //================================================== */
+    // Función para mostrar alertas
+    function showAlert(alertId, message = null) {
+        const alert = document.getElementById(alertId);
+        
+        if (message) {
+            alert.querySelector('.alert-text').textContent = message;
+        }
+        
+        alert.classList.add('show');
+        
+        setTimeout(() => {
+            alert.classList.remove('show');
+        }, 3000);
+    }
+    
+    //*===================================================
+    //              FUNCIONALIDAD DEL CALENDARIO
+    //================================================== */
+    // Inicializar vistas del calendario al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mostrar vista día por defecto
+        document.querySelector('.calendar-day-view').style.display = 'flex';
+        document.querySelector('.btn-view').classList.add('active');
+        
+        // Crear vistas de semana y mes (ocultas inicialmente)
+        const calendarContainer = document.querySelector('.calendar-container');
+        
+        if (!document.querySelector('.calendar-week-view')) {
+            const weekView = document.createElement('div');
+            weekView.className = 'calendar-week-view';
+            calendarContainer.appendChild(weekView);
+        }
+        
+        if (!document.querySelector('.calendar-month-view')) {
+            const monthView = document.createElement('div');
+            monthView.className = 'calendar-month-view';
+            const monthGrid = document.createElement('div');
+            monthGrid.className = 'month-grid';
+            monthView.appendChild(monthGrid);
+            calendarContainer.appendChild(monthView);
+        }
+    });
+
+    // Funcionalidad para los botones de vista del calendario
+    const viewButtons = document.querySelectorAll('.btn-view');
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remover la clase active de todos los botones
+            viewButtons.forEach(btn => btn.classList.remove('active'));
+            // Agregar la clase active al botón clickeado
+            this.classList.add('active');
+            
+            // Ocultar todas las vistas
+            document.querySelector('.calendar-day-view').style.display = 'none';
+            document.querySelector('.calendar-week-view').style.display = 'none';
+            document.querySelector('.calendar-month-view').style.display = 'none';
+            
+            // Mostrar la vista correspondiente
+            const viewType = this.textContent.toLowerCase();
+            if (viewType === 'día') {
+                document.querySelector('.calendar-day-view').style.display = 'flex';
+            } else if (viewType === 'semana') {
+                generateWeekView();
+                document.querySelector('.calendar-week-view').style.display = 'flex';
+            } else if (viewType === 'mes') {
+                generateMonthView();
+                document.querySelector('.calendar-month-view').style.display = 'block';
+            }
+        });
+    });
+
+    //*===================================================
+    //              VISTA SEMANAL DEL CALENDARIO
+    //================================================== */
+    // Función para generar la vista semanal
+    function generateWeekView() {
+        const weekView = document.querySelector('.calendar-week-view');
+        if (!weekView) return;
+        
+        // Limpiar contenido existente
+        weekView.innerHTML = '';
+        
+        // Crear encabezado de días
+        const weekHeader = document.createElement('div');
+        weekHeader.className = 'week-header';
+        
+        const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const currentDate = new Date();
+        const currentDay = currentDate.getDay(); // Día actual (0-6)
+        
+        // Obtener el primer día de la semana (domingo)
+        const startDate = new Date(currentDate);
+        startDate.setDate(currentDate.getDate() - currentDay);
+        
+        // Crear encabezados de días
+        for (let i = 0; i < 7; i++) {
+            const dayDate = new Date(startDate);
+            dayDate.setDate(startDate.getDate() + i);
+            
+            const dayElement = document.createElement('div');
+            dayElement.className = 'week-day';
+            dayElement.textContent = `${days[i]} ${dayDate.getDate()}`;
+            weekHeader.appendChild(dayElement);
+        }
+        
+        weekView.appendChild(weekHeader);
+        
+        // Crear grid de la semana
+        const weekGrid = document.createElement('div');
+        weekGrid.className = 'week-grid';
+        
+        // Crear columnas para cada día
+        for (let i = 0; i < 7; i++) {
+            const dayColumn = document.createElement('div');
+            dayColumn.className = 'day-column';
+            
+            // Agregar eventos de ejemplo
+            if (i === 2) { // Miércoles
+                const event = createWeekEvent('10:00 AM', '12:00 PM', 'Lavado Premium', 'Toyota Corolla', 'María González', 'completed');
+                dayColumn.appendChild(event);
+            }
+            
+            if (i === 4) { // Viernes
+                const event = createWeekEvent('2:00 PM', '3:30 PM', 'Detallado Completo', 'Ford F-150', 'Carlos Rodríguez', 'pending');
+                dayColumn.appendChild(event);
+            }
+            
+            weekGrid.appendChild(dayColumn);
+        }
+        
+        weekView.appendChild(weekGrid);
+    }
+
+    // Función para crear un evento en la vista semanal
+    function createWeekEvent(startTime, endTime, service, vehicle, client, status) {
+        const eventContainer = document.createElement('div');
+        eventContainer.className = 'week-event';
+        eventContainer.style.top = '100px'; // Posición vertical aproximada
+        eventContainer.style.height = '80px'; // Altura basada en la duración
+        
+        const eventCard = document.createElement('div');
+        eventCard.className = `event-card status-${status}`;
+        
+        const eventTime = document.createElement('div');
+        eventTime.className = 'event-time';
+        eventTime.textContent = `${startTime} - ${endTime}`;
+        
+        const eventTitle = document.createElement('div');
+        eventTitle.className = 'event-title';
+        eventTitle.textContent = `${service} - ${vehicle}`;
+        
+        const eventClient = document.createElement('div');
+        eventClient.className = 'event-client';
+        eventClient.textContent = client;
+        
+        eventCard.appendChild(eventTime);
+        eventCard.appendChild(eventTitle);
+        eventCard.appendChild(eventClient);
+        eventContainer.appendChild(eventCard);
+        
+        return eventContainer;
+    }
+
+    //*===================================================
+    //              VISTA MENSUAL DEL CALENDARIO
+    //================================================== */
+    // Función para generar la vista mensual
+    function generateMonthView() {
+        const monthView = document.querySelector('.calendar-month-view .month-grid');
+        if (!monthView) return;
+        
+        // Limpiar contenido existente
+        monthView.innerHTML = '';
+        
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        
+        // Obtener el primer día del mes y el último día del mes
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        
+        // Obtener el día de la semana del primer día (0-6, donde 0 es domingo)
+        const firstDayOfWeek = firstDay.getDay();
+        
+        // Obtener el número de días en el mes
+        const daysInMonth = lastDay.getDate();
+        
+        // Crear celdas vacías para los días del mes anterior
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'month-day empty';
+            monthView.appendChild(emptyDay);
+        }
+        
+        // Crear celdas para cada día del mes
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayCell = document.createElement('div');
+            dayCell.className = 'month-day';
+            dayCell.textContent = day;
+            
+            // Agregar eventos de ejemplo
+            if (day === 12) {
+                const event = createMonthEvent('Lavado Premium', 'Toyota Corolla', 'completed');
+                dayCell.appendChild(event);
+            }
+            
+            if (day === 15) {
+                const event = createMonthEvent('Lavado Básico', 'Honda Civic', 'in-progress');
+                dayCell.appendChild(event);
+            }
+            
+            if (day === 20) {
+                const event = createMonthEvent('Detallado', 'Ford F-150', 'pending');
+                dayCell.appendChild(event);
+            }
+            
+            monthView.appendChild(dayCell);
+        }
+        
+        // Calcular el total de celdas necesarias (siempre 42 para 6 semanas)
+        const totalCells = 42;
+        const filledCells = firstDayOfWeek + daysInMonth;
+        
+        // Agregar celdas vacías para completar la cuadrícula si es necesario
+        if (filledCells < totalCells) {
+            for (let i = filledCells; i < totalCells; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'month-day empty';
+                monthView.appendChild(emptyDay);
+            }
+        }
+    }
+
+    // Función para crear un evento en la vista mensual
+    function createMonthEvent(service, vehicle, status) {
+        const eventCard = document.createElement('div');
+        eventCard.className = `event-card status-${status}`;
+        
+        const eventTitle = document.createElement('div');
+        eventTitle.className = 'event-title';
+        eventTitle.textContent = `${service} - ${vehicle}`;
+        
+        eventCard.appendChild(eventTitle);
+        return eventCard;
+    }
+
+    //*===================================================
+    //              FILTRADO DE TABLA
+    //================================================== */
+    const tableFilters = document.querySelectorAll('.chart-filter');
+    tableFilters.forEach(filter => {
+        filter.addEventListener('click', function() {
+            // Remover la clase active de todos los filtros
+            tableFilters.forEach(f => f.classList.remove('active'));
+            // Agregar la clase active al filtro clickeado
+            this.classList.add('active');
+            
+            const filterType = this.textContent.toLowerCase();
+            
+            // Obtener la fecha actual y configurar rangos
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            const nextWeek = new Date(today);
+            nextWeek.setDate(nextWeek.getDate() + 7);
+            
+            // Filtrar eventos en el calendario
+            const events = document.querySelectorAll('.event-container');
+            
+            events.forEach(event => {
+                // Obtener la fecha del evento (esto es un ejemplo, necesitarías adaptarlo a tu estructura real)
+                const eventDateText = event.querySelector('.event-time').textContent.split(' - ')[0];
+                const [time, period] = eventDateText.split(' ');
+                let [hours, minutes] = time.split(':').map(Number);
+                
+                if (period === 'PM' && hours < 12) hours += 12;
+                if (period === 'AM' && hours === 12) hours = 0;
+                
+                const eventDate = new Date(today);
+                eventDate.setHours(hours, minutes, 0, 0);
+                
+                let shouldShow = false;
+                
+                if (filterType === 'todas') {
+                    shouldShow = true;
+                } else if (filterType === 'hoy') {
+                    shouldShow = eventDate.toDateString() === today.toDateString();
+                } else if (filterType === 'mañana') {
+                    shouldShow = eventDate.toDateString() === tomorrow.toDateString();
+                } else if (filterType === 'esta semana') {
+                    shouldShow = eventDate >= today && eventDate <= nextWeek;
+                }
+                
+                event.style.display = shouldShow ? '' : 'none';
+            });
+            
+            // También actualizar la vista semanal o mensual si están activas
+            const activeView = document.querySelector('.btn-view.active').textContent.toLowerCase();
+            
+            if (activeView === 'semana') {
+                generateWeekView(filterType);
+            } else if (activeView === 'mes') {
+                generateMonthView(filterType);
+            }
+        });
+    });
+
+    //*===================================================
+    //              VISTA SEMANAL CON FILTROS
+    //================================================== */
+    function generateWeekView(filterType = 'todas') {
+        const weekView = document.querySelector('.calendar-week-view');
+        if (!weekView) return;
+        
+        // Limpiar contenido existente
+        weekView.innerHTML = '';
+        
+        // Crear encabezado de días
+        const weekHeader = document.createElement('div');
+        weekHeader.className = 'week-header';
+        
+        const days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+        const currentDate = new Date();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        const nextWeek = new Date(today);
+        nextWeek.setDate(nextWeek.getDate() + 7);
+        
+        // Obtener el primer día de la semana (domingo)
+        const startDate = new Date(currentDate);
+        startDate.setDate(currentDate.getDate() - currentDate.getDay());
+        
+        // Crear encabezados de días
+        for (let i = 0; i < 7; i++) {
+            const dayDate = new Date(startDate);
+            dayDate.setDate(startDate.getDate() + i);
+            
+            const dayElement = document.createElement('div');
+            dayElement.className = 'week-day';
+            dayElement.textContent = `${days[i]} ${dayDate.getDate()}`;
+            
+            // Resaltar el día actual
+            if (dayDate.toDateString() === today.toDateString()) {
+                dayElement.style.fontWeight = 'bold';
+                dayElement.style.color = 'var(--primary)';
+            }
+            
+            weekHeader.appendChild(dayElement);
+        }
+        
+        weekView.appendChild(weekHeader);
+        
+        // Crear grid de la semana
+        const weekGrid = document.createElement('div');
+        weekGrid.className = 'week-grid';
+        
+        // Crear columnas para cada día
+        for (let i = 0; i < 7; i++) {
+            const dayColumn = document.createElement('div');
+            dayColumn.className = 'day-column';
+            
+            const dayDate = new Date(startDate);
+            dayDate.setDate(startDate.getDate() + i);
+            
+            // Agregar eventos de ejemplo filtrados
+            if (shouldShowEvent(filterType, dayDate, today, tomorrow, nextWeek)) {
+                // Eventos para el miércoles (ejemplo)
+                if (i === 3) { // Miércoles
+                    const event = createWeekEvent('10:00 AM', '12:00 PM', 'Lavado Premium', 'Toyota Corolla', 'María González', 'completed');
+                    dayColumn.appendChild(event);
+                }
+                
+                // Eventos para el viernes (ejemplo)
+                if (i === 5) { // Viernes
+                    const event = createWeekEvent('2:00 PM', '3:30 PM', 'Detallado Completo', 'Ford F-150', 'Carlos Rodríguez', 'pending');
+                    dayColumn.appendChild(event);
+                }
+            }
+            
+            weekGrid.appendChild(dayColumn);
+        }
+        
+        weekView.appendChild(weekGrid);
+    }
+
+    //*===================================================
+    //              VISTA MENSUAL CON FILTROS
+    //================================================== */
+    function generateMonthView(filterType = 'todas') {
+        const monthView = document.querySelector('.calendar-month-view .month-grid');
+        if (!monthView) return;
+        
+        // Limpiar contenido existente
+        monthView.innerHTML = '';
+        
+        const currentDate = new Date();
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        
+        const nextWeek = new Date(today);
+        nextWeek.setDate(nextWeek.getDate() + 7);
+        
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth();
+        
+        // Obtener el primer día del mes y el último día del mes
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        
+        // Obtener el día de la semana del primer día (0-6, donde 0 es domingo)
+        const firstDayOfWeek = firstDay.getDay();
+        
+        // Obtener el número de días en el mes
+        const daysInMonth = lastDay.getDate();
+        
+        // Crear celdas vacías para los días del mes anterior
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'month-day empty';
+            monthView.appendChild(emptyDay);
+        }
+        
+        // Crear celdas para cada día del mes
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayCell = document.createElement('div');
+            dayCell.className = 'month-day';
+            dayCell.textContent = day;
+            
+            const dayDate = new Date(year, month, day);
+            
+            // Resaltar el día actual
+            if (dayDate.toDateString() === today.toDateString()) {
+                dayCell.style.fontWeight = 'bold';
+                dayCell.style.border = '2px solid var(--primary)';
+            }
+            
+            // Agregar eventos de ejemplo filtrados
+            if (shouldShowEvent(filterType, dayDate, today, tomorrow, nextWeek)) {
+                if (day === today.getDate()) {
+                    const event = createMonthEvent('Lavado Premium', 'Toyota Corolla', 'completed');
+                    dayCell.appendChild(event);
+                }
+                
+                if (day === tomorrow.getDate()) {
+                    const event = createMonthEvent('Lavado Básico', 'Honda Civic', 'in-progress');
+                    dayCell.appendChild(event);
+                }
+                
+                if (day > today.getDate() && day <= nextWeek.getDate()) {
+                    const event = createMonthEvent('Detallado', 'Ford F-150', 'pending');
+                    dayCell.appendChild(event);
+                }
+            }
+            
+            monthView.appendChild(dayCell);
+        }
+        
+        // Calcular el total de celdas necesarias (siempre 42 para 6 semanas)
+        const totalCells = 42;
+        const filledCells = firstDayOfWeek + daysInMonth;
+        
+        // Agregar celdas vacías para completar la cuadrícula si es necesario
+        if (filledCells < totalCells) {
+            for (let i = filledCells; i < totalCells; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'month-day empty';
+                monthView.appendChild(emptyDay);
+            }
+        }
+    }
+
+    //*===================================================
+    //              FUNCIÓN AUXILIAR DE FILTRADO
+    //================================================== */
+    // Función auxiliar para determinar si un evento debe mostrarse según el filtro
+    function shouldShowEvent(filterType, eventDate, today, tomorrow, nextWeek) {
+        if (filterType === 'todas') return true;
+        if (filterType === 'hoy') return eventDate.toDateString() === today.toDateString();
+        if (filterType === 'mañana') return eventDate.toDateString() === tomorrow.toDateString();
+        if (filterType === 'esta semana') return eventDate >= today && eventDate <= nextWeek;
+        return true;
+    }
+    
+    //*===================================================
+    //              NAVEGACIÓN DEL CALENDARIO
+    //================================================== */
+    // Mes anterior/siguiente
+    document.querySelector('.calendar-nav button:first-child').addEventListener('click', function() {
+        const monthElement = document.querySelector('.calendar-nav h2');
+        const currentMonth = monthElement.textContent.split(' ')[0];
+        const currentYear = parseInt(monthElement.textContent.split(' ')[1]);
+        
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                       'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        
+        let newMonthIndex = months.indexOf(currentMonth) - 1;
+        let newYear = currentYear;
+        
+        if (newMonthIndex < 0) {
+            newMonthIndex = 11;
+            newYear--;
+        }
+        
+        monthElement.textContent = `${months[newMonthIndex]} ${newYear}`;
+        
+        // Regenerar vista si estamos en modo mes
+        if (document.querySelector('.btn-view.active').textContent.toLowerCase() === 'mes') {
+            generateMonthView();
+        }
+    });
+    
+    document.querySelector('.calendar-nav button:last-child').addEventListener('click', function() {
+        const monthElement = document.querySelector('.calendar-nav h2');
+        const currentMonth = monthElement.textContent.split(' ')[0];
+        const currentYear = parseInt(monthElement.textContent.split(' ')[1]);
+        
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+                       'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        
+        let newMonthIndex = months.indexOf(currentMonth) + 1;
+        let newYear = currentYear;
+        
+        if (newMonthIndex > 11) {
+            newMonthIndex = 0;
+            newYear++;
+        }
+        
+        monthElement.textContent = `${months[newMonthIndex]} ${newYear}`;
+        
+        // Regenerar vista si estamos en modo mes
+        if (document.querySelector('.btn-view.active').textContent.toLowerCase() === 'mes') {
+            generateMonthView();
+        }
+    });
+    
+    //*===================================================
+    //              FILTROS DE BÚSQUEDA
+    //================================================== */
+    document.querySelector('.search-box input').addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const rows = document.querySelectorAll('.table tbody tr');
+        
+        rows.forEach(row => {
+            const rowText = row.textContent.toLowerCase();
+            row.style.display = rowText.includes(searchTerm) ? '' : 'none';
+        });
+    });
+    
+    document.getElementById('filterService').addEventListener('change', function() {
+        filterTable();
+    });
+    
+    document.getElementById('filterStatus').addEventListener('change', function() {
+        filterTable();
+    });
+    
+    function filterTable() {
+        const serviceFilter = document.getElementById('filterService').value;
+        const statusFilter = document.getElementById('filterStatus').value;
+        const rows = document.querySelectorAll('.table tbody tr');
+        
+        rows.forEach(row => {
+            const service = row.querySelector('td:nth-child(4)').textContent.toLowerCase();
+            const status = row.querySelector('.status-badge').textContent.toLowerCase();
+            
+            const serviceMatch = !serviceFilter || 
+                               (serviceFilter === 'premium' && service.includes('premium')) ||
+                               (serviceFilter === 'basic' && service.includes('básico')) ||
+                               (serviceFilter === 'express' && service.includes('exprés')) ||
+                               (serviceFilter === 'detail' && service.includes('detallado'));
+            
+            const statusMatch = !statusFilter || 
+                              (statusFilter === 'pending' && status.includes('pendiente')) ||
+                              (statusFilter === 'in-progress' && status.includes('proceso')) ||
+                              (statusFilter === 'completed' && status.includes('completado')) ||
+                              (statusFilter === 'cancelled' && status.includes('cancelado'));
+            
+            row.style.display = serviceMatch && statusMatch ? '' : 'none';
+        });
+    }
+</script>
+</body>
+</html>

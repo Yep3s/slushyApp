@@ -1,0 +1,45 @@
+#notification-container {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  z-index: 9999;
+}
+
+.notification-card {
+  background: #fff;
+  border-radius: .5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  padding: 1rem 1.5rem;
+  min-width: 220px;
+  position: relative;
+  cursor: pointer;
+  animation: slide-in 0.3s ease-out;
+}
+.notification-card.info {
+  border-left: 4px solid #17a2b8;
+}
+.notification-card.success {
+  border-left: 4px solid #28a745;
+}
+.notification-card.error {
+  border-left: 4px solid #dc3545;
+}
+
+.notification-card .close-btn {
+  position: absolute;
+  top: .25rem;
+  right: .5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #666;
+  cursor: pointer;
+}
+
+@keyframes slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}

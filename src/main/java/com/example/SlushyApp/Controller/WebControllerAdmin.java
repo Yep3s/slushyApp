@@ -42,8 +42,13 @@ public class WebControllerAdmin {
     }
 
     @GetMapping("/dashboard/reportes")
-    public String adminDashboardReservas() {
+    public String adminDashboardReportes() {
         return "admin/adminDashboardReportes";
+    }
+
+    @GetMapping("/dashboard/reservas")
+    public String adminDashboardReservas() {
+        return "admin/adminDashboardReservas";
     }
 
 

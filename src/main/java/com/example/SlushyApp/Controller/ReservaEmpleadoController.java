@@ -149,4 +149,18 @@ public class ReservaEmpleadoController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
+
+    /**
+     * 📜 Listar historial: todas las reservas COMPLETADAS
+     * GET /empleado/reservas/completadas
+     */
+    @GetMapping("/completadas")
+    public ResponseEntity<List<ReservaDto>> verCompletadas() {
+        List<Reserva> completadas = reservaService.obtenerReservasPorEstado(EstadoReserva.COMPLETADA);
+        List<ReservaDto> dtos = completadas.stream()
+                .map(this::toDto)    // reutiliza tu helper toDto(...)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+
 }

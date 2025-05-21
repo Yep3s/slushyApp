@@ -63,8 +63,7 @@
                 
                 <div class="employee-user">
                     <div class="employee-info">
-                        <div class="employee-name">Roberto Sánchez</div>
-                        <div class="employee-role">Operador</div>
+                        <div class="employee-name" id="employee-name">Cargando...</div>
                     </div>
                     <div class="employee-avatar">
                         <i class="fas fa-user"></i>
@@ -293,60 +292,8 @@
             =================================================== */-->
             <div class="tab-content" id="history-content">
                 <h2 class="section-title">Mi Historial de Lavados</h2>
-                
-                <!-- History List -->
-                <div class="history-list">
-                    <!-- History Item 1 -->
-                    <div class="history-item">
-                        <div class="history-icon">
-                            <i class="fas fa-car-wash"></i>
-                        </div>
-                        <div class="history-details">
-                            <div class="history-title">Lavado Deluxe</div>
-                            <div class="history-meta">
-                                <span>Honda CR-V (XYZ-789)</span>
-                                <span>•</span>
-                                <span>02 Mayo, 2023 - 10:30 AM</span>
-                                <span>•</span>
-                                <span class="status completed">Completado</span>
-                            </div>
-                            <div class="history-stats">
-                                <div class="stat">
-                                    <i class="fas fa-clock"></i> 22 min
-                                </div>
-                                <div class="stat">
-                                    <i class="fas fa-star"></i> 5.0
-                                </div>
-                            </div>
-                        </div>
-                        <div class="history-price">$24.99</div>
-                    </div>
-                    
-                    <!-- History Item 2 -->
-                    <div class="history-item">
-                        <div class="history-icon">
-                            <i class="fas fa-car-wash"></i>
-                        </div>
-                        <div class="history-details">
-                            <div class="history-title">Lavado Premium</div>
-                            <div class="history-meta">
-                                <span>Toyota Corolla (ABC-123)</span>
-                                <span>•</span>
-                                <span>01 Mayo, 2023 - 03:15 PM</span>
-                                <span>•</span>
-                                <span class="status completed">Completado</span>
-                            </div>
-                            <div class="history-stats">
-                                <div class="stat">
-                                    <i class="fas fa-clock"></i> 18 min
-                                </div>
-                                <div class="stat">
-                                    <i class="fas fa-star"></i> 4.5
-                                </div>
-                            </div>
-                        </div>
-                        <div class="history-price">$14.99</div>
-                    </div>
+                <div class="history-list" id="history-list">
+
                 </div>
             </div>
         </div>
@@ -491,6 +438,7 @@
                         SCRIPTS SECTION
     =================================================== */-->
 
+    <script src="/js/history-empleado.js"></script>
     <script src="/js/empleado-funciones.js"></script>
     <script>
         

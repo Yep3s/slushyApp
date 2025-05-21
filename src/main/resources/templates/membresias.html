@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membresía VIP - Slushy App - Lavadero de Autos</title>
+    <link rel="stylesheet" href="/css/membresias-style.css">
+    <link rel="icon" href="/images/Slushylogo.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+   <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+                </div>
+                
+                <nav class="main-nav">
+                    <ul class="nav-list">
+                        <li><a href="/" class="nav-link">Inicio</a></li>
+                        <li><a href="/servicios" class="nav-link">Servicios</a></li>
+                        <li><a href="/mebresia" class="nav-link active">Membresía VIP</a></li>
+                        <li><a href="/contacto" class="nav-link">Contacto</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="header-actions">
+                    <a href="/login" class="btn btn-primary">Ingresa</a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-content">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="mobile-menu-container">
+            <ul class="mobile-nav-list">
+                <li><a href="/" class="nav-link">Inicio</a></li>
+                <li><a href="/servicios" class="nav-link">Servicios</a></li>
+                <li><a href="/mebresia" class="nav-link active">Membresía VIP</a></li>
+                <li><a href="/contacto" class="nav-link">Contacto</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <section class="rewards-hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="rewards-hero-content">
+                <h1 class="hero-title">
+                    Membresía VIP
+                    <span class="hero-subtitle">Únete a nuestro programa VIP y disfruta de beneficios exclusivos</span>
+                </h1>
+                <p class="hero-description">
+                    Nuestras membresías VIP te ofrecen acceso a beneficios exclusivos y descuentos especiales. Elige el plan que mejor se adapte a tus necesidades.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#beneficios" class="btn btn-outline-light">
+                        Beneficios VIP
+                    </a>
+                    <a href="#planes" class="btn btn-light">Ver Planes</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works-section" id="beneficios">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Beneficios Exclusivos</h2>
+                <p class="section-description">
+                    Descubre todas las ventajas de ser miembro VIP
+                </p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon">
+                        <i class="fas fa-car-side"></i>
+                    </div>
+                    <h3 class="step-title">Lavados Gratuitos</h3>
+                    <p class="step-description">
+                        Disfruta de lavados premium gratuitos según tu plan de membresía
+                    </p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <h3 class="step-title">Descuentos Exclusivos</h3>
+                    <p class="step-description">
+                        Obtén descuentos especiales en todos nuestros servicios adicionales
+                    </p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="step-title">Programa Tus Citas</h3>
+                    <p class="step-description">
+                        Ahorra tiempo reservando en horarios nuestra app y obtén la mejor atencion.
+                    </p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="step-title">Eventos Exclusivos</h3>
+                    <p class="step-description">
+                        Acceso a eventos y promociones especiales solo para miembros VIP
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="levels-section" id="planes">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nuestros Planes VIP</h2>
+                <p class="section-description">
+                    Elige el plan que mejor se adapte a tus necesidades
+                </p>
+            </div>
+            
+            <div class="levels-grid">
+                <div class="level-card">
+                    <div class="level-header">
+                        <div class="level-badge">Plan</div>
+                        <h3 class="level-title">Mensual</h3>
+                    </div>
+                    <div class="level-content">
+                        <div class="xp-required">
+                            <span class="xp-label">Precio:</span>
+                            <span class="xp-value">$60.000 COP</span>
+                        </div>
+                        <h4 class="benefits-title">Beneficios:</h4>
+                        <ul class="benefits-list">
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>2 lavados premium gratis</span>
+                            </li>
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>10% descuento en servicios adicionales</span>
+                            </li>
+                        </ul>
+                        <div class="level-footer">
+                            <a href="/login" class="btn btn-primary">Suscribirse</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="level-card level-card-featured">
+                    <div class="level-header">
+                        <div class="level-badge">POPULAR</div>
+                        <h3 class="level-title">Trimestral</h3>
+                    </div>
+                    <div class="level-content">
+                        <div class="xp-required">
+                            <span class="xp-label">Precio:</span>
+                            <span class="xp-value">$140.000 COP</span>
+                        </div>
+                        <h4 class="benefits-title">Beneficios:</h4>
+                        <ul class="benefits-list">
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>7 lavados premium gratis</span>
+                            </li>
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>15% descuento en servicios adicionales</span>
+                            </li>
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>1 encerado gratis</span>
+                            </li>
+                        </ul>
+                        <div class="level-footer">
+                            <a href="/login" class="btn btn-primary">Suscribirse</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="level-card">
+                    <div class="level-header">
+                        <div class="level-badge level-badge-elite">Premium</div>
+                        <h3 class="level-title">Anual</h3>
+                    </div>
+                    <div class="level-content">
+                        <div class="xp-required">
+                            <span class="xp-label">Precio:</span>
+                            <span class="xp-value">$420.000 COP</span>
+                        </div>
+                        <h4 class="benefits-title">Beneficios:</h4>
+                        <ul class="benefits-list">
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>28 lavados premium gratis</span>
+                            </li>
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>25% descuento en servicios adicionales</span>
+                            </li>
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>4 encerados gratis</span>
+                            </li>
+                            <li class="benefit-item">
+                                <span class="check-icon"></span>
+                                <span>Eventos exclusivos VIP</span>
+                            </li>
+                        </ul>
+                        <div class="level-footer">
+                            <a href="/login" class="btn btn-primary">Suscribirse</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Lo Que Dicen Nuestros Miembros VIP</h2>
+                <p class="section-description">
+                    Experiencias reales de nuestros clientes VIP
+                </p>
+            </div>
+            
+            <div class="testimonials-slider">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-content">La membresía VIP vale cada centavo. No más esperas, descuentos exclusivos y un servicio de primera. ¡Totalmente recomendado!</p>
+                    <div class="testimonial-author">
+                        <img src="https://www.estilosblog.com/wp-content/uploads/2011/06/JAVIER-JATTIN-ENTREVISTA.jpg" alt="Chepe Fortuna" class="author-avatar">
+                        <div class="author-info">
+                            <h4 class="author-name">Chepe Fortuna</h4>
+                            <p class="author-role">Miembro VIP Trimestral</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-content">Desde que me suscribí al plan anual, he ahorrado mucho dinero y tiempo. Los lavados gratuitos y el trato preferencial hacen que valga la pena.</p>
+                    <div class="testimonial-author">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfrfdeoNixxxa8-_w6M6rsw2SCbCf5_2G5gA&s" alt="Juan David Iriarte" class="author-avatar">
+                        <div class="author-info">
+                            <h4 class="author-name">Juan David Iriarte</h4>
+                            <p class="author-role">Miembro VIP Anual</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="testimonial-content">Los eventos exclusivos para miembros VIP son geniales. Conoces a otros entusiastas de autos y recibes ofertas especiales. ¡Una gran comunidad!</p>
+                    <div class="testimonial-author">
+                        <img src="https://lastfm.freetls.fastly.net/i/u/ar0/111cf7b155a1a71650e552eee83d4864.jpg" alt="José Antonio Monterrosa" class="author-avatar">
+                        <div class="author-info">
+                            <h4 class="author-name">José Antonio Monterrosa</h4>
+                            <p class="author-role">Miembro VIP Anual</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="missions-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Preguntas Frecuentes</h2>
+                <p class="section-description">
+                    Resolvemos tus dudas sobre nuestro programa de membresías VIP
+                </p>
+            </div>
+            
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">¿Cómo funciona la membresía VIP?</div>
+                    <div class="faq-answer">
+                        Nuestra membresía VIP ofrece beneficios exclusivos como lavados gratuitos, descuentos en servicios adicionales, acceso prioritario y más. Tenemos planes mensuales, trimestrales y anuales.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Puedo cancelar mi membresía en cualquier momento?</div>
+                    <div class="faq-answer">
+                        Sí, puedes cancelar tu membresía en cualquier momento. Para planes mensuales, la cancelación se hará efectiva al final del período pagado. Para planes trimestrales y anuales, ofrecemos reembolsos proporcionales por el tiempo no utilizado, menos una pequeña tarifa administrativa.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Los lavados gratuitos tienen alguna restricción?</div>
+                    <div class="faq-answer">
+                        Los lavados gratuitos incluidos en tu membresía son del tipo Premium. Puedes usarlos en cualquier momento durante la vigencia de tu membresía, pero te recomendamos reservar con anticipación, especialmente en días de alta demanda.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">¿Puedo transferir mi membresía a otra persona?</div>
+                    <div class="faq-answer">
+                        Las membresías VIP son personales e intransferibles.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">¿Listo para unirte a nuestro programa VIP?</h2>
+            <p class="cta-description">
+                Comienza a disfrutar de todos los beneficios exclusivos de nuestra membresía VIP hoy mismo.
+            </p>
+            <div class="cta-buttons">
+                <a href="/login" class="btn btn-light btn-lg">Suscribirme Ahora</a>
+                <a href="/servicios" class="btn btn-outline-light btn-lg">Ver Servicios</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="logo">
+                        <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+                    </div>
+                    <p class="footer-description">
+                        La mejor aplicación para el cuidado de tu vehículo. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <h3 class="footer-title">Enlaces Rápidos</h3>
+                    <ul class="footer-nav">
+                        <li><a href="/" class="nav-link">Inicio</a></li>
+                        <li><a href="/servicios" class="nav-link">Servicios</a></li>
+                        <li><a href="/mebresia" class="nav-link active">Membresía VIP</a></li>
+                        <li><a href="/contacto" class="nav-link">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-newsletter">
+                    <h3 class="footer-title">Suscríbete</h3>
+                    <p class="footer-description">
+                        Recibe nuestras últimas noticias y promociones exclusivas
+                    </p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Tu correo electrónico" class="newsletter-input">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">© <span id="currentYear">2025</span> Slushy App. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+       // Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const closeMenu = document.getElementById('closeMenu');
+
+// Abrir el menú al hacer clic en el botón de hamburguesa (☰)
+menuToggle.addEventListener('click', function() {
+    mobileMenu.classList.add('active');
+});
+
+// Cerrar el menú al hacer clic en el botón de "X"
+closeMenu.addEventListener('click', function() {
+    mobileMenu.classList.remove('active');
+});
+
+// Cerrar el menú al hacer clic en cualquier enlace del menú móvil
+const mobileLinks = document.querySelectorAll('.mobile-nav-list .nav-link');
+mobileLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        mobileMenu.classList.remove('active');
+    });
+});
+
+// Cerrar el menú automáticamente al redimensionar la pantalla a desktop (≥1024px)
+function handleResize() {
+    if (window.innerWidth >= 1024 && mobileMenu.classList.contains('active')) {
+        mobileMenu.classList.remove('active');
+    }
+}
+window.addEventListener('resize', handleResize);
+        
+        // Update current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Highlight current page in navigation
+        function highlightCurrentPage() {
+            // Get current page path
+            const currentPath = window.location.pathname;
+            
+            // Find all navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-list .nav-link');
+            
+            // Check each link to see if it matches the current path
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (currentPath.includes('vip') && href.includes('vip')) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Do the same for mobile links
+            mobileNavLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (currentPath.includes('vip') && href.includes('vip')) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Run the function when the page loads
+        highlightCurrentPage();
+        
+        // Testimonial Slider
+        const dots = document.querySelectorAll('.dot');
+        const testimonials = document.querySelectorAll('.testimonial-card');
+        let currentSlide = 0;
+        
+        function showSlide(index) {
+            // Hide all testimonials
+            testimonials.forEach(testimonial => {
+                testimonial.style.display = 'none';
+            });
+            
+            // Remove active class from all dots
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+            });
+            
+            // Show the current testimonial
+            testimonials[index].style.display = 'block';
+            
+            // Add active class to current dot
+            dots[index].classList.add('active');
+        }
+        
+        // Initialize slider
+        showSlide(currentSlide);
+        
+        // Add click event to dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                currentSlide = index;
+            });
+        });
+        
+        // Auto slide
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % testimonials.length;
+            showSlide(currentSlide);
+        }, 5000);
+        
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', function() {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

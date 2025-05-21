@@ -28,4 +28,19 @@ public class WebController {
         return "register";
     }
 
+    @GetMapping("/servicios")
+    public String serviciosSlushy() {
+        return "servicios";
+    }
+
+    @GetMapping("/mebresia")
+    public String membresiaSlushy() {
+        return "membresias";
+    }
+
+    @GetMapping("/contacto")
+    public String contactoSlushy() {
+        return "contacto";
+    }
+
 }

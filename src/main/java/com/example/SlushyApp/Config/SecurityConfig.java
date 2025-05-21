@@ -23,27 +23,36 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authConfig
+    ) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
+                .cors().and()
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/register", "/auth/login","/auth/register1","/", "/auth/forgot-password",
-                                "/auth/reset-password","/servicios/disponibles","/css/**", "/js/**", "/images/**","/fonts/**" ,"/webjars/**","/login","/registerSlushy","/logoutSlushy","/servicios","/mebresia","/contacto").permitAll() // Rutas públicas
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN") // Rutas solo para admin
-                        .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN") // Rutas para todos los usuarios
-                        .requestMatchers("/employee/**").hasAnyAuthority("EMPLOYEE", "ADMIN") // 👈 acceso para empleados
+                        // rutas públicas
+                        .requestMatchers(
+                                "/auth/register", "/auth/login", "/auth/register1",
+                                "/", "/auth/forgot-password", "/auth/reset-password",
+                                "/servicios/disponibles",
+                                "/css/**", "/js/**", "/images/**", "/fonts/**", "/webjars/**",
+                                "/login", "/registerSlushy", "/logoutSlushy",
+                                "/servicios", "/mebresia", "/contacto"
+                        ).permitAll()
+                        // roles
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/user/**").hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers("/employee/**").hasAnyAuthority("EMPLOYEE", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -51,21 +60,23 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Configura CORS para permitir peticiones desde desarrollo y producción.
+     */
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8081") // el mismo puerto de tu app
+                        .allowedOrigins(
+                                "http://localhost:8081",
+                                "https://slushyapp.azurewebsites.net",
+                                "https://slushyapp.online"
+                        )
                         .allowedMethods("*")
                         .allowCredentials(true);
             }
         };
     }
-
-
 }
-
-
-

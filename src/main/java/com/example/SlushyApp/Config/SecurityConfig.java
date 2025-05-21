@@ -57,7 +57,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8080") // el mismo puerto de tu app
+                        .allowedOrigins("http://localhost:8081") // el mismo puerto de tu app
                         .allowedMethods("*")
                         .allowCredentials(true);
             }

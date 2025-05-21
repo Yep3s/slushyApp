@@ -223,10 +223,15 @@ public class ReservaService {
      */
     public Reserva actualizarEstadoComoEmpleado(String id, EstadoReserva nuevoEstado) {
         Reserva r = reservaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada: " + id));
+        // Si el empleado marca COMPLETADA, forzamos progreso = 100
+        if (nuevoEstado == EstadoReserva.COMPLETADA) {
+            r.setProgreso(100);
+        }
         r.setEstado(nuevoEstado);
         return reservaRepository.save(r);
     }
+
 
     /**
      * 🔁 Obtener por tipo de vehiculo placa

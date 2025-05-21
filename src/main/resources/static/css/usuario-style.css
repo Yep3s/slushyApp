@@ -160,45 +160,41 @@ h1, h2, h3, h4, h5, h6 {
     
 }
 
+/* ===================================================
+                HEADER Y NAVEGACIÓN
+   =================================================== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--dark);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+}
+
 .header-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 4rem;
     font-family: 'FuentePrueba', sans-serif;
-
+    color: #fff;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
 }
 
-.logo-icon {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background-color: var(--primary);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 3.3rem;
-    font-family: 'Formula 1', sans-serif;
-}
-
-.logo-text {
-    font-weight: 600;
-    font-size: 1.9rem;
-    font-family: 'FuentePrueba', sans-serif;
+.logo-img {
+    height: 4rem;
+    width: auto;
 }
 
 .main-nav {
     display: flex;
     font-family: 'FuentePrueba', sans-serif;
-    font-size: 1px;
+    font-size: 20px;
 }
 
 .nav-list {
@@ -207,14 +203,37 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav-link {
-    font-size: 1.4rem;
-    font-weight: 500;
-    transition: color 0.3s ease;
+    font-size: 1.1rem;
     font-weight: 550;
+    transition: color 0.3s ease;
+    font-family: 'FuentePrueba', sans-serif;
+    position: relative;
+    padding: 0.3rem 0.8rem;
 }
 
 .nav-link:hover {
     color: var(--primary);
+}
+
+/* Estilos para los enlaces activos en la navegación */
+.nav-link.active {
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    width: calc(100% - 1rem);
+    height: calc(100% - 0.5rem);
+    background-color: var(--primary);
+    border-radius: 20px;
+    left: 0.5rem;
+    top: 0.25rem;
+    z-index: -1;
+    transform-origin: left center;
+    animation: slideIn 0.3s ease-out forwards;
 }
 
 .header-actions {
@@ -230,8 +249,8 @@ h1, h2, h3, h4, h5, h6 {
     background: transparent;
     border: none;
     cursor: pointer;
+    color: #fff;
 }
-
 /* Mobile Menu */
 .mobile-menu {
     position: fixed;

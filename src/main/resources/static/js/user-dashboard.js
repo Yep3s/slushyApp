@@ -68,8 +68,13 @@ document.addEventListener("DOMContentLoaded", async () => {
                 tipoVehiculo: tipo // 👈 importante que la clave sea tipoVehiculo
             };
 
+            // Obtener la URL base de la API (local o producción)
+            const API_URL = window.location.hostname === 'localhost'
+                ? 'http://localhost:8081'  // URL cuando está en local
+                : `https://${window.location.hostname}`;  // En producción, se usa el dominio configurado (ej. slushyapp.online)
+
             try {
-                const response = await fetch('http://localhost:8081/user/vehiculos/registrar', {
+                const response = await fetch(`${API_URL}/user/vehiculos/registrar`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -113,5 +118,3 @@ document.addEventListener("DOMContentLoaded", async () => {
         window.location.href = "/login";
     }
 });
-
-

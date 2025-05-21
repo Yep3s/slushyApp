@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Empleado - Slushy App</title>
+    <link rel="icon" href="/images/Slushylogo.png" type="image/x-icon">
     <link rel="stylesheet" href="/css/empleado-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -102,138 +103,26 @@
                     <div class="queue-card">
                         <div class="queue-header">
                             <h3 class="queue-title">Pendiente</h3>
-                            <span class="queue-count">2</span>
-                        </div>                        
-                        <div class="queue-list">
-                            <!-- Queue Item 1 -->
-                            <div class="queue-item">
-                                <div class="queue-item-header">
-                                    <h4 class="queue-item-title">Toyota Corolla</h4>
-                                    <span class="queue-item-time">10:30 AM</span>
-                                </div>
-                                <div class="queue-item-details">
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-user queue-item-icon"></i>
-                                        <span>María González</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-car queue-item-icon"></i>
-                                        <span>Sedán • ABC-123</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-list-check queue-item-icon"></i>
-                                        <span>Lavado Premium</span>
-                                    </div>
-                                </div>
-                                <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="redirectToActiveContent()">Confirmar</button>
-                                    <button class="btn btn-outline" onclick="showDetailsModal('Toyota Corolla', 'María González', 'Sedán • ABC-123', 'Lavado Premium', '10:30 AM', 'El cliente solicitó limpieza especial de tapicería.')">Ver Detalles</button>
-                                </div>
-                            </div>
-                            
-                            <!-- Queue Item 2 -->
-                            <div class="queue-item">
-                                <div class="queue-item-header">
-                                    <h4 class="queue-item-title">Honda CR-V</h4>
-                                    <span class="queue-item-time">10:45 AM</span>
-                                </div>
-                                <div class="queue-item-details">
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-user queue-item-icon"></i>
-                                        <span>Carlos Rodríguez</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-car queue-item-icon"></i>
-                                        <span>SUV • XYZ-789</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-list-check queue-item-icon"></i>
-                                        <span>Lavado Deluxe</span>
-                                    </div>
-                                </div>
-                                <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="redirectToActiveContent()">Confirmar</button>
-                                    <button class="btn btn-outline" onclick="showDetailsModal('Toyota Corolla', 'María González', 'Sedán • ABC-123', 'Lavado Premium', '10:30 AM', 'El cliente solicitó limpieza especial de tapicería.')">Ver Detalles</button>
-                                </div>
-                            </div>
+                            <span class="queue-count" id="pending-count">0</span>
+                        </div>
+                        <div class="queue-list" id="queue-pending-list">
+
                         </div>
                     </div>
 
                     <div style="text-align: center;">
                         <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img" style="width: 300px; height: auto; display: block; margin: 0 auto; margin-top: 100px;">
                     </div>
-                                    
+
                     <!-- Confirmed Queue Card -->
                     <div class="queue-card">
                         <div class="queue-header">
                             <h3 class="queue-title">Confirmada</h3>
-                            <span class="queue-count">2</span>
+                            <span class="queue-count" id="confirmed-count">0</span>
                         </div>
-                        
-                        <div class="queue-list">
-                            <!-- Confirmed Item 1 -->
-                            <div class="queue-item">
-                                <div class="queue-item-header">
-                                    <h4 class="queue-item-title">Chevrolet Spark</h4>
-                                    <span class="queue-item-time">09:45 AM</span>
-                                </div>
-                                <div class="queue-item-details">
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-user queue-item-icon"></i>
-                                        <span>Pedro Gómez</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-car queue-item-icon"></i>
-                                        <span>Hatchback • JKL-012</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-list-check queue-item-icon"></i>
-                                        <span>Lavado Premium</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-check-circle queue-item-icon"></i>
-                                        <span>Confirmada</span>
-                                    </div>
-                                </div>
-                                <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="redirectToActiveContent()">Iniciar Servicio</button>
-                                    <button class="btn btn-outline" onclick="showDetailsModal('Chevrolet Spark', 'Pedro Gómez', 'Hatchback • JKL-012', 'Lavado Premium', '09:45 AM', 'Progreso actual: 75%')">Ver Detalles</button>
-                                </div>
-                            </div>
-
-                            
-                            <!-- Confirmed Item 2 -->
-                            <div class="queue-item">
-                                <div class="queue-item-header">
-                                    <h4 class="queue-item-title">Mazda CX-5</h4>
-                                    <span class="queue-item-time">10:00 AM</span>
-                                </div>
-                                <div class="queue-item-details">
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-user queue-item-icon"></i>
-                                        <span>Laura Torres</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-car queue-item-icon"></i>
-                                        <span>SUV • MNO-345</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-list-check queue-item-icon"></i>
-                                        <span>Lavado Deluxe</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-check-circle queue-item-icon"></i>
-                                        <span>Confirmada</span>
-                                    </div>
-                                </div>
-                                <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="redirectToActiveContent()">Iniciar Servicio</button>
-                                    <button class="btn btn-outline" onclick="showDetailsModal('Mazda CX-5', 'Laura Torres', 'SUV • MNO-345', 'Lavado Deluxe', '10:00 AM', 'Progreso actual: 30%')">Ver Detalles</button>
-                                </div>
-                            </div>
+                        <div class="queue-list" id="queue-confirmed-list">
                         </div>
                     </div>
-                
                 </div>
             </div>
             
@@ -528,63 +417,6 @@
         </div>
     </div>
 
-    <!-- Reschedule Modal -->
-    <div class="modal" id="rescheduleModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Reprogramar Servicio</h3>
-                <button class="modal-close" onclick="closeModal('rescheduleModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form class="modal-form">
-                    <div class="form-group">
-                        <label for="reschedule-date" class="modal-label">Fecha:</label>
-                        <input type="date" id="reschedule-date" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="reschedule-time" class="modal-label">Hora:</label>
-                        <input type="time" id="reschedule-time" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="reschedule-notes" class="modal-label">Notas:</label>
-                        <textarea id="reschedule-notes" class="form-control" rows="3"></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal('rescheduleModal')">Cancelar</button>
-                <button class="btn btn-primary" onclick="showRescheduleSuccessAlert()">Confirmar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cancel Confirmation Modal -->
-    <div class="modal" id="cancelConfirmationModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3>Cancelar Servicio</h3>
-                <button class="modal-close" onclick="closeModal('cancelConfirmationModal')">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro que deseas cancelar este servicio?</p>
-                <div class="form-group" style="margin-top: 1rem;">
-                    <label for="cancel-reason" class="modal-label">Razón de cancelación:</label>
-                    <select id="cancel-reason" class="form-control">
-                        <option value="">Selecciona una razón</option>
-                        <option value="client">Cancelación del cliente</option>
-                        <option value="employee">No disponible</option>
-                        <option value="other">Otra razón</option>
-                    </select>
-                    <textarea id="cancel-notes" class="form-control" rows="3" placeholder="Detalles adicionales (opcional)" style="margin-top: 0.5rem;"></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal('cancelConfirmationModal')">Cancelar</button>
-                <button class="btn btn-danger" onclick="showCancelSuccessAlert()">Confirmar Cancelación</button>
-            </div>
-        </div>
-    </div>
-
     <!-- Finish Confirmation Modal -->
     <div class="modal" id="finishConfirmationModal">
         <div class="modal-content">
@@ -683,6 +515,8 @@
     <!--/*===================================================
                         SCRIPTS SECTION
     =================================================== */-->
+
+    <script src="/js/empleado-funciones.js"></script>
     <script>
         
         // Tabs functionality

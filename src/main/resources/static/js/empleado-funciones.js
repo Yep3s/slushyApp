@@ -30,44 +30,46 @@ function redirectToActiveContent() {
 
 // ── Carga reservas PENDIENTES ─────────────────────────────────────────────────
 async function loadPendientes() {
-  try {
-    const res = await fetch(API_PENDIENTES, { credentials: 'include' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const pendientes = await res.json();
+  const res = await fetch(API_PENDIENTES, { credentials:'include' });
+  if (!res.ok) return console.error('❌ loadPendientes', res.status);
+  const pendientes = await res.json();
 
-    document.getElementById('pending-count').textContent = pendientes.length;
-    document.getElementById('queue-pending-list').innerHTML = pendientes.map(r => `
-      <div class="queue-item" data-id="${r.id}"
-           data-placa="${r.placa}"
-           data-tipo="${r.tipoVehiculo}"
-           data-usuario="${r.usuarioEmail}"
-           data-servicio="${r.servicioNombre}"
-           data-hora="${new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}"
-           data-notas="${r.observaciones||''}"
-           data-duracion="${r.duracionMinutos}">
-        <div class="queue-item-header">
-          <h4 class="queue-item-title">${r.placa}</h4>
-          <span class="queue-item-time">${
-            new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})
-          }</span>
+  document.getElementById('pending-count').textContent = pendientes.length;
+  document.getElementById('queue-pending-list').innerHTML = pendientes.map(r => `
+    <div class="queue-item" data-id="${r.id}"
+         data-placa="${r.placa}"
+         data-tipo="${r.tipoVehiculo}"
+         data-usuario="${r.usuarioEmail}"
+         data-servicio="${r.servicioNombre}"
+         data-hora="${new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}"
+         data-notas="${r.observaciones||''}"
+         data-duracion="${r.duracionMinutos}">
+      <div class="queue-item-header">
+        <h4 class="queue-item-title">${r.placa}</h4>
+        <span class="queue-item-time">${
+          new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})
+        }</span>
+      </div>
+      <div class="queue-item-details">
+        <div class="queue-item-detail">
+          <i class="fas fa-user"></i><span>${r.usuarioEmail}</span>
         </div>
-        <div class="queue-item-details">
-          <div class="queue-item-detail"><i class="fas fa-user"></i><span>${r.usuarioEmail}</span></div>
-          <div class="queue-item-detail"><i class="fas fa-car"></i><span>${r.tipoVehiculo} • ${r.placa}</span></div>
-          <div class="queue-item-detail"><i class="fas fa-list-check"></i><span>${r.servicioNombre}</span></div>
+        <div class="queue-item-detail">
+          <i class="fas fa-car"></i><span>${r.tipoVehiculo} • ${r.placa}</span>
         </div>
-        <div class="queue-item-actions">
-          <button class="btn btn-primary confirm-btn">Confirmar</button>
-          <button class="btn btn-outline details-btn">Ver Detalles</button>
+        <div class="queue-item-detail">
+          <i class="fas fa-list-check"></i><span>${r.servicioNombre}</span>
         </div>
       </div>
-    `).join('');
+      <div class="queue-item-actions">
+        <button class="btn btn-primary confirm-btn">Confirmar</button>
+        <button class="btn btn-outline details-btn">Ver Detalles</button>
+      </div>
+    </div>
+  `).join('');
 
-    attachPendingListeners();
-    attachDetailsListeners();
-  } catch (err) {
-    console.error('❌ loadPendientes()', err);
-  }
+  attachPendingListeners();
+  attachDetailsListeners();
 }
 
 function attachPendingListeners() {
@@ -83,53 +85,50 @@ function attachPendingListeners() {
 
 // ── Carga reservas CONFIRMADAS ────────────────────────────────────────────────
 async function loadConfirmadas() {
-  try {
-    const res = await fetch(API_CONFIRMADAS, { credentials: 'include' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const confirmadas = await res.json();
+  const res = await fetch(API_CONFIRMADAS, { credentials:'include' });
+  if (!res.ok) return console.error('❌ loadConfirmadas', res.status);
+  const confirmadas = await res.json();
 
-    document.getElementById('confirmed-count').textContent = confirmadas.length;
-    document.getElementById('queue-confirmed-list').innerHTML = confirmadas.map(r => `
-      <div class="queue-item" data-id="${r.id}"
-           data-placa="${r.placa}"
-           data-tipo="${r.tipoVehiculo}"
-           data-usuario="${r.usuarioEmail}"
-           data-servicio="${r.servicioNombre}"
-           data-hora="${new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}"
-           data-notas="${r.observaciones||''}"
-           data-duracion="${r.duracionMinutos}">
-        <div class="queue-item-header">
-          <h4 class="queue-item-title">${r.placa}</h4>
-          <span class="queue-item-time">${
-            new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})
-          }</span>
-        </div>
-        <div class="queue-item-details">
-          <div class="queue-item-detail"><i class="fas fa-user"></i><span>${r.usuarioEmail}</span></div>
-          <div class="queue-item-detail"><i class="fas fa-car"></i><span>${r.tipoVehiculo} • ${r.placa}</span></div>
-          <div class="queue-item-detail"><i class="fas fa-list-check"></i><span>${r.servicioNombre}</span></div>
-          <div class="queue-item-detail"><i class="fas fa-check-circle"></i><span>Confirmada</span></div>
-        </div>
-        <div class="queue-item-actions">
-          <button class="btn btn-primary start-btn">Iniciar Servicio</button>
-          <button class="btn btn-outline details-btn">Ver Detalles</button>
-        </div>
+  document.getElementById('confirmed-count').textContent = confirmadas.length;
+  document.getElementById('queue-confirmed-list').innerHTML = confirmadas.map(r => `
+    <div class="queue-item" data-id="${r.id}"
+         data-placa="${r.placa}"
+         data-tipo="${r.tipoVehiculo}"
+         data-usuario="${r.usuarioEmail}"
+         data-servicio="${r.servicioNombre}"
+         data-hora="${new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}"
+         data-notas="${r.observaciones||''}"
+         data-duracion="${r.duracionMinutos}">
+      <div class="queue-item-header">
+        <h4 class="queue-item-title">${r.placa}</h4>
+        <span class="queue-item-time">${
+          new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})
+        }</span>
       </div>
-    `).join('');
+      <div class="queue-item-details">
+        <div class="queue-item-detail"><i class="fas fa-user"></i><span>${r.usuarioEmail}</span></div>
+        <div class="queue-item-detail"><i class="fas fa-car"></i><span>${r.tipoVehiculo} • ${r.placa}</span></div>
+        <div class="queue-item-detail"><i class="fas fa-list-check"></i><span>${r.servicioNombre}</span></div>
+        <div class="queue-item-detail"><i class="fas fa-check-circle"></i><span>Confirmada</span></div>
+      </div>
+      <div class="queue-item-actions">
+        <button class="btn btn-primary start-btn">Iniciar Servicio</button>
+        <button class="btn btn-outline details-btn">Ver Detalles</button>
+      </div>
+    </div>
+  `).join('');
 
-    attachConfirmedListeners();
-    attachDetailsListeners();
-  } catch (err) {
-    console.error('❌ loadConfirmadas()', err);
-  }
+  attachConfirmedListeners();
+  attachDetailsListeners();
 }
 
 function attachConfirmedListeners() {
   document.querySelectorAll('.start-btn').forEach(btn => {
     btn.onclick = async () => {
-      const id = btn.closest('.queue-item').dataset.id;
-      const res = await fetch(`${API_BASE}/iniciar/${id}`, { method:'PUT', credentials:'include' });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const item = btn.closest('.queue-item');
+      const id   = item.dataset.id;
+      const res  = await fetch(`${API_BASE}/iniciar/${id}`, { method:'PUT', credentials:'include' });
+      if (!res.ok) return console.error('❌ iniciar', res.status);
       const r = await res.json();
 
       activeReservationId = id;
@@ -144,65 +143,78 @@ function attachConfirmedListeners() {
   });
 }
 
-// ── Carga reservas EN_PROCESO (solo lista, NO redirige) ──────────────────────
+// ── Carga reservas EN_PROCESO (solo lista) ────────────────────────────────────
 async function loadEnProceso() {
-  try {
-    const res = await fetch(API_EN_PROCESO, { credentials: 'include' });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const enProceso = await res.json();
+  const res = await fetch(API_EN_PROCESO, { credentials:'include' });
+  if (!res.ok) return console.error('❌ loadEnProceso', res.status);
+  const enProceso = await res.json();
 
-    // pinta contador y lista en la pestaña “Cola de Vehículos”
-    document.getElementById('inprocess-count').textContent = enProceso.length;
-    document.getElementById('queue-inprocess-list').innerHTML = enProceso.map(r => `
-      <div class="queue-item" data-id="${r.id}">
-        <div class="queue-item-header">
-          <h4 class="queue-item-title">${r.placa}</h4>
-          <span class="queue-item-time">${
-            new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})
-          }</span>
-        </div>
-        <div class="queue-item-details">
-          <div class="queue-item-detail"><i class="fas fa-user"></i><span>${r.usuarioEmail}</span></div>
-          <div class="queue-item-detail"><i class="fas fa-list-check"></i><span>${r.servicioNombre}</span></div>
-          <div class="queue-item-detail"><i class="fas fa-tasks"></i><span>Progreso: ${r.progreso}%</span></div>
-        </div>
-        <div class="queue-item-actions">
-          <button class="btn btn-primary resume-btn">Retomar Servicio</button>
-        </div>
+  // Cola en la pestaña principal
+  document.getElementById('inprocess-count').textContent = enProceso.length;
+  document.getElementById('queue-inprocess-list').innerHTML = enProceso.map(r => `
+    <div class="queue-item" data-id="${r.id}"
+         data-placa="${r.placa}"
+         data-usuario="${r.usuarioEmail}"
+         data-servicio="${r.servicioNombre}"
+         data-hora="${new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}">
+      <div class="queue-item-header">
+        <h4 class="queue-item-title">${r.placa}</h4>
+        <span class="queue-item-time">${
+          new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})
+        }</span>
       </div>
-    `).join('');
+      <div class="queue-item-details">
+        <div class="queue-item-detail"><i class="fas fa-user"></i><span>${r.usuarioEmail}</span></div>
+        <div class="queue-item-detail"><i class="fas fa-list-check"></i><span>${r.servicioNombre}</span></div>
+        <div class="queue-item-detail"><i class="fas fa-tasks"></i><span>Progreso: ${r.progreso}%</span></div>
+      </div>
+      <div class="queue-item-actions">
+        <button class="btn btn-primary resume-btn">Retomar Servicio</button>
+      </div>
+    </div>
+  `).join('');
 
-    attachResumeListeners();
-    attachDetailsListeners();
-
-  } catch (err) {
-    console.error('❌ loadEnProceso()', err);
-  }
+  attachResumeListeners();
+  attachDetailsListeners();
 }
 
 function attachResumeListeners() {
   document.querySelectorAll('.resume-btn').forEach(btn => {
     btn.onclick = async () => {
       const id = btn.closest('.queue-item').dataset.id;
-      // rescata la reserva EN_PROCESO
+
+      // 1) Trae la lista de enProceso y busca la reserva
       const res  = await fetch(API_EN_PROCESO, { credentials:'include' });
+      if (!res.ok) return console.error('❌ loadEnProceso', res.status);
       const list = await res.json();
       const r    = list.find(x => x.id === id);
       if (!r) return;
 
-      // carga “Servicio Activo”
+      // 2) Guarda el contexto
       activeReservationId = r.id;
       activeDurationMs    = r.duracionMinutos * 60 * 1000;
+
+      // 3) Rellena el panel de Servicio Activo
       fillActiveService(r);
 
-      // si ya hay progreso, recalcula y reanuda
-      if (r.progreso > 0) {
-        const elapsed = (r.progreso/100)*activeDurationMs;
-        const t0 = Date.now() - elapsed;
+      // 4) Calcula o recupera el t0 para el timer
+      let t0 = getStoredStart(r.id);
+      if (t0 == null) {
+        // si nunca arrancó, recalcula desde progreso guardado
+        const elapsed = (r.progreso / 100) * activeDurationMs;
+        t0 = Date.now() - elapsed;
         storeStart(r.id, t0);
+      }
+      // fija la hora de inicio en la UI
+      document.getElementById('start-time').textContent =
+        new Date(t0).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+
+      // 5) Arranca de nuevo el contador
+      if (r.progreso > 0 || t0) {
         startAutoProgress(t0);
       }
 
+      // 6) ¡Y por fin, muestra la pestaña de Servicio Activo!
       redirectToActiveContent();
     };
   });
@@ -221,20 +233,23 @@ function startAutoProgress(startTime) {
     bar.style.width   = pct + '%';
     document.querySelector('.progress-value').textContent = pct + '%';
 
-    const remMs = Math.max(0, activeDurationMs - elapsed);
-    const mins  = Math.floor(remMs / 60000);
-    const secs  = String(Math.floor((remMs % 60000) / 1000)).padStart(2,'0');
-    document.getElementById('time-remaining').textContent = `${mins}m ${secs}s`;
+    const rem = Math.max(0, activeDurationMs - elapsed);
+    const m   = Math.floor(rem/60000);
+    const s   = String(Math.floor((rem%60000)/1000)).padStart(2,'0');
+    document.getElementById('time-remaining').textContent = `${m}m ${s}s`;
 
-    // auto-completa pasos...
+    // auto-complete pasos sin etiquetas literales
     const steps = Array.from(document.querySelectorAll('.step-item'));
     const inc   = 100 / steps.length;
     steps.forEach((step, i) => {
       if (pct >= inc * (i+1) && !step.classList.contains('completed')) {
         step.classList.add('completed');
-        step.querySelector('.step-actions .btn-primary')?.replaceWith(
-          `<span>Completado a las ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>`
-        );
+        const span = document.createElement('span');
+        span.textContent = `Completado a las ${
+          new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})
+        }`;
+        const btn = step.querySelector('.step-actions .btn-primary');
+        btn && btn.replaceWith(span);
       }
     });
 
@@ -252,9 +267,20 @@ function fillActiveService(r) {
   document.getElementById('active-client').textContent       = r.usuarioEmail;
   document.getElementById('active-vehicle').textContent      = `${r.tipoVehiculo} • ${r.placa}`;
   document.getElementById('active-service-name').textContent = r.servicioNombre;
-  document.getElementById('start-time').textContent          = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-  document.getElementById('total-duration').textContent      = `${r.duracionMinutos} minutos`;
-  document.getElementById('confirmFinishBtn').disabled       = true;
+
+  // resetea barra y tiempo restante completos
+  document.querySelector('.progress-bar').style.width   = '0%';
+  document.querySelector('.progress-value').textContent = '0%';
+  const mins = Math.floor(activeDurationMs/60000);
+  const secs = String(Math.floor((activeDurationMs%60000)/1000)).padStart(2,'0');
+  document.getElementById('time-remaining').textContent = `${mins}m ${secs}s`;
+
+  // hora de inicio vacía, se fijará al primer paso
+  document.getElementById('start-time').textContent = '--';
+
+  document.getElementById('total-duration').textContent = `${r.duracionMinutos} minutos`;
+  document.getElementById('confirmFinishBtn').disabled  = false;
+
   bindStepListeners();
 }
 
@@ -266,31 +292,49 @@ function bindStepListeners() {
   steps.forEach((step, idx) => {
     const btn = step.querySelector('.step-actions .btn-primary');
     if (!btn) return;
+
     btn.onclick = async () => {
+      // 1) Primer paso: arranca timer y fija hora de inicio
       if (idx === 0) {
         const t0 = Date.now();
         storeStart(activeReservationId, t0);
+        document.getElementById('start-time').textContent =
+          new Date(t0).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
         startAutoProgress(t0);
+
+        step.classList.add('completed');
+        const span = document.createElement('span');
+        span.textContent = `Completado a las ${document.getElementById('start-time').textContent}`;
+        btn.replaceWith(span);
+        return;
       }
+
+      // 2) Resto de pasos: incrementar barra
       step.classList.add('completed');
-      btn.replaceWith(`<span>Completado a las ${new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>`);
+      const span = document.createElement('span');
+      span.textContent = `Completado a las ${
+        new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})
+      }`;
+      btn.replaceWith(span);
 
       let curr = parseInt(document.querySelector('.progress-value').textContent);
       const next = Math.min(100, curr + increment);
       document.querySelector('.progress-bar').style.width   = `${next}%`;
       document.querySelector('.progress-value').textContent = `${next}%`;
 
-      const newElapsed   = (next/100) * activeDurationMs;
-      const newStartTime = Date.now() - newElapsed;
-      storeStart(activeReservationId, newStartTime);
+      // recalcula startTime para no retroceder
+      const elapsed   = (next/100) * activeDurationMs;
+      const newStart  = Date.now() - elapsed;
+      storeStart(activeReservationId, newStart);
       clearInterval(autoProgressInterval);
-      startAutoProgress(newStartTime);
+      startAutoProgress(newStart);
 
+      // persiste en backend
       await fetch(`${API_BASE}/progreso/${activeReservationId}?progreso=${next}`, {
         method:'PUT', credentials:'include'
       });
 
-      if (idx === steps.length - 2) steps[steps.length - 1].classList.add('completed');
+      // habilita Finalizar si todos completados
       if (steps.every(s => s.classList.contains('completed'))) {
         document.getElementById('confirmFinishBtn').disabled = false;
       }
@@ -321,9 +365,9 @@ document.getElementById('confirmFinishBtn').addEventListener('click', async () =
   const res = await fetch(`${API_BASE}/completar/${activeReservationId}`, {
     method:'PUT', credentials:'include'
   });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  if (!res.ok) return console.error('❌ completar', res.status);
 
-  // Fuerza UI al 100%
+  // fuerza UI al 100%
   document.querySelector('.progress-bar').style.width   = '100%';
   document.querySelector('.progress-value').textContent = '100%';
   document.getElementById('time-remaining').textContent = '0m 00s';

@@ -60,7 +60,8 @@ public class ReservaEmpleadoController {
                 r.getUsuarioEmail(),
                 r.getEstado(),
                 r.getProgreso(),
-                r.getObservaciones()
+                r.getObservaciones(),
+                srv.getDuracionMinutos()      // ¡aquí!
         );
     }
 

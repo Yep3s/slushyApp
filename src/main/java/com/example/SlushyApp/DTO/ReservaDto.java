@@ -19,11 +19,13 @@ public class ReservaDto {
     private EstadoReserva estado;
     private int progreso;
     private String observaciones;
+    private int duracionMinutos;
+
 
     public ReservaDto() {
     }
 
-    public ReservaDto(String id, String placa, String tipoVehiculo, String servicioNombre, LocalDateTime fechaInicio, String usuarioEmail, EstadoReserva estado, int progreso, String observaciones) {
+    public ReservaDto(String id, String placa, String tipoVehiculo, String servicioNombre, LocalDateTime fechaInicio, String usuarioEmail, EstadoReserva estado, int progreso, String observaciones, int duracionMinutos) {
         this.id = id;
         this.placa = placa;
         this.tipoVehiculo = tipoVehiculo;
@@ -33,6 +35,7 @@ public class ReservaDto {
         this.estado = estado;
         this.progreso = progreso;
         this.observaciones = observaciones;
+        this.duracionMinutos = duracionMinutos;
     }
 
     public String getId() {
@@ -105,5 +108,13 @@ public class ReservaDto {
 
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    public int getDuracionMinutos() {
+        return duracionMinutos;
+    }
+
+    public void setDuracionMinutos(int duracionMinutos) {
+        this.duracionMinutos = duracionMinutos;
     }
 }

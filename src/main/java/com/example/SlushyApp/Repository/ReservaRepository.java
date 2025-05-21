@@ -1,5 +1,6 @@
 package com.example.SlushyApp.Repository;
 
+import com.example.SlushyApp.Model.EstadoReserva;
 import com.example.SlushyApp.Model.Reserva;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
@@ -7,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ReservaRepository extends MongoRepository<Reserva, String> {
+
+    long countByFechaInicioBetween(LocalDateTime desde, LocalDateTime hasta);
 
     // — Métodos existentes adaptados a la nueva nomenclatura — //
 
@@ -33,11 +36,8 @@ public interface ReservaRepository extends MongoRepository<Reserva, String> {
             LocalDateTime fechaFin, LocalDateTime fechaInicio
     );
 
+    List<Reserva> findByUsuarioEmailAndEstado(String usuarioEmail, EstadoReserva estado);
 
-    // — Opcional: mismo método con @Query si prefieres — //
-    @Query("{ 'fechaInicio': { $lt: ?0 }, 'fechaFin': { $gt: ?1 } }")
-    List<Reserva> findOverlapping(
-            LocalDateTime fechaFin, LocalDateTime fechaInicio
-    );
+
 
 }

@@ -5,69 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Clientes - Slushy App</title>
     <link rel="stylesheet" href="/css/clientes-style.css">
+    <link rel="icon" href="/images/Slushylogo.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Precargar la fuente para asegurar que se cargue correctamente -->
     <link rel="preload" href="../../../fonts/Quicksand-VariableFont_wght.ttf" as="font" type="font/ttf" crossorigin>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon">G</div>
-                    <span class="logo-text">SLUSHY</span>
-                </div>
-                <div class="header-actions">
-                    <a href="../../../Publico/Iniciar-Sesion/iniciar-sesion.html" class="btn-icon">
-                        <i class="fas fa-user"></i>
-                    </a>
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
+<!-- Header -->
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+            </div>
+            <div class="header-actions">
+                <a href="/logoutSlushy" class="btn btn-primary">Salir</a>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
-    </header>
+    </div>
+</header>
 
     <!-- Admin Sidebar -->
-    <aside class="admin-sidebar" id="adminSidebar">
-        <nav class="sidebar-menu">
-            <a href="/admin/dashboard" class="sidebar-link">
-                <i class="fas fa-tachometer-alt"></i>
-                <span>Dashboard</span>
-            </a>
-            <a href="/admin/dashboard/vehiculos" class="sidebar-link">
-                <i class="fas fa-car"></i>
-                <span>Vehículos</span>
-            </a>
-            <a href="/admin/dashboard/clientes" class="sidebar-link active">
-                <i class="fas fa-users"></i>
-                <span>Clientes</span>
-            </a>
-            <a href="/admin/dashboard/empleados" class="sidebar-link">
-                <i class="fas fa-user-tie"></i>
-                <span>Empleados</span>
-            </a>
-            <a href="Reservas/reservas.html" class="sidebar-link">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Reservas</span>
-            </a>
-            <a href="Reportes/reportes.html" class="sidebar-link">
-                <i class="fas fa-chart-line"></i>
-                <span>Reportes</span>
-            </a>
-            <a href="/admin/dashboard/configuracion" class="sidebar-link">
-                <i class="fas fa-cog"></i>
-                <span>Configuración</span>
-            </a>
-            <a href="/logoutSlushy" class="sidebar-link">
-                <i class="fas fa-sign-out-alt"></i>
-                <span>Salir</span>
-            </a>
-        </nav>
-    </aside>
+<!-- SECCIÓN SIDEBAR -->
+<aside class="admin-sidebar" id="adminSidebar">
+    <nav class="sidebar-menu">
+        <a href="/admin/dashboard" class="sidebar-link">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+        <a href="/admin/dashboard/vehiculos" class="sidebar-link">
+            <i class="fas fa-car"></i>
+            <span>Vehículos</span>
+        </a>
+        <a href="/admin/dashboard/clientes" class="sidebar-link active">
+            <i class="fas fa-users"></i>
+            <span>Clientes</span>
+        </a>
+        <a href="/admin/dashboard/empleados" class="sidebar-link">
+            <i class="fas fa-user-tie"></i>
+            <span>Empleados</span>
+        </a>
+        <a href="/admin/dashboard/reservas" class="sidebar-link">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Reservas</span>
+        </a>
+        <a href="/admin/dashboard/reportes" class="sidebar-link">
+            <i class="fas fa-chart-line"></i>
+            <span>Reportes</span>
+        </a>
+        <a href="/admin/dashboard/configuracion" class="sidebar-link">
+            <i class="fas fa-cog"></i>
+            <span>Configuración</span>
+        </a>
+        <a href="/logoutSlushy" class="sidebar-link">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Salir</span>
+        </a>
+    </nav>
+</aside>
 
     <!-- Admin Content -->
     <main class="admin-content">

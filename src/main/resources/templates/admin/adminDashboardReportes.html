@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- SECCIÓN META Y ENLACES -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Slushy App</title>
+    <link rel="stylesheet" href="/css/reportes-style.css">
+    <link rel="stylesheet" href="/css/admin-style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- SECCIÓN HEADER -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+                </div>
+                <div class="header-actions">
+                    <a href="/logoutSlushy" class="btn btn-primary">Salir</a>
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECCIÓN MENÚ MÓVIL -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="mobile-nav">
+                <ul class="mobile-nav-list">
+                    <li><a href="/admin/dashboard" class="mobile-nav-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="/admin/dashboard/vehiculos" class="mobile-nav-link"><i class="fas fa-car"></i> Vehículos</a></li>
+                    <li><a href="../Clientes/clientes.html" class="mobile-nav-link"><i class="fas fa-users"></i> Clientes</a></li>
+                    <li><a href="/admin/dashboard/empleados" class="mobile-nav-link"><i class="fas fa-user-tie"></i> Empleados</a></li>
+                    <li><a href="/admin/dashboard/reservas" class="mobile-nav-link"><i class="fas fa-calendar-alt"></i> Reservas</a></li>
+                    <li><a href="reportes.html" class="mobile-nav-link active"><i class="fas fa-chart-line"></i> Reportes</a></li>
+                    <li><a href="../Configuracion/configuracion.html" class="mobile-nav-link"><i class="fas fa-cog"></i> Configuración</a></li>
+                    <li><a href="../Salir/salir.html" class="mobile-nav-link"><i class="fas fa-sign-out-alt"></i> Salir</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- SECCIÓN SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <nav class="sidebar-menu">
+            <a href="/admin/dashboard" class="sidebar-link">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/admin/dashboard/vehiculos" class="sidebar-link">
+                <i class="fas fa-car"></i>
+                <span>Vehículos</span>
+            </a>
+            <a href="/admin/dashboard/clientes" class="sidebar-link">
+                <i class="fas fa-users"></i>
+                <span>Clientes</span>
+            </a>
+            <a href="/admin/dashboard/empleados" class="sidebar-link">
+                <i class="fas fa-user-tie"></i>
+                <span>Empleados</span>
+            </a>
+            <a href="/admin/dashboard/reservas" class="sidebar-link">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Reservas</span>
+            </a>
+            <a href="/admin/dashboard/reportes" class="sidebar-link active">
+                <i class="fas fa-chart-line"></i>
+                <span>Reportes</span>
+            </a>
+            <a href="/admin/dashboard/configuracion" class="sidebar-link">
+                <i class="fas fa-cog"></i>
+                <span>Configuración</span>
+            </a>
+            <a href="/logoutSlushy" class="sidebar-link">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Salir</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- SECCIÓN CONTENIDO PRINCIPAL -->
+    <main class="admin-content">
+        <div class="page-header">
+            <h1>Reportes y Análisis</h1>
+        </div>
+
+        <!-- SECCIÓN DASHBOARD POWER BI -->
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h2><i class="fas fa-chart-pie"></i> Dashboard Analítico</h2>
+            </div>
+            
+            <div class="powerbi-container">
+                <div class="powerbi-loader">
+                    <div class="loader-spinner"></div>
+                    <p>Cargando dashboard...</p>
+                </div>
+                <iframe 
+                    title="Dashboard Slushy Analytics" 
+                    id="powerbiFrame"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiYTY4N2MxYmMtYWY1OS00MmMwLTg5NGQtZWIxODNhZWRmNTVmIiwidCI6IjlkMTJiZjNmLWU0ZjYtNDdhYi05MTJmLTFhMmYwZmM0OGFhNCIsImMiOjR9" 
+                    frameborder="0" 
+                    allowFullScreen="true">
+                </iframe>
+            </div>
+        </div>
+    <!-- SECCIÓN SCRIPTS -->
+    <script>
+                    // Toggle del menú responsive
+    document.getElementById('menuToggle').addEventListener('click', function() {
+        const sidebar = document.getElementById('adminSidebar');
+        sidebar.classList.toggle('active');
+    });
+
+        // Animación de carga para el iframe de Power BI
+        document.addEventListener('DOMContentLoaded', function() {
+            const powerbiFrame = document.getElementById('powerbiFrame');
+            const loader = document.querySelector('.powerbi-loader');
+            
+            powerbiFrame.style.display = 'none';
+            
+            // Simular carga (en producción, usar el evento load del iframe)
+            setTimeout(() => {
+                loader.style.display = 'none';
+                powerbiFrame.style.display = 'block';
+                
+                // Animación de aparición
+                powerbiFrame.style.opacity = '0';
+                powerbiFrame.style.transition = 'opacity 0.5s ease';
+                setTimeout(() => {
+                    powerbiFrame.style.opacity = '1';
+                }, 100);
+            }, 2000);
+            
+            // Filtros de tiempo
+            document.querySelectorAll('.time-filter .btn-outline').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.time-filter .btn-outline').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+            
+            // Efecto hover para las tarjetas de reportes
+            document.querySelectorAll('.report-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 10px 20px rgba(0,0,0,0.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = 'var(--shadow)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

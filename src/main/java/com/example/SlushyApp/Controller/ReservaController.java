@@ -39,6 +39,8 @@ public class ReservaController {
         this.pagoRepository = pagoRepository;
     }
 
+
+
     // 🔍 Obtener franjas libres para un servicio en un día
     @GetMapping("/disponibilidad")
     public ResponseEntity<List<LocalDateTime>> disponibilidad(

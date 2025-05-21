@@ -1,7 +1,9 @@
-/* Base Styles */
+/* ===================================================
+   VARIABLES Y CONFIGURACIÓN BASE
+   =================================================== */
 :root {
-    --primary: #d3180bec;
-    --primary-dark:  #6a0404e3;
+    --primary: #ff1100ee;
+    --primary-dark: #6a0404e3;
     --primary-light: #e0f2fe;
     --secondary: #f8fafc;
     --dark: #0f172a;
@@ -12,10 +14,15 @@
     --warning: #f59e0b;
     --danger: #ef4444;
     --border-radius: 0.5rem;
+    --prueba: #1e213d;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+
+/* ===================================================
+   RESET Y ESTILOS GENERALES
+   =================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -23,7 +30,7 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'FuentePrueba';
     color: var(--dark);
     line-height: 1.5;
 }
@@ -49,29 +56,35 @@ img {
     height: auto;
 }
 
-/* Typography */
+/* ===================================================
+   TIPOGRAFÍA
+   =================================================== */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
     line-height: 1.2;
 }
 
 .section-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
     margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
 .section-description {
-    font-size: 1.125rem;
+    font-size: 0.95rem;
     color: var(--white);
-    max-width: 700px;
+    max-width: 1165px;
     margin: 0 auto;
+    font-weight: 500;
 }
 
-/* Buttons */
+/* ===================================================
+   BOTONES
+   =================================================== */
 .btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem; /* Espacio entre el icono y el texto */
+    gap: 0.5rem;
     padding: 0.5rem 1rem;
     border-radius: var(--border-radius);
     font-weight: 500;
@@ -80,12 +93,14 @@ h1, h2, h3, h4, h5, h6 {
     border: none;
 }
 
-/* Puedes ajustar más estilos según tu diseño, por ejemplo: */
 .btn-primary {
     background-color: var(--primary);
     color: var(--white);
+    font-weight: 700;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    font-family: 'FuentePrueba';
 }
-
 
 .btn-primary:hover {
     background-color: var(--primary-dark);
@@ -104,6 +119,8 @@ h1, h2, h3, h4, h5, h6 {
 .btn-light {
     background-color: var(--white);
     color: var(--primary);
+    font-weight: 700;
+
 }
 
 .btn-light:hover {
@@ -114,6 +131,8 @@ h1, h2, h3, h4, h5, h6 {
     background-color: transparent;
     border: 1px solid var(--white);
     color: var(--white);
+    font-weight: 700;
+
 }
 
 .btn-outline-light:hover {
@@ -133,7 +152,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-icon {
     background: transparent;
     border: none;
-    color: var(--dark);
+    color: var(--white);
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 50%;
@@ -144,7 +163,9 @@ h1, h2, h3, h4, h5, h6 {
     background-color: var(--light-gray);
 }
 
-/* Badge */
+/* ===================================================
+   BADGES
+   =================================================== */
 .badge {
     display: inline-block;
     padding: 0.25rem 0.75rem;
@@ -161,12 +182,14 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--primary);
 }
 
-/* Header */
+/* ===================================================
+                HEADER Y NAVEGACIÓN
+   =================================================== */
 .header {
     position: sticky;
     top: 0;
     z-index: 50;
-    background-color: var(--white);
+    background-color: var(--dark);
     box-shadow: var(--shadow);
     transition: all 0.3s ease;
 }
@@ -176,133 +199,186 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: space-between;
     height: 4rem;
+    font-family: 'FuentePrueba', sans-serif;
+    color: #fff;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
 }
 
-.logo-icon {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background-color: var(--primary);
-    color: var(--white);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 3.3rem;
-    font-family: 'Formula 1', sans-serif;
-}
-
-.logo-text {
-    font-weight: 700;
-    font-size: 1.9rem;
-    font-family: 'Dunkin', sans-serif; 
-}
-@font-face {
-    font-family: 'Dunkin';
-    src: url('fonts/Extra Blue.otf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Dunkin';
-    src: url('fonts/Dunkin.otf') format('opentype');
-    font-weight: 700;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Formulaone';
-    src: url('fonts/Formula\ 1.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'ThreeDimensional';
-    src: url('fonts/threedimensional.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
+.logo-img {
+    height: 4rem;
+    width: auto;
 }
 
 .main-nav {
-    display: none;
+    display: flex;
+    font-family: 'FuentePrueba', sans-serif;
+    font-size: 20px;
 }
 
 .nav-list {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.1rem;
 }
 
 .nav-link {
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 550;
     transition: color 0.3s ease;
+    font-family: 'FuentePrueba', sans-serif;
+    position: relative;
+    padding: 0.3rem 0.8rem;
 }
 
 .nav-link:hover {
     color: var(--primary);
 }
 
+/* Estilos para los enlaces activos en la navegación */
+.nav-link.active {
+    color: var(--white);
+    position: relative;
+    z-index: 1;
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    width: calc(100% - 1rem);
+    height: calc(100% - 0.5rem);
+    background-color: var(--primary);
+    border-radius: 20px;
+    left: 0.5rem;
+    top: 0.25rem;
+    z-index: -1;
+    transform-origin: left center;
+    animation: slideIn 0.3s ease-out forwards;
+}
+
 .header-actions {
     display: flex;
     align-items: center;
     gap: 1rem;
+    font-family: 'FuentePrueba';
+    font-size: 20px;
 }
 
 .menu-toggle {
-    display: block;
+    display: none;
     background: transparent;
     border: none;
     cursor: pointer;
+    color: #fff;
 }
 
-/* Mobile Menu */
+/* ===================================================
+                        MENÚ MÓVIL
+   =================================================== */
 .mobile-menu {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--white);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 100;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
 }
 
 .mobile-menu.active {
-    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
 }
 
 .mobile-menu-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80%;
+    max-width: 300px;
+    height: 100%;
+    background-color: var(--dark);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
     padding: 2rem 1rem;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
 }
 
 .mobile-nav-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-.mobile-nav-link {
+.mobile-nav-list .nav-link {
     display: block;
-    padding: 0.5rem 0;
-    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    border-radius: var(--border-radius);
+    color: #fff;
 }
 
-.mobile-nav-link:hover {
+.mobile-nav-list .nav-link:hover {
+    background-color: var(--primary-light);
     color: var(--primary);
 }
 
-/* Hero Section */
+/* Estilos para el enlace activo en el menú móvil */
+.mobile-nav-list .nav-link.active {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.mobile-nav-list .nav-link.active::after {
+    content: "";
+    position: absolute;
+    width: calc(100% - 2rem);
+    height: calc(100% - 0.5rem);
+    background-color: var(--primary);
+    border-radius: 20px;
+    left: 1rem;
+    top: 0.25rem;
+    z-index: -1;
+    animation: slideIn 0.3s ease-out forwards;
+}
+
+.mobile-menu.active .mobile-menu-content {
+    transform: translateX(0);
+}
+
+.mobile-menu-container {
+    padding-top: 2rem;
+}
+
+.close-menu {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--dark);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 101;
+    padding: 0.5rem;
+    color: #fff;
+}
+
+.close-menu:hover {
+    color: var(--primary);
+}
+
+/* ===================================================
+   SECCIÓN HERO
+   =================================================== */
 .hero-section {
     position: relative;
     background: linear-gradient(to right, var(--primary), var(--primary-dark));
@@ -332,21 +408,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .hero-title {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
     margin-bottom: 1rem;
-    font-family: 'Dunkin', sans-serif;
+    font-family: 'FuentePrueba'
 }
 
 .hero-subtitle {
     display: block;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 400;
     margin-top: 0.5rem;
-    font-family:sans-serif;
+    font-family: sans-serif;
 }
 
 .hero-description {
-    font-size: 1.125rem;
+    font-size: 1.1rem;
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 2rem;
     max-width: 32rem;
@@ -374,12 +450,9 @@ h1, h2, h3, h4, h5, h6 {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
+    object-fit: cover;
     margin-left: -0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--white);
+    border: 2px solid var(--white);
 }
 
 .user-avatar:first-child {
@@ -387,7 +460,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .stats-text {
-    font-size: 0.875rem;
+    font-size: 0.95rem;
 }
 
 .stats-number {
@@ -409,36 +482,10 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 }
 
-.app-preview {
-    position: relative;
-    z-index: 1;
-    background-color: rgba(255, 255, 255, 0.10);
+.hero-image img {
     border-radius: 1rem;
-    overflow: hidden;
     box-shadow: var(--shadow-lg);
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
     max-width: 100%;
-}
-
-.app-preview-header {
-    height: 0.25rem;
-    background: linear-gradient(to right, var(--primary), var(--primary-dark));
-    opacity: 0.8;
-}
-
-.app-preview-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-}
-
-.app-preview-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0 0 0.8rem 0.8rem;
 }
 
 .decoration-circle {
@@ -461,16 +508,17 @@ h1, h2, h3, h4, h5, h6 {
     left: -2rem;
 }
 
-/* Section Header */
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-/* Features Section */
+/* ===================================================
+   SECCIÓN DE CARACTERÍSTICAS
+   =================================================== */
 .features-section {
     padding: 4rem 0;
-    background-color: var(--white);
+    background-color: var(--primary-light);
+}
+
+.section-header {
+    font-family: 'FuentePrueba';
+    margin-bottom: 2rem;
 }
 
 .features-grid {
@@ -509,101 +557,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .feature-title {
-    font-size: 1.125rem;
+    font-size: 1.1rem;
     margin-bottom: 0.5rem;
 }
 
 .feature-description {
     color: var(--gray);
-    font-size: 0.875rem;
+    font-size: 0.95rem;
 }
 
-/* Premium Features Section */
-.premium-features-section {
-    padding: 4rem 0;
-    background-color: var(--secondary);
-}
-
-.premium-features-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.premium-card {
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    background-color: var(--white);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.premium-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
-}
-
-.premium-card-header {
-    padding: 1.5rem;
-    background-color: var(--primary-light);
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
-}
-
-.premium-card-title {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.25rem;
-}
-
-.premium-card-title i {
-    color: var(--primary);
-}
-
-.premium-card-content {
-    padding: 1.5rem;
-}
-
-.premium-feature-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.premium-feature-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-}
-
-.check-icon {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background-color: var(--primary-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 0.25rem;
-}
-
-.check-icon::before {
-    content: '';
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background-color: var(--primary);
-}
-
-.premium-card-footer {
-    padding: 1.5rem;
-    border-top: 1px solid var(--light-gray);
-}
-
-/* Services Section */
+/* ===================================================
+   SECCIÓN DE SERVICIOS
+   =================================================== */
 .services-section {
     padding: 4rem 0;
     background-color: var(--white);
@@ -623,7 +588,7 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 300px;  
+    min-height: 300px;
 }
 
 .service-card:hover {
@@ -658,11 +623,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .service-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
 }
 
 .service-price {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: var(--primary);
 }
@@ -683,13 +648,35 @@ h1, h2, h3, h4, h5, h6 {
     gap: 0.5rem;
 }
 
+.check-icon {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.check-icon::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--primary);
+}
+
 .service-card-footer {
     padding: 1.5rem;
     border-top: 1px solid var(--light-gray);
     margin-top: auto;
 }
 
-/* VIP Section */
+/* ===================================================
+   SECCIÓN VIP
+   =================================================== */
 .vip-section {
     padding: 4rem 0;
     background: linear-gradient(to right, var(--primary), var(--primary-dark));
@@ -730,12 +717,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .vip-plan-title {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     margin-bottom: 0.5rem;
 }
 
 .vip-plan-price {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     font-weight: 700;
 }
 
@@ -761,7 +748,9 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
-/* Rewards Section */
+/* ===================================================
+   SECCIÓN DE RECOMPENSAS
+   =================================================== */
 .rewards-section {
     padding: 4rem 0;
     background-color: var(--white);
@@ -776,7 +765,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .rewards-subtitle {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     margin-bottom: 1.5rem;
 }
 
@@ -806,19 +795,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .step-title {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 0.25rem;
 }
 
 .step-description {
     color: var(--gray);
-    font-size: 0.875rem;
-}
-
-.rewards-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    font-size: 0.95rem;
 }
 
 .rewards-missions {
@@ -849,13 +832,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mission-title {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 0.25rem;
 }
 
 .mission-description {
     color: var(--gray);
-    font-size: 0.875rem;
+    font-size: 0.95rem;
 }
 
 .mission-reward {
@@ -868,10 +851,12 @@ h1, h2, h3, h4, h5, h6 {
     white-space: nowrap;
 }
 
-/* Testimonials Section */
+/* ===================================================
+   SECCIÓN DE TESTIMONIOS
+   =================================================== */
 .testimonials-section {
     padding: 4rem 0;
-    background-color: var(--secondary);
+    background-color: var(--primary-light);
 }
 
 .testimonials-grid {
@@ -905,6 +890,7 @@ h1, h2, h3, h4, h5, h6 {
 .testimonial-content {
     color: var(--gray);
     margin-bottom: 1.5rem;
+    font-size: 0.95rem;
 }
 
 .testimonial-author {
@@ -930,42 +916,15 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.875rem;
 }
 
-/* CTA Section */
-.cta-section {
-    padding: 4rem 0;
-    background: linear-gradient(to right, var(--primary), var(--primary-dark));
-    color: var(--white);
-    text-align: center;
-}
 
-.cta-title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.cta-description {
-    font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 2rem;
-    max-width: 32rem;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.cta-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-/* Footer */
+/* ===================================================
+                        FOOTER
+   =================================================== */
 .footer {
     background-color: var(--dark);
     color: var(--white);
     padding: 4rem 0 2rem;
+    font-family: 'FuentePrueba';
 }
 
 .footer-grid {
@@ -978,30 +937,11 @@ h1, h2, h3, h4, h5, h6 {
 .footer-description {
     color: rgba(255, 255, 255, 0.6);
     margin: 1rem 0;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-}
-
-.social-link {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
-}
-
-.social-link:hover {
-    background-color: var(--primary);
+    font-size: 0.95rem;
 }
 
 .footer-title {
-    font-size: 1.125rem;
+    font-size: 1.1rem;
     margin-bottom: 1.5rem;
 }
 
@@ -1009,6 +949,7 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
+    font-size: 0.95rem;
 }
 
 .footer-link {
@@ -1050,43 +991,56 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.875rem;
 }
 
-/* Media Queries */
+/* ===================================================
+   FUENTES
+   =================================================== */
+@font-face {
+    font-family: 'FuentePrueba';
+    src: url('/fonts/Quicksand-VariableFont_wght.ttf') format('truetype');
+    font-style: normal;
+}
+
+/* ===================================================
+   ANIMACIONES
+   =================================================== */
+@keyframes slideIn {
+    0% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+/* ===================================================
+   MEDIA QUERIES
+   =================================================== */
 @media (min-width: 640px) {
     .hero-buttons {
         flex-direction: row;
     }
-    
-    .cta-buttons {
-        flex-direction: row;
-    }
 }
-
-@media (min-width: 768px) {
+@media (max-width: 1024px) {
     .main-nav {
-        display: flex;
-    }
-    
-    .menu-toggle {
         display: none;
     }
-    
+
+    .menu-toggle {
+        display: block;
+    }}
+
+@media (min-width: 768px) {
+
     .hero-content {
         grid-template-columns: 1fr 1fr;
         align-items: center;
     }
-    
-    .premium-features-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    
+
     .rewards-grid {
         grid-template-columns: 1fr 1fr;
     }
-    
-    .rewards-actions {
-        flex-direction: row;
-    }
-    
+
     .footer-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -1098,13 +1052,27 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.close-menu {
-    background: transparent;
-    border: none;
-    font-size: 2rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
-    color: var(--dark); /* Ajusta el color según tu diseño */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .logo-icon {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 2.5rem;
+    }
+
+    .logo-text {
+        font-size: 1.5rem;
+    }
 }
+

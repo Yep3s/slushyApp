@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!--/*===================================================
+                        META TAGS
+    =================================================== */-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Empleado - Slushy App</title>
@@ -8,44 +11,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <!-- Header -->
+    <!--/*===================================================
+                        HEADER SECTION
+    =================================================== */-->
     <header class="header">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <div class="logo-icon">G</div>
-                    <span class="logo-text">SLUSHY</span>
-                </div>
+                    <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+                </div>               
                 <div class="header-actions">
                     <a href="/logoutSlushy"  class="btn btn-primary">Salir</a>
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
                 </div>
             </div>
         </div>
     </header>
 
-<!-- Mobile Menu -->
-<div class="mobile-menu" id="mobileMenu">
-    <div class="mobile-menu-content">
-        <button class="mobile-menu-close" id="mobileMenuClose">
-            <i class="fas fa-times"></i>
-        </button>
-        <ul class="mobile-nav-list">
-            <li><a href="../index.html" class="mobile-nav-link">Inicio</a></li>
-            <li><a href="servicios.html" class="mobile-nav-link">Servicios</a></li>
-            <li><a href="vip.html" class="mobile-nav-link">Membresía VIP</a></li>
-            <li><a href="recompensas.html" class="mobile-nav-link">Recompensas</a></li>
-            <li><a href="contacto.html" class="mobile-nav-link">Contacto</a></li>
-            <li><a href="#" class="mobile-nav-link">Mi Perfil</a></li>
-        </ul>
+    <!--/*===================================================
+                        MOBILE MENU
+    =================================================== */-->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+            <ul class="mobile-nav-list">
+                <li><a href="index.html" class="mobile-nav-link">Inicio</a></li>
+                <li><a href="servicios.html" class="mobile-nav-link">Servicios</a></li>
+                <li><a href="vip.html" class="mobile-nav-link">Membresía VIP</a></li>
+                <li><a href="recompensas.html" class="mobile-nav-link">Recompensas</a></li>
+                <li><a href="contacto.html" class="mobile-nav-link">Contacto</a></li>
+                <li><a href="#" class="mobile-nav-link">Mi Perfil</a></li>
+            </ul>
+        </div>
     </div>
-</div>
 
-    <!-- Employee Content -->
+    <!--/*===================================================
+                        MAIN CONTENT
+    =================================================== */-->
     <main class="employee-content">
+        <!-- Employee Header -->
         <div class="employee-header">
             <div class="container">
                 <div class="employee-title">
@@ -66,7 +73,9 @@
         </div>
 
         <div class="container">
-            <!-- Employee Tabs -->
+            <!--/*===================================================
+                        EMPLOYEE TABS
+            =================================================== */-->
             <div class="employee-tabs">
                 <div class="employee-tab active" data-tab="queue">
                     <i class="fas fa-list"></i>
@@ -76,29 +85,27 @@
                     <i class="fas fa-spinner"></i> 
                     <span>Servicio Activo</span>
                 </div>
-                <div class="employee-tab" data-tab="schedule">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Horarios</span>
-                </div>
                 <div class="employee-tab" data-tab="history">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Mi Historial</span>
                 </div>
             </div>
             
-            
-            <!-- Tab Content -->
+            <!--/*===================================================
+                        QUEUE CONTENT TAB
+            =================================================== */-->
             <div class="tab-content active" id="queue-content">
                 <h2 class="section-title">Cola de Vehículos</h2>
                 
                 <div class="queue-grid">
+                    <!-- Waiting Queue Card -->
                     <div class="queue-card">
                         <div class="queue-header">
-                            <h3 class="queue-title">En Espera</h3>
-                            <span class="queue-count">3</span>
-                        </div>
-                        
+                            <h3 class="queue-title">Pendiente</h3>
+                            <span class="queue-count">2</span>
+                        </div>                        
                         <div class="queue-list">
+                            <!-- Queue Item 1 -->
                             <div class="queue-item">
                                 <div class="queue-item-header">
                                     <h4 class="queue-item-title">Toyota Corolla</h4>
@@ -119,11 +126,12 @@
                                     </div>
                                 </div>
                                 <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="showStartServiceAlert()">Iniciar Servicio</button>
+                                    <button class="btn btn-primary" onclick="redirectToActiveContent()">Confirmar</button>
                                     <button class="btn btn-outline" onclick="showDetailsModal('Toyota Corolla', 'María González', 'Sedán • ABC-123', 'Lavado Premium', '10:30 AM', 'El cliente solicitó limpieza especial de tapicería.')">Ver Detalles</button>
                                 </div>
                             </div>
                             
+                            <!-- Queue Item 2 -->
                             <div class="queue-item">
                                 <div class="queue-item-header">
                                     <h4 class="queue-item-title">Honda CR-V</h4>
@@ -144,83 +152,26 @@
                                     </div>
                                 </div>
                                 <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="showStartServiceAlert()">Iniciar Servicio</button>
-                                    <button class="btn btn-outline" onclick="showDetailsModal('Honda CR-V', 'Carlos Rodríguez', 'SUV • XYZ-789', 'Lavado Deluxe', '10:45 AM', 'Cliente VIP, atención prioritaria.')">Ver Detalles</button>
-                                </div>
-                            </div>
-                            
-                            <div class="queue-item">
-                                <div class="queue-item-header">
-                                    <h4 class="queue-item-title">Nissan Sentra</h4>
-                                    <span class="queue-item-time">11:00 AM</span>
-                                </div>
-                                <div class="queue-item-details">
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-user queue-item-icon"></i>
-                                        <span>Ana Martínez</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-car queue-item-icon"></i>
-                                        <span>Sedán • DEF-456</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-list-check queue-item-icon"></i>
-                                        <span>Lavado Básico</span>
-                                    </div>
-                                </div>
-                                <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="showStartServiceAlert()">Iniciar Servicio</button>
-                                    <button class="btn btn-outline" onclick="showDetailsModal('Nissan Sentra', 'Ana Martínez', 'Sedán • DEF-456', 'Lavado Básico', '11:00 AM', 'Sin notas adicionales.')">Ver Detalles</button>
+                                    <button class="btn btn-primary" onclick="redirectToActiveContent()">Confirmar</button>
+                                    <button class="btn btn-outline" onclick="showDetailsModal('Toyota Corolla', 'María González', 'Sedán • ABC-123', 'Lavado Premium', '10:30 AM', 'El cliente solicitó limpieza especial de tapicería.')">Ver Detalles</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="queue-card">
-                        <div class="queue-header">
-                            <h3 class="queue-title">Prioridad</h3>
-                            <span class="queue-count">1</span>
-                        </div>
-                        
-                        <div class="queue-list">
-                            <div class="queue-item">
-                                <div class="queue-item-header">
-                                    <h4 class="queue-item-title">Ford F-150</h4>
-                                    <span class="queue-item-time">10:15 AM</span>
-                                </div>
-                                <div class="queue-item-details">
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-user queue-item-icon"></i>
-                                        <span>Luis Sánchez</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-car queue-item-icon"></i>
-                                        <span>Camioneta • GHI-789</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-list-check queue-item-icon"></i>
-                                        <span>Lavado Exprés</span>
-                                    </div>
-                                    <div class="queue-item-detail">
-                                        <i class="fas fa-crown queue-item-icon"></i>
-                                        <span>Cliente VIP</span>
-                                    </div>
-                                </div>
-                                <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="showStartServiceAlert()">Iniciar Servicio</button>
-                                    <button class="btn btn-outline" onclick="showDetailsModal('Ford F-150', 'Luis Sánchez', 'Camioneta • GHI-789', 'Lavado Exprés', '10:15 AM', 'Cliente VIP con membresía premium.')">Ver Detalles</button>
-                                </div>
-                            </div>
-                        </div>
+
+                    <div style="text-align: center;">
+                        <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img" style="width: 300px; height: auto; display: block; margin: 0 auto; margin-top: 100px;">
                     </div>
-                    
+                                    
+                    <!-- Confirmed Queue Card -->
                     <div class="queue-card">
                         <div class="queue-header">
-                            <h3 class="queue-title">En Proceso</h3>
+                            <h3 class="queue-title">Confirmada</h3>
                             <span class="queue-count">2</span>
                         </div>
                         
                         <div class="queue-list">
+                            <!-- Confirmed Item 1 -->
                             <div class="queue-item">
                                 <div class="queue-item-header">
                                     <h4 class="queue-item-title">Chevrolet Spark</h4>
@@ -240,16 +191,18 @@
                                         <span>Lavado Premium</span>
                                     </div>
                                     <div class="queue-item-detail">
-                                        <i class="fas fa-clock queue-item-icon"></i>
-                                        <span>Progreso: 75%</span>
+                                        <i class="fas fa-check-circle queue-item-icon"></i>
+                                        <span>Confirmada</span>
                                     </div>
                                 </div>
                                 <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="showUpdateStatusModal()">Actualizar Estado</button>
+                                    <button class="btn btn-primary" onclick="redirectToActiveContent()">Iniciar Servicio</button>
                                     <button class="btn btn-outline" onclick="showDetailsModal('Chevrolet Spark', 'Pedro Gómez', 'Hatchback • JKL-012', 'Lavado Premium', '09:45 AM', 'Progreso actual: 75%')">Ver Detalles</button>
                                 </div>
                             </div>
+
                             
+                            <!-- Confirmed Item 2 -->
                             <div class="queue-item">
                                 <div class="queue-item-header">
                                     <h4 class="queue-item-title">Mazda CX-5</h4>
@@ -269,20 +222,24 @@
                                         <span>Lavado Deluxe</span>
                                     </div>
                                     <div class="queue-item-detail">
-                                        <i class="fas fa-clock queue-item-icon"></i>
-                                        <span>Progreso: 30%</span>
+                                        <i class="fas fa-check-circle queue-item-icon"></i>
+                                        <span>Confirmada</span>
                                     </div>
                                 </div>
                                 <div class="queue-item-actions">
-                                    <button class="btn btn-primary" onclick="showUpdateStatusModal()">Actualizar Estado</button>
+                                    <button class="btn btn-primary" onclick="redirectToActiveContent()">Iniciar Servicio</button>
                                     <button class="btn btn-outline" onclick="showDetailsModal('Mazda CX-5', 'Laura Torres', 'SUV • MNO-345', 'Lavado Deluxe', '10:00 AM', 'Progreso actual: 30%')">Ver Detalles</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                
                 </div>
             </div>
             
+            <!--/*===================================================
+                        ACTIVE SERVICE TAB
+            =================================================== */-->
             <div class="tab-content" id="active-content">
                 <h2 class="section-title">Servicio Activo</h2>
                 
@@ -371,6 +328,7 @@
                     <div class="steps-container">
                         <h4 class="section-subtitle">Etapas del Proceso</h4>
                         
+                        <!-- Step 1 -->
                         <div class="step-item completed">
                             <div class="step-icon">
                                 <i class="fas fa-check"></i>
@@ -384,6 +342,7 @@
                             </div>
                         </div>
                         
+                        <!-- Step 2 -->
                         <div class="step-item completed">
                             <div class="step-icon">
                                 <i class="fas fa-check"></i>
@@ -397,6 +356,7 @@
                             </div>
                         </div>
                         
+                        <!-- Step 3 -->
                         <div class="step-item active">
                             <div class="step-icon">
                                 <i class="fas fa-wind"></i>
@@ -410,6 +370,7 @@
                             </div>
                         </div>
                         
+                        <!-- Step 4 -->
                         <div class="step-item">
                             <div class="step-icon">
                                 <i class="fas fa-sparkles"></i>
@@ -420,6 +381,7 @@
                             </div>
                         </div>
                         
+                        <!-- Step 5 -->
                         <div class="step-item">
                             <div class="step-icon">
                                 <i class="fas fa-check-circle"></i>
@@ -437,456 +399,97 @@
                 </div>
             </div>
             
-            <div class="tab-content" id="schedule-content">
-                <h2 class="section-title">Horarios</h2>
-                
-                <div class="calendar-container">
-                    <div class="calendar-header">
-                        <h3 class="calendar-title">Mayo 2023</h3>
-                        <div class="calendar-nav">
-                            <div class="calendar-nav-btn">
-                                <i class="fas fa-chevron-left"></i>
-                            </div>
-                            <div class="calendar-nav-btn">
-                                <i class="fas fa-chevron-right"></i>
-                            </div>
-                        </div>
+            <!--/*===================================================
+                        HISTORY TAB
+            =================================================== */-->
+            <div class="tab-content" id="history-content">
+                <h2 class="section-title">Mi Historial de Lavados</h2>
+            
+                <!-- Filters -->
+                <div class="history-filters">
+                    <div class="filter-group">
+                        <label for="date-filter">Filtrar por:</label>
+                        <select id="date-filter" class="filter-select">
+                            <option value="today">Hoy</option>
+                            <option value="week">Esta semana</option>
+                            <option value="month" selected>Este mes</option>
+                            <option value="all">Todos</option>
+                        </select>
                     </div>
-                    
-                    <div class="calendar-grid">
-                        <div class="calendar-day-header">Dom</div>
-                        <div class="calendar-day-header">Lun</div>
-                        <div class="calendar-day-header">Mar</div>
-                        <div class="calendar-day-header">Mié</div>
-                        <div class="calendar-day-header">Jue</div>
-                        <div class="calendar-day-header">Vie</div>
-                        <div class="calendar-day-header">Sáb</div>
-                        
-                        <div class="calendar-day other-month">
-                            <span class="calendar-day-number">30</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">1</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">2</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">3</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">4</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">5</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">6</span>
-                        </div>
-                        
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">7</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">8</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">9</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">10</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">11</span>
-                        </div>
-                        <div class="calendar-day active has-events">
-                            <span class="calendar-day-number">12</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">13</span>
-                        </div>
-                        
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">14</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">15</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">16</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">17</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">18</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">19</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">20</span>
-                        </div>
-                        
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">21</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">22</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">23</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">24</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">25</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">26</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">27</span>
-                        </div>
-                        
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">28</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">29</span>
-                        </div>
-                        <div class="calendar-day has-events">
-                            <span class="calendar-day-number">30</span>
-                        </div>
-                        <div class="calendar-day">
-                            <span class="calendar-day-number">31</span>
-                        </div>
-                        <div class="calendar-day other-month">
-                            <span class="calendar-day-number">1</span>
-                        </div>
-                        <div class="calendar-day other-month">
-                            <span class="calendar-day-number">2</span>
-                        </div>
-                        <div class="calendar-day other-month">
-                            <span class="calendar-day-number">3</span>
-                        </div>
+                    <div class="filter-group">
+                        <label for="status-filter">Estado:</label>
+                        <select id="status-filter" class="filter-select">
+                            <option value="all">Todos</option>
+                            <option value="completed">Completados</option>
+                            <option value="canceled">Cancelados</option>
+                            <option value="rescheduled">Reprogramados</option>
+                        </select>
                     </div>
                 </div>
                 
-                <div class="schedule-grid">
-                    <div class="schedule-card">
-                        <div class="schedule-header">
-                            <h3 class="schedule-title">Reservas para Hoy</h3>
-                            <span class="schedule-count">5</span>
+                <!-- History List -->
+                <div class="history-list">
+                    <!-- History Item 1 -->
+                    <div class="history-item">
+                        <div class="history-icon">
+                            <i class="fas fa-car-wash"></i>
                         </div>
-                        
-                        <div class="schedule-list">
-                            <div class="schedule-item">
-                                <div class="schedule-item-header">
-                                    <h4 class="schedule-item-title">Toyota Corolla</h4>
-                                    <span class="schedule-item-time">10:30 AM</span>
-                                </div>
-                                <div class="schedule-item-details">
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-user schedule-item-icon"></i>
-                                        <span>María González</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-car schedule-item-icon"></i>
-                                        <span>Sedán • ABC-123</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-list-check schedule-item-icon"></i>
-                                        <span>Lavado Premium</span>
-                                    </div>
-                                </div>
-                                <div class="schedule-item-actions">
-                                    <button class="btn btn-primary" onclick="showStartServiceAlert()">Iniciar Servicio</button>
-                                    <button class="btn btn-outline" onclick="showRescheduleModal()">Reprogramar</button>
-                                </div>
+                        <div class="history-details">
+                            <div class="history-title">Lavado Deluxe</div>
+                            <div class="history-meta">
+                                <span>Honda CR-V (XYZ-789)</span>
+                                <span>•</span>
+                                <span>02 Mayo, 2023 - 10:30 AM</span>
+                                <span>•</span>
+                                <span class="status completed">Completado</span>
                             </div>
-                            
-                            <div class="schedule-item">
-                                <div class="schedule-item-header">
-                                    <h4 class="schedule-item-title">Honda CR-V</h4>
-                                    <span class="schedule-item-time">11:15 AM</span>
+                            <div class="history-stats">
+                                <div class="stat">
+                                    <i class="fas fa-clock"></i> 22 min
                                 </div>
-                                <div class="schedule-item-details">
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-user schedule-item-icon"></i>
-                                        <span>Carlos Rodríguez</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-car schedule-item-icon"></i>
-                                        <span>SUV • XYZ-789</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-list-check schedule-item-icon"></i>
-                                        <span>Lavado Deluxe</span>
-                                    </div>
-                                </div>
-                                <div class="schedule-item-actions">
-                                    <button class="btn btn-primary" onclick="showStartServiceAlert()">Iniciar Servicio</button>
-                                    <button class="btn btn-outline" onclick="showRescheduleModal()">Reprogramar</button>
-                                </div>
-                            </div>
-                            
-                            <div class="schedule-item">
-                                <div class="schedule-item-header">
-                                    <h4 class="schedule-item-title">Nissan Sentra</h4>
-                                    <span class="schedule-item-time">12:00 PM</span>
-                                </div>
-                                <div class="schedule-item-details">
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-user schedule-item-icon"></i>
-                                        <span>Ana Martínez</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-car schedule-item-icon"></i>
-                                        <span>Sedán • DEF-456</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-list-check schedule-item-icon"></i>
-                                        <span>Lavado Básico</span>
-                                    </div>
-                                </div>
-                                <div class="schedule-item-actions">
-                                    <button class="btn btn-primary" onclick="showStartServiceAlert()">Iniciar Servicio</button>
-                                    <button class="btn btn-outline" onclick="showRescheduleModal()">Reprogramar</button>
+                                <div class="stat">
+                                    <i class="fas fa-star"></i> 5.0
                                 </div>
                             </div>
                         </div>
+                        <div class="history-price">$24.99</div>
                     </div>
                     
-                    <div class="schedule-card">
-                        <div class="schedule-header">
-                            <h3 class="schedule-title">Disponibilidad</h3>
-                            <button class="btn btn-outline" onclick="showEditAvailabilityModal()">Editar</button>
+                    <!-- History Item 2 -->
+                    <div class="history-item">
+                        <div class="history-icon">
+                            <i class="fas fa-car-wash"></i>
                         </div>
-                        
-                        <div class="schedule-list">
-                            <div class="schedule-item">
-                                <div class="schedule-item-header">
-                                    <h4 class="schedule-item-title">Mañana</h4>
-                                    <span class="schedule-item-time">8:00 AM - 12:00 PM</span>
-                                </div>
-                                <div class="schedule-item-details">
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-calendar-check schedule-item-icon"></i>
-                                        <span>3 de 8 espacios reservados</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-user-tie schedule-item-icon"></i>
-                                        <span>2 operadores disponibles</span>
-                                    </div>
-                                </div>
+                        <div class="history-details">
+                            <div class="history-title">Lavado Premium</div>
+                            <div class="history-meta">
+                                <span>Toyota Corolla (ABC-123)</span>
+                                <span>•</span>
+                                <span>01 Mayo, 2023 - 03:15 PM</span>
+                                <span>•</span>
+                                <span class="status completed">Completado</span>
                             </div>
-                            
-                            <div class="schedule-item">
-                                <div class="schedule-item-header">
-                                    <h4 class="schedule-item-title">Tarde</h4>
-                                    <span class="schedule-item-time">1:00 PM - 5:00 PM</span>
+                            <div class="history-stats">
+                                <div class="stat">
+                                    <i class="fas fa-clock"></i> 18 min
                                 </div>
-                                <div class="schedule-item-details">
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-calendar-check schedule-item-icon"></i>
-                                        <span>5 de 8 espacios reservados</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-user-tie schedule-item-icon"></i>
-                                        <span>3 operadores disponibles</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="schedule-item">
-                                <div class="schedule-item-header">
-                                    <h4 class="schedule-item-title">Noche</h4>
-                                    <span class="schedule-item-time">5:00 PM - 7:00 PM</span>
-                                </div>
-                                <div class="schedule-item-details">
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-calendar-check schedule-item-icon"></i>
-                                        <span>2 de 4 espacios reservados</span>
-                                    </div>
-                                    <div class="schedule-item-detail">
-                                        <i class="fas fa-user-tie schedule-item-icon"></i>
-                                        <span>1 operador disponible</span>
-                                    </div>
+                                <div class="stat">
+                                    <i class="fas fa-star"></i> 4.5
                                 </div>
                             </div>
                         </div>
+                        <div class="history-price">$14.99</div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="tab-content" id="history-content">
-            <h2 class="section-title">Mi Historial de Lavados</h2>
-            
-            <div class="employee-stats">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-car-wash"></i>
-                    </div>
-                    <div class="stat-info">
-                        <div class="stat-value">127</div>
-                        <div class="stat-label">Lavados Totales</div>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-info">
-                        <div class="stat-value">4.8</div>
-                        <div class="stat-label">Calificación</div>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-info">
-                        <div class="stat-value">23 min</div>
-                        <div class="stat-label">Tiempo Promedio</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="history-filters">
-                <div class="filter-group">
-                    <label for="date-filter">Filtrar por:</label>
-                    <select id="date-filter" class="filter-select">
-                        <option value="today">Hoy</option>
-                        <option value="week">Esta semana</option>
-                        <option value="month" selected>Este mes</option>
-                        <option value="all">Todos</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="history-list">
-                <div class="history-item">
-                    <div class="history-icon">
-                        <i class="fas fa-car-wash"></i>
-                    </div>
-                    <div class="history-details">
-                        <div class="history-title">Lavado Deluxe</div>
-                        <div class="history-meta">
-                            <span>Honda CR-V (XYZ-789)</span>
-                            <span>•</span>
-                            <span>02 Mayo, 2023 - 10:30 AM</span>
-                        </div>
-                        <div class="history-stats">
-                            <div class="stat">
-                                <i class="fas fa-clock"></i> 22 min
-                            </div>
-                            <div class="stat">
-                                <i class="fas fa-star"></i> 5.0
-                            </div>
-                        </div>
-                    </div>
-                    <div class="history-price">$24.99</div>
-                </div>
-                
-                <div class="history-item">
-                    <div class="history-icon">
-                        <i class="fas fa-car-wash"></i>
-                    </div>
-                    <div class="history-details">
-                        <div class="history-title">Lavado Premium</div>
-                        <div class="history-meta">
-                            <span>Toyota Corolla (ABC-123)</span>
-                            <span>•</span>
-                            <span>01 Mayo, 2023 - 03:15 PM</span>
-                        </div>
-                        <div class="history-stats">
-                            <div class="stat">
-                                <i class="fas fa-clock"></i> 18 min
-                            </div>
-                            <div class="stat">
-                                <i class="fas fa-star"></i> 4.5
-                            </div>
-                        </div>
-                    </div>
-                    <div class="history-price">$14.99</div>
-                </div>
-                
-                <div class="history-item">
-                    <div class="history-icon">
-                        <i class="fas fa-car-wash"></i>
-                    </div>
-                    <div class="history-details">
-                        <div class="history-title">Lavado Básico</div>
-                        <div class="history-meta">
-                            <span>Ford Fiesta (DEF-456)</span>
-                            <span>•</span>
-                            <span>30 Abril, 2023 - 09:45 AM</span>
-                        </div>
-                        <div class="history-stats">
-                            <div class="stat">
-                                <i class="fas fa-clock"></i> 12 min
-                            </div>
-                            <div class="stat">
-                                <i class="fas fa-star"></i> 4.0
-                            </div>
-                        </div>
-                    </div>
-                    <div class="history-price">$8.99</div>
-                </div>
-                
-                <div class="history-item">
-                    <div class="history-icon">
-                        <i class="fas fa-car-wash"></i>
-                    </div>
-                    <div class="history-details">
-                        <div class="history-title">Lavado Premium + Pulido</div>
-                        <div class="history-meta">
-                            <span>Chevrolet Spark (GHI-789)</span>
-                            <span>•</span>
-                            <span>28 Abril, 2023 - 11:30 AM</span>
-                        </div>
-                        <div class="history-stats">
-                            <div class="stat">
-                                <i class="fas fa-clock"></i> 35 min
-                            </div>
-                            <div class="stat">
-                                <i class="fas fa-star"></i> 5.0
-                            </div>
-                        </div>
-                    </div>
-                    <div class="history-price">$27.98</div>
-                </div>
-                
-                <div class="history-item">
-                    <div class="history-icon">
-                        <i class="fas fa-car-wash"></i>
-                    </div>
-                    <div class="history-details">
-                        <div class="history-title">Lavado Exprés</div>
-                        <div class="history-meta">
-                            <span>Mazda CX-5 (MNO-345)</span>
-                            <span>•</span>
-                            <span>27 Abril, 2023 - 04:20 PM</span>
-                        </div>
-                        <div class="history-stats">
-                            <div class="stat">
-                                <i class="fas fa-clock"></i> 15 min
-                            </div>
-                            <div class="stat">
-                                <i class="fas fa-star"></i> 4.8
-                            </div>
-                        </div>
-                    </div>
-                    <div class="history-price">$10.99</div>
-                </div>
-            </div>
     </main>
 
-    <!-- Modal para Ver Detalles -->
+    <!--/*===================================================
+                        MODALS SECTION
+    =================================================== */-->
+    
+    <!-- Details Modal -->
     <div class="modal" id="detailsModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -925,7 +528,7 @@
         </div>
     </div>
 
-    <!-- Modal para Reprogramar -->
+    <!-- Reschedule Modal -->
     <div class="modal" id="rescheduleModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -955,61 +558,34 @@
         </div>
     </div>
 
-    <!-- Modal para Editar Disponibilidad -->
-    <div class="modal" id="editAvailabilityModal">
+    <!-- Cancel Confirmation Modal -->
+    <div class="modal" id="cancelConfirmationModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Editar Disponibilidad</h3>
-                <button class="modal-close" onclick="closeModal('editAvailabilityModal')">&times;</button>
+                <h3>Cancelar Servicio</h3>
+                <button class="modal-close" onclick="closeModal('cancelConfirmationModal')">&times;</button>
             </div>
             <div class="modal-body">
-                <form class="modal-form">
-                    <div class="form-group">
-                        <label class="modal-label">Turno Mañana:</label>
-                        <div class="availability-time">
-                            <input type="time" id="morning-start" class="form-control" value="08:00">
-                            <span>a</span>
-                            <input type="time" id="morning-end" class="form-control" value="12:00">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="modal-label">Turno Tarde:</label>
-                        <div class="availability-time">
-                            <input type="time" id="afternoon-start" class="form-control" value="13:00">
-                            <span>a</span>
-                            <input type="time" id="afternoon-end" class="form-control" value="17:00">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="modal-label">Turno Noche:</label>
-                        <div class="availability-time">
-                            <input type="time" id="evening-start" class="form-control" value="17:00">
-                            <span>a</span>
-                            <input type="time" id="evening-end" class="form-control" value="19:00">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="availability-days" class="modal-label">Días disponibles:</label>
-                        <div class="availability-days">
-                            <label><input type="checkbox" checked> Lunes</label>
-                            <label><input type="checkbox" checked> Martes</label>
-                            <label><input type="checkbox" checked> Miércoles</label>
-                            <label><input type="checkbox" checked> Jueves</label>
-                            <label><input type="checkbox" checked> Viernes</label>
-                            <label><input type="checkbox"> Sábado</label>
-                            <label><input type="checkbox"> Domingo</label>
-                        </div>
-                    </div>
-                </form>
+                <p>¿Estás seguro que deseas cancelar este servicio?</p>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="cancel-reason" class="modal-label">Razón de cancelación:</label>
+                    <select id="cancel-reason" class="form-control">
+                        <option value="">Selecciona una razón</option>
+                        <option value="client">Cancelación del cliente</option>
+                        <option value="employee">No disponible</option>
+                        <option value="other">Otra razón</option>
+                    </select>
+                    <textarea id="cancel-notes" class="form-control" rows="3" placeholder="Detalles adicionales (opcional)" style="margin-top: 0.5rem;"></textarea>
+                </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-outline" onclick="closeModal('editAvailabilityModal')">Cancelar</button>
-                <button class="btn btn-primary" onclick="showSaveAvailabilityAlert()">Guardar Cambios</button>
+                <button class="btn btn-outline" onclick="closeModal('cancelConfirmationModal')">Cancelar</button>
+                <button class="btn btn-danger" onclick="showCancelSuccessAlert()">Confirmar Cancelación</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal para Finalizar Servicio -->
+    <!-- Finish Confirmation Modal -->
     <div class="modal" id="finishConfirmationModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1030,7 +606,7 @@
         </div>
     </div>
 
-    <!-- Modal para Actualizar Estado -->
+    <!-- Update Status Modal -->
     <div class="modal" id="updateStatusModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1059,11 +635,13 @@
         </div>
     </div>
 
-    <!-- Alertas -->
+    <!--/*===================================================
+                        ALERTS SECTION
+    =================================================== */-->
     <div class="alert-notification" id="startServiceAlert">
         <div class="alert-content">
             <i class="fas fa-check-circle alert-icon"></i>
-            <span class="alert-text">Servicio iniciado correctamente</span>
+            <span class="alert-text">Servicio confirmado correctamente</span>
         </div>
     </div>
 
@@ -1088,6 +666,13 @@
         </div>
     </div>
 
+    <div class="alert-notification" id="cancelSuccessAlert">
+        <div class="alert-content">
+            <i class="fas fa-check-circle alert-icon"></i>
+            <span class="alert-text">Servicio cancelado correctamente</span>
+        </div>
+    </div>
+
     <div class="alert-notification" id="updateStatusSuccessAlert">
         <div class="alert-content">
             <i class="fas fa-check-circle alert-icon"></i>
@@ -1095,43 +680,10 @@
         </div>
     </div>
 
-    <div class="alert-notification" id="saveAvailabilityAlert">
-        <div class="alert-content">
-            <i class="fas fa-check-circle alert-icon"></i>
-            <span class="alert-text">Disponibilidad guardada correctamente</span>
-        </div>
-    </div>
-
+    <!--/*===================================================
+                        SCRIPTS SECTION
+    =================================================== */-->
     <script>
-// Mobile Menu Functions
-function toggleMobileMenu() {
-    document.getElementById('mobileMenu').classList.toggle('active');
-}
-
-        function closeMobileMenu() {
-            document.getElementById('mobileMenu').classList.remove('active');
-        }
-
-        // Event listeners
-        document.getElementById('menuToggle').addEventListener('click', toggleMobileMenu);
-        document.getElementById('mobileMenuClose').addEventListener('click', closeMobileMenu);
-
-        // Close menu when clicking on links
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', closeMobileMenu);
-            });
-        // Función para manejar el cambio de tamaño de pantalla
-            function handleResize() {
-                if (window.innerWidth >= 769) {
-                    closeMobileMenu();
-                }
-            }
-        // Agrega el event listener para resize
-            window.addEventListener('resize', handleResize);
-
-        // Llama a la función al cargar la página por si acaso
-            window.addEventListener('load', handleResize);
         
         // Tabs functionality
         const tabs = document.querySelectorAll('.employee-tab');
@@ -1173,7 +725,7 @@ function toggleMobileMenu() {
             updateProgress();
         }
 
-        // Funciones para mostrar modales
+        // Modal Functions
         function showDetailsModal(vehicle, client, plate, service, time, notes) {
             document.getElementById('modal-vehicle').textContent = vehicle;
             document.getElementById('modal-client').textContent = client;
@@ -1188,12 +740,8 @@ function toggleMobileMenu() {
             document.getElementById('rescheduleModal').classList.add('active');
         }
 
-        function showEditAvailabilityModal() {
-            document.getElementById('editAvailabilityModal').classList.add('active');
-        }
-
-        function showPauseConfirmationModal() {
-            document.getElementById('pauseConfirmationModal').classList.add('active');
+        function showCancelConfirmationModal() {
+            document.getElementById('cancelConfirmationModal').classList.add('active');
         }
 
         function showFinishConfirmationModal() {
@@ -1203,7 +751,7 @@ function toggleMobileMenu() {
         function showUpdateStatusModal() {
             document.getElementById('updateStatusModal').classList.add('active');
             
-            // Configurar el rango de progreso
+            // Configure progress range
             const progressInput = document.getElementById('status-progress');
             const progressValue = document.getElementById('progress-value');
             
@@ -1216,7 +764,7 @@ function toggleMobileMenu() {
             document.getElementById(modalId).classList.remove('active');
         }
 
-        // Funciones para mostrar alertas
+        // Alert Functions
         function showStartServiceAlert() {
             const alert = document.getElementById('startServiceAlert');
             alert.classList.add('show');
@@ -1228,16 +776,6 @@ function toggleMobileMenu() {
 
         function showCompleteStepAlert() {
             const alert = document.getElementById('completeStepAlert');
-            alert.classList.add('show');
-            
-            setTimeout(() => {
-                alert.classList.remove('show');
-            }, 3000);
-        }
-
-        function showPauseSuccessAlert() {
-            closeModal('pauseConfirmationModal');
-            const alert = document.getElementById('pauseSuccessAlert');
             alert.classList.add('show');
             
             setTimeout(() => {
@@ -1265,6 +803,16 @@ function toggleMobileMenu() {
             }, 3000);
         }
 
+        function showCancelSuccessAlert() {
+            closeModal('cancelConfirmationModal');
+            const alert = document.getElementById('cancelSuccessAlert');
+            alert.classList.add('show');
+            
+            setTimeout(() => {
+                alert.classList.remove('show');
+            }, 3000);
+        }
+
         function showUpdateStatusSuccessAlert() {
             closeModal('updateStatusModal');
             const alert = document.getElementById('updateStatusSuccessAlert');
@@ -1275,14 +823,24 @@ function toggleMobileMenu() {
             }, 3000);
         }
 
-        function showSaveAvailabilityAlert() {
-            closeModal('editAvailabilityModal');
-            const alert = document.getElementById('saveAvailabilityAlert');
-            alert.classList.add('show');
+        //FUNCION PARA REDIRIGIR BOTONES CONFIRMAR E INICIAR SERVICIO
+        function redirectToActiveContent() {
+            // 1. Oculta todas las pestañas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
             
-            setTimeout(() => {
-                alert.classList.remove('show');
-            }, 3000);
+            // 2. Muestra solo la pestaña "Servicio Activo"
+            document.getElementById('active-content').classList.add('active');
+            
+            // 3. (Opcional) Activa el tab correspondiente en el menú
+            document.querySelectorAll('.employee-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector('.employee-tab[data-tab="active"]').classList.add('active');
+            
+            // 4. (Opcional) Muestra la alerta
+            showStartServiceAlert(); // Si aún la necesitas
         }
     </script>
 </body>

@@ -4,57 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slushy App - Lavadero de Autos</title>
+    <link rel="icon" href="/images/Slushylogo.pmg" type="image/x-icon">
     <link rel="stylesheet" href="/css/indexstyles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <div class="logo-icon"></div> <!-- Pendiente Por Agregar Logo de la app -->
-                    <span class="logo-text">Slushy</span>
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
+                    </div>
+
+                    <nav class="main-nav">
+                        <ul class="nav-list">
+                            <li><a href="/" class="nav-link active">Inicio</a></li>
+                            <li><a href="../Servicios-Disponibles/servicios.html" class="nav-link">Servicios</a></li>
+                            <li><a href="../Membresias/membresias.html" class="nav-link">Membresía VIP</a></li>
+                            <li><a href="../Contacto/contacto.html" class="nav-link">Contacto</a></li>
+                        </ul>
+                    </nav>
+
+                    <div class="header-actions">
+                        <a href="../Login/login.html" class="btn-icon">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <a href="../Login/login.html" class="btn btn-primary">Ingresa</a>
+                        <button class="menu-toggle" id="menuToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
                 </div>
-                
-                <nav class="main-nav"> <!-- Slushy app navbar -->
-                    <ul class="nav-list">
-                        <li><a href="/" class="nav-link">Inicio</a></li>
+            </div>
+        </header>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <button class="close-menu" id="closeMenu">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="mobile-menu-container">
+                    <ul class="mobile-nav-list">
+                        <li><a href="/" class="nav-link active">Inicio</a></li>
                         <li><a href="../Servicios-Disponibles/servicios.html" class="nav-link">Servicios</a></li>
-                        <li><a href="../Membresias/vip.html" class="nav-link">Membresía VIP</a></li>
-                        <li><a href="../Recompensas/recompensas.html" class="nav-link">Recompensas</a></li>
+                        <li><a href="../Membresias/membresias.html" class="nav-link">Membresía VIP</a></li>
                         <li><a href="../Contacto/contacto.html" class="nav-link">Contacto</a></li>
                     </ul>
-                </nav>
-                
-                <div class="header-actions">
-                    <a href="/login" class="btn btn-primary">
-                        <i class="fas fa-user"></i> Ingresa
-                    </a>
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
                 </div>
-                
             </div>
         </div>
-    </header>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-content">
-            <button class="close-menu" id="closeMenu">X</button>
-          <ul class="mobile-nav-list">
-            <li><a href="/" class="mobile-nav-link">Inicio</a></li>
-            <li><a href="../Servicios-Disponibles/servicios.html" class="mobile-nav-link">Servicios</a></li>
-            <li><a href="../Membresias/vip.html" class="mobile-nav-link">Membresía VIP</a></li>
-            <li><a href="../Recompensas/recompensas.html" class="mobile-nav-link">Recompensas</a></li>
-            <li><a href="../Contacto/contacto.html" class="mobile-nav-link">Contacto</a></li>
-          </ul>
-        </div>
-      </div>
-      
 
     <!-- Hero Section -->
     <section class="hero-section">
@@ -118,7 +118,7 @@
                     Slushy App revoluciona la forma en que cuidas tu vehículo con funciones innovadoras
                 </p>
             </div>
-            
+
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -127,7 +127,7 @@
                     <h3 class="feature-title">Reservación de Citas</h3>
                     <p class="feature-description">Elige fecha y hora según disponibilidad para tu lavado</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-clock"></i>
@@ -135,7 +135,7 @@
                     <h3 class="feature-title">Tiempo Estimado en Tiempo Real</h3>
                     <p class="feature-description">Visualiza cuánto falta para que tu auto sea atendido</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-bell"></i>
@@ -143,7 +143,7 @@
                     <h3 class="feature-title">Notificaciones</h3>
                     <p class="feature-description">Recibe alertas cuando tu turno esté próximo o si hay cambios</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-car"></i>
@@ -151,7 +151,7 @@
                     <h3 class="feature-title">Múltiples Servicios</h3>
                     <p class="feature-description">Desde lavado básico hasta premium, encerado y más</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-history"></i>
@@ -159,7 +159,7 @@
                     <h3 class="feature-title">Historial de Servicios</h3>
                     <p class="feature-description">Consulta todos los servicios que has realizado anteriormente</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-credit-card"></i>
@@ -167,7 +167,7 @@
                     <h3 class="feature-title">Pagos en Línea</h3>
                     <p class="feature-description">Paga directamente desde la app con tarjeta o transferencia</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-map-marker-alt"></i>
@@ -175,7 +175,7 @@
                     <h3 class="feature-title">Geolocalización</h3>
                     <p class="feature-description">Encuentra la ubicación del lavadero y cómo llegar</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-star"></i>
@@ -183,7 +183,7 @@
                     <h3 class="feature-title">Sistema de Fidelización</h3>
                     <p class="feature-description">Acumula puntos y obtén descuentos como cliente frecuente</p>
                 </div>
-                
+
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-comment"></i>
@@ -204,7 +204,7 @@
                     Ofrecemos una amplia gama de servicios para mantener tu vehículo impecable
                 </p>
             </div>
-            
+
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-card-header">
@@ -231,7 +231,7 @@
                         <a href="../Iniciar-Sesion/iniciar-sesion.html" class="btn btn-primary">Reservar Ahora</a>
                     </div>
                 </div>
-                
+
                 <div class="service-card service-card-popular">
                     <span class="popular-badge">Popular</span>
                     <div class="service-card-header">
@@ -266,7 +266,7 @@
                         <a href="../Iniciar-Sesion/iniciar-sesion.html" class="btn btn-primary">Reservar Ahora</a>
                     </div>
                 </div>
-                
+
                 <div class="service-card">
                     <div class="service-card-header">
                         <h3 class="service-title">Lavado Ultra Slushy (Automovil) </h3>
@@ -313,7 +313,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
 
@@ -327,7 +327,7 @@
                     Únete a nuestro programa VIP y disfruta de beneficios exclusivos
                 </p>
             </div>
-            
+
             <div class="vip-plans-grid">
                 <div class="vip-plan-card">
                     <div class="vip-plan-header">
@@ -364,7 +364,7 @@
                         <a href="../Membresias/vip.html" class="btn btn-light">Suscribirse</a>
                     </div>
                 </div>
-                
+
                 <div class="vip-plan-card vip-plan-popular">
                     <span class="popular-badge badge-light">POPULAR</span>
                     <div class="vip-plan-header">
@@ -395,7 +395,7 @@
                         <a href="vip.html" class="btn btn-light">Suscribirse</a>
                     </div>
                 </div>
-                
+
                 <div class="vip-plan-card">
                     <div class="vip-plan-header">
                         <h3 class="vip-plan-title">Anual</h3>
@@ -430,7 +430,7 @@
                     </div>
                 </div>
             </div>
-            
+
         <!--       <div class="text-center" style="margin-top: 2rem;">
                 <a href="vip.html" class="btn btn-light">Ver Todos los Planes VIP</a>
             </div> -->
@@ -446,7 +446,7 @@
                     Gana puntos, sube de nivel y obtén recompensas exclusivas
                 </p>
             </div>
-            
+
             <div class="rewards-grid">
                 <div class="rewards-info">
                     <h3 class="rewards-subtitle">¿Cómo Funciona?</h3>
@@ -473,9 +473,9 @@
                             </div>
                         </li>
                     </ul>
-                    
+
                 </div>
-                
+
                 <div class="rewards-missions">
                     <h3 class="rewards-subtitle">Misiones Disponibles</h3>
                     <ul class="missions-list">
@@ -508,7 +508,7 @@
                             <span class="mission-reward">10 SP</span>
                         </li>
                     </ul>
-                    
+
                     <a href="#" class="btn btn-primary btn-block">Ver Todas las Misiones</a>
                 </div>
             </div>
@@ -524,7 +524,7 @@
                     Descubre por qué nuestros clientes aman Slushy App ✨
                 </p>
             </div>
-            
+
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-quote">
@@ -539,7 +539,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="testimonial-card">
                     <div class="testimonial-quote">
                         <i class="fas fa-quote-left"></i>
@@ -553,7 +553,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="testimonial-card">
                     <div class="testimonial-quote">
                         <i class="fas fa-quote-left"></i>
@@ -577,72 +577,102 @@
             <div class="footer-grid">
                 <div class="footer-about">
                     <div class="logo">
-                        <div class="logo-icon"></div>
-                        <span class="logo-text">Slushy</span>
+                        <img src="/images/Slushylogo.png" alt="Slushy App" class="logo-img">
                     </div>
                     <p class="footer-description">
                         La mejor aplicación para el cuidado de tu vehículo. Reserva citas, monitorea el progreso y disfruta de beneficios exclusivos.
                     </p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-x"></i></a>
-                    </div>
                 </div>
-                
+
                 <div class="footer-links">
                     <h3 class="footer-title">Enlaces Rápidos</h3>
                     <ul class="footer-nav">
-                        <li><a href="#" class="footer-link">Inicio</a></li>
-                        <li><a href="servicios.html" class="footer-link">Nuestros Servicios</a></li>
-                        <li><a href="vip.html" class="footer-link">Membresía VIP</a></li>
-                        <li><a href="recompensas.html" class="footer-link">Sistema de Recompensas</a></li>
-                        <li><a href="contacto.html" class="footer-link">Contacto</a></li>
+                        <li><a href="../../Publico/Index/index.html" class="footer-link">Inicio</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Nuestros Servicios</a></li>
+                        <li><a href="../../Publico/Membresias/membresias.html" class="footer-link">Membresía VIP</a></li>
+                        <li><a href="../../Publico/Contacto/contacto.html" class="footer-link">Contacto</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-services">
                     <h3 class="footer-title">Servicios</h3>
                     <ul class="footer-nav">
-                        <li><a href="servicios.html" class="footer-link">Lavado Basico</a></li> <!-- 20 mil (automivl)-->
-                        <li><a href="servicios.html" class="footer-link">Lavado Premium</a></li> <!-- 25 mil (automivl)-->
-                        <li><a href="servicios.html" class="footer-link">Lavado Deluxe</a></li> <!-- 45 mil (automivl)-->
-                        <li><a href="servicios.html" class="footer-link">Lavado Ultra Slushy</a></li> <!-- 60 mil (automivl)-->
-                        <li><a href="servicios.html" class="footer-link">Polichado</a></li> <!-- 150 mil (automivl)-->
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Lavado Básico</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Lavado Premium</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html" class="footer-link">Lavado Deluxe</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html#adicionales" class="footer-link">Adicionales</a></li>
+                        <li><a href="../../Publico/Servicios-Disponibles/servicios.html#premium" class="footer-link">Servicios Premium</a></li>
                     </ul>
                 </div>
+
+                <div class="footer-newsletter">
+                    <h3 class="footer-title">Suscríbete</h3>
+                    <p class="footer-description">
+                        Recibe nuestras últimas noticias y promociones exclusivas
+                    </p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Tu correo electrónico" class="newsletter-input">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p class="copyright">© <span id="currentYear">2025</span> Slushy App. Todos los derechos reservados al equipo de desarrollo de slushyapp.</p>
+                <p class="copyright">© <span id="currentYear">2023</span> Slushy App. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Toggle del menú (abierto y cerrado) mediante el botón hamburguesa
-        document.getElementById('menuToggle').addEventListener('click', function() {
-            document.getElementById('mobileMenu').classList.toggle('active');
-        });
-    
-        // Cerrar el menú al hacer clic en algún enlace
-        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobileMenu').classList.remove('active');
-            });
-        });
-    
-        // Cerrar el menú al hacer clic en el botón X
-        document.getElementById('closeMenu').addEventListener('click', function() {
-            document.getElementById('mobileMenu').classList.remove('active');
-        });
-    
-        // Actualizar el año en el footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Mobile Menu Toggle
+       const menuToggle = document.getElementById('menuToggle');
+       const mobileMenu = document.getElementById('mobileMenu');
+       const closeMenu = document.getElementById('closeMenu');
+
+       // Abrir el menú al hacer clic en el botón de hamburguesa (☰)
+       menuToggle.addEventListener('click', function() {
+           mobileMenu.classList.add('active');
+       });
+
+       // Cerrar el menú al hacer clic en el botón de "X"
+       closeMenu.addEventListener('click', function() {
+           mobileMenu.classList.remove('active');
+       });
+
+       // Cerrar el menú al hacer clic en cualquier enlace del menú móvil
+       const mobileLinks = document.querySelectorAll('.mobile-nav-list .nav-link');
+       mobileLinks.forEach(link => {
+           link.addEventListener('click', function() {
+               mobileMenu.classList.remove('active');
+           });
+       });
+
+       // Cerrar el menú automáticamente al redimensionar la pantalla a desktop (≥1024px)
+       function handleResize() {
+           if (window.innerWidth >= 1024 && mobileMenu.classList.contains('active')) {
+               mobileMenu.classList.remove('active');
+           }
+       }
+       window.addEventListener('resize', handleResize);
+       //TERMINA EL MOBILE MENU
+
+       // Resaltar la página actual en el menú móvil (opcional)
+       function highlightCurrentPage() {
+           const currentPath = window.location.pathname;
+           const mobileNavLinks = document.querySelectorAll('.mobile-nav-list .nav-link');
+
+           mobileNavLinks.forEach(link => {
+               const href = link.getAttribute('href');
+               if (currentPath.includes('recompensas') && href.includes('recompensas')) {
+                   link.classList.add('active');
+               }
+           });
+       }
+       highlightCurrentPage(); // Ejecutar al cargar la página
+
     </script>
-    
-    
+
+
 </body>
 </html>
 

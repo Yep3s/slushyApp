@@ -28,5 +28,4 @@ public class WebController {
         return "register";
     }
 
-
 }

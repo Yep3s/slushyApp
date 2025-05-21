@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             };
 
             try {
-                const response = await fetch('http://localhost:8080/user/vehiculos/registrar', {
+                const response = await fetch('http://localhost:8081/user/vehiculos/registrar', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

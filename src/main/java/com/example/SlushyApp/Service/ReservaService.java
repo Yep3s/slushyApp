@@ -28,14 +28,16 @@ public class ReservaService {
     private final ReservaRepository reservaRepository;
     private final VehiculoRepository vehiculoRepository;
     private final ServicioRepository servicioRepository;
+    private final EmailService emailService;
 
     public ReservaService(PagoRepository pagoRepository, ReservaRepository reservaRepository,
                           VehiculoRepository vehiculoRepository,
-                          ServicioRepository servicioRepository) {
+                          ServicioRepository servicioRepository, EmailService emailService) {
         this.reservaRepository = reservaRepository;
         this.vehiculoRepository = vehiculoRepository;
         this.servicioRepository = servicioRepository;
         this.pagoRepository = pagoRepository;
+        this.emailService = emailService;
     }
 
     /** 1️⃣ Crear reserva con validaciones básicas */
@@ -223,13 +225,31 @@ public class ReservaService {
      */
     public Reserva actualizarEstadoComoEmpleado(String id, EstadoReserva nuevoEstado) {
         Reserva r = reservaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reserva no encontrada: " + id));
-        // Si el empleado marca COMPLETADA, forzamos progreso = 100
-        if (nuevoEstado == EstadoReserva.COMPLETADA) {
-            r.setProgreso(100);
-        }
+                .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
         r.setEstado(nuevoEstado);
-        return reservaRepository.save(r);
+        Reserva saved = reservaRepository.save(r);
+
+        if (nuevoEstado == EstadoReserva.COMPLETADA) {
+            String nombreCliente = r.getUsuarioEmail();      // o si tienes entidad Usuario: r.getUsuario().getNombre()
+            String placaVehiculo  = r.getPlacaVehiculo();
+            String asunto = "Tu vehículo está listo para recoger";
+            String cuerpo = String.format(
+                    "Hola %s,%n%n" +
+                            "tu vehículo con placa %s ya está listo en nuestras instalaciones de Slushy.%n" +
+                            "Puedes pasar a recogerlo cuando gustes, será un gusto atenderte.%n%n" +
+                            "¡Gracias por confiar en nosotros!%n%n" +
+                            "Atentamente,%n" +
+                            "El equipo de SlushyApp",
+                    nombreCliente, placaVehiculo
+            );
+            emailService.enviarCorreo(
+                    r.getUsuarioEmail(),
+                    asunto,
+                    cuerpo
+            );
+        }
+
+        return saved;
     }
 
 
@@ -311,6 +331,9 @@ public class ReservaService {
                 })
                 .collect(Collectors.toList());
     }
+
+
+
 
 
 

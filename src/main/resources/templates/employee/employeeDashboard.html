@@ -166,7 +166,7 @@
                                 </div>
                                 <div>
                                     <div class="active-service-label">Servicio</div>
-                                    <div class="active-service-value">Lavado Premium</div>
+                                    <div class="active-service-value">Lavado Basico</div>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                                 </div>
                                 <div>
                                     <div class="active-service-label">Hora de Inicio</div>
-                                    <div class="active-service-value">10:30 AM</div>
+                                    <div class="active-service-value">08:00 AM</div>
                                 </div>
                             </div>
                             
@@ -187,8 +187,8 @@
                                     <i class="fas fa-hourglass-half"></i>
                                 </div>
                                 <div>
-                                    <div class="active-service-label">Tiempo Estimado</div>
-                                    <div class="active-service-value">40 minutos</div>
+                                    <div class="active-service-label">Duracion Del Servicio</div>
+                                    <div class="active-service-value">30 minutos</div>
                                 </div>
                             </div>
                             
@@ -197,7 +197,7 @@
                                     <i class="fas fa-calendar-check"></i>
                                 </div>
                                 <div>
-                                    <div class="active-service-label">Tiempo Restante</div>
+                                    <div class="active-service-label">Tiempo Restante</div> <!--este tiempo quiero que se mueva a medida que va avanzando la progress bar-->
                                     <div class="active-service-value">15 minutos</div>
                                 </div>
                             </div>
@@ -224,9 +224,15 @@
                             </div>
                             <div class="step-content">
                                 <h4 class="step-title">Recepción</h4>
-                                <p class="step-description">Vehículo recibido y en espera</p>
+                                <p class="step-description">Vehículo recibido</p>
                                 <div class="step-actions">
-                                    <span>Completado a las 10:30 AM</span>
+                                    <!-- Primero esta esta parte y al marcar como completado debe subir un porcentaje de 35% -->
+
+                                    <button class="btn btn-primary" onclick="showCompleteStepAlert()">Marcar como Completado</button>
+
+                                    <!-- Despues se debe quitar el btn y solo quedar el span con la hora que se completo -->
+
+                                    <span>Completado a las 8:00 AM</span>
                                 </div>
                             </div>
                         </div>
@@ -237,10 +243,15 @@
                                 <i class="fas fa-check"></i>
                             </div>
                             <div class="step-content">
-                                <h4 class="step-title">Lavado con Espuma</h4>
-                                <p class="step-description">Aplicación de espuma y detergente</p>
+                                <h4 class="step-title">Limpieza</h4>
+                                <p class="step-description">Aplicación de agua y espuma</p>
                                 <div class="step-actions">
-                                    <span>Completado a las 10:40 AM</span>
+                                    <!-- Primero esta esta parte y al marcar como completado debe subir un porcentaje de 60% -->
+
+                                    <button class="btn btn-primary" onclick="showCompleteStepAlert()">Marcar como Completado</button>
+
+                                    <!-- Despues se debe quitar el btn y solo quedar el span con la hora que se completo -->
+                                    <span>Completado a las 8:10 AM</span>
                                 </div>
                             </div>
                         </div>
@@ -251,9 +262,16 @@
                                 <i class="fas fa-wind"></i>
                             </div>
                             <div class="step-content">
+
                                 <h4 class="step-title">Enjuague</h4>
                                 <p class="step-description">Eliminación de espuma y suciedad</p>
                                 <div class="step-actions">
+
+                                    <!-- Primero esta esta parte y al marcar como completado debe subir un porcentaje de 85%% -->
+
+                                    <button class="btn btn-primary" onclick="showCompleteStepAlert()">Marcar como Completado</button>
+
+                                    <!-- Despues se debe quitar el btn y solo quedar el span con la hora que se completo -->
                                     <button class="btn btn-primary" onclick="showCompleteStepAlert()">Marcar como Completado</button>
                                 </div>
                             </div>
@@ -265,8 +283,22 @@
                                 <i class="fas fa-sparkles"></i>
                             </div>
                             <div class="step-content">
+                                <!---Asi se debe ver antes de darle al boton "Marcar como completado"-->
+                                <!--- osea la tarea anterior a la que se le presiona el boton-->
                                 <h4 class="step-title">Secado y Detalles</h4>
                                 <p class="step-description">Secado manual y limpieza de detalles</p>
+
+                              <!---  luego se quita y se pone el -->
+
+                                <div class="step-actions">
+
+                                    <!-- Primero esta esta parte y al marcar como completado debe subir un porcentaje de 100% y debe mostrar en verde lo que dice Vehiculo listo para recoger -->
+
+                                    <button class="btn btn-primary" onclick="showCompleteStepAlert()">Marcar como Completado</button>
+
+                                    <!-- Despues se debe quitar el btn y solo quedar el span con la hora que se completo -->
+                                    <button class="btn btn-primary" onclick="showCompleteStepAlert()">Marcar como Completado</button>
+                                </div>
                             </div>
                         </div>
                         
@@ -277,12 +309,13 @@
                             </div>
                             <div class="step-content">
                                 <h4 class="step-title">Listo para Recoger</h4>
-                                <p class="step-description">Vehículo listo y en espera de recogida</p>
+                                <p class="step-description">Vehículo listoa</p>
                             </div>
                         </div>
                     </div>
                     
                     <div class="active-service-actions">
+                        <!----Al darle en este boton debe marcar el estado del servicio como COMPLETADO--> <!---y  redigrigir a la vista principal de cola de vehiculos-->
                         <button class="btn btn-primary" onclick="showFinishConfirmationModal()">Finalizar Servicio</button>
                     </div>
                 </div>

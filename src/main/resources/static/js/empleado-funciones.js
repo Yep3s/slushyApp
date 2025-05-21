@@ -1,13 +1,14 @@
 // employee-funciones.js
 
-// 1. Base dinámica: siempre apunta al mismo dominio + protocolo que
-//    tengas en la barra de direcciones (http:// o https://)
-const API_BASE       = `${window.location.origin}/empleado/reservas`;
-const API_PENDIENTES = `${API_BASE}/pendientes`;
-const API_CONFIRMADAS= `${API_BASE}/confirmadas`;
-const API_EN_PROCESO = `${API_BASE}/enProceso`;
+// Base dinámica: usa el mismo origen (dominio + protocolo) donde se sirve el frontend
+const API_BASE        = `${window.location.origin}/empleado/reservas`;
+const API_PENDIENTES  = `${API_BASE}/pendientes`;
+const API_CONFIRMADAS = `${API_BASE}/confirmadas`;
+const API_EN_PROCESO  = `${API_BASE}/enProceso`;
 
+// ─────────────────────────────────────────────────────────────────────────────
 // ── PENDIENTES ───────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
 async function loadPendientes() {
   try {
     const res = await fetch(API_PENDIENTES, { credentials: 'include' });
@@ -19,13 +20,18 @@ async function loadPendientes() {
     contador.textContent = pendientes.length;
 
     lista.innerHTML = pendientes.map(r => `
-      <div class="queue-item" data-id="${r.id}">
+      <div class="queue-item"
+           data-id="${r.id}"
+           data-placa="${r.placa}"
+           data-tipo="${r.tipoVehiculo}"
+           data-usuario="${r.usuarioEmail}"
+           data-servicio="${r.servicioNombre}"
+           data-hora="${new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}"
+           data-notas="${r.observaciones || ''}">
         <div class="queue-item-header">
           <h4 class="queue-item-title">${r.placa}</h4>
-          <span class="queue-item-time">
-            ${new Date(r.fechaInicio)
-                .toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
-          </span>
+          <span class="queue-item-time">${new Date(r.fechaInicio)
+              .toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>
         </div>
         <div class="queue-item-details">
           <div class="queue-item-detail">
@@ -49,6 +55,7 @@ async function loadPendientes() {
     `).join('');
 
     attachPendingListeners();
+    attachDetailsListeners();
   } catch (err) {
     console.error('❌ loadPendientes()', err);
   }
@@ -68,7 +75,9 @@ function attachPendingListeners() {
   });
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
 // ── CONFIRMADAS ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
 async function loadConfirmadas() {
   try {
     const res = await fetch(API_CONFIRMADAS, { credentials: 'include' });
@@ -80,13 +89,18 @@ async function loadConfirmadas() {
     contador.textContent = confirmadas.length;
 
     lista.innerHTML = confirmadas.map(r => `
-      <div class="queue-item" data-id="${r.id}">
+      <div class="queue-item"
+           data-id="${r.id}"
+           data-placa="${r.placa}"
+           data-tipo="${r.tipoVehiculo}"
+           data-usuario="${r.usuarioEmail}"
+           data-servicio="${r.servicioNombre}"
+           data-hora="${new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}"
+           data-notas="${r.observaciones || ''}">
         <div class="queue-item-header">
           <h4 class="queue-item-title">${r.placa}</h4>
-          <span class="queue-item-time">
-            ${new Date(r.fechaInicio)
-                .toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
-          </span>
+          <span class="queue-item-time">${new Date(r.fechaInicio)
+              .toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>
         </div>
         <div class="queue-item-details">
           <div class="queue-item-detail">
@@ -114,6 +128,7 @@ async function loadConfirmadas() {
     `).join('');
 
     attachConfirmedListeners();
+    attachDetailsListeners();
   } catch (err) {
     console.error('❌ loadConfirmadas()', err);
   }
@@ -133,7 +148,9 @@ function attachConfirmedListeners() {
   });
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
 // ── EN_PROCESO ──────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
 async function loadEnProceso() {
   try {
     const res = await fetch(API_EN_PROCESO, { credentials: 'include' });
@@ -145,13 +162,18 @@ async function loadEnProceso() {
     if (badge) badge.textContent = enProceso.length;
 
     lista.innerHTML = enProceso.map(r => `
-      <div class="queue-item" data-id="${r.id}">
+      <div class="queue-item"
+           data-id="${r.id}"
+           data-placa="${r.placa}"
+           data-tipo="${r.tipoVehiculo}"
+           data-usuario="${r.usuarioEmail}"
+           data-servicio="${r.servicioNombre}"
+           data-hora="${new Date(r.fechaInicio).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}"
+           data-notas="${r.observaciones || ''}">
         <div class="queue-item-header">
           <h4 class="queue-item-title">${r.placa}</h4>
-          <span class="queue-item-time">
-            ${new Date(r.fechaInicio)
-                .toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}
-          </span>
+          <span class="queue-item-time">${new Date(r.fechaInicio)
+              .toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>
         </div>
         <div class="queue-item-details">
           <div class="queue-item-detail">
@@ -175,6 +197,7 @@ async function loadEnProceso() {
     `).join('');
 
     attachProcessingListeners();
+    attachDetailsListeners();
   } catch (err) {
     console.error('❌ loadEnProceso()', err);
   }
@@ -193,7 +216,27 @@ function attachProcessingListeners() {
   });
 }
 
-// ── INICIALIZACIÓN Y REFRESCO ───────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// ── DETAILS MODAL LISTENER ──────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+function attachDetailsListeners() {
+  document.querySelectorAll('.details-btn').forEach(btn => {
+    btn.onclick = () => {
+      const item    = btn.closest('.queue-item');
+      const vehicle = item.dataset.placa;
+      const client  = item.dataset.usuario;
+      const plate   = `${item.dataset.tipo} • ${item.dataset.placa}`;
+      const service = item.dataset.servicio;
+      const time    = item.dataset.hora;
+      const notes   = item.dataset.notas;
+      showDetailsModal(vehicle, client, plate, service, time, notes);
+    };
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ── INICIALIZACIÓN Y REFRESCO ─────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   loadPendientes();
   loadConfirmadas();

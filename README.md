@@ -56,21 +56,6 @@
 
 ---
 
-## ⚙️ Configuración Inicial
-
-Para ejecutar la aplicación localmente:
-
-1. Clona el repositorio.
-2. Configura MongoDB localmente.
-3. Actualiza la configuración SMTP con tus credenciales de Gmail.
-4. Ejecuta la aplicación usando Maven:
-
-```bash
-./mvnw spring-boot:run
-```
-
----
-
 ## 📚 Documentación y Recursos
 
 * 📖 [Spring Boot Documentation](https://spring.io/projects/spring-boot)
